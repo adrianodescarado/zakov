@@ -290,7 +290,7 @@ textarea.inp{resize:vertical;min-height:86px}
 
 <!-- STEPPER -->
 <div class="stepper">
-  <div class="stp active" id="st1" onclick="nav(1)"><div class="stp-n">1</div>Scanner</div>
+  <div class="stp active" id="st1" onclick="nav(1)"><div class="stp-n">1</div>Banco de Ideias</div>
   <div class="stp" id="st2" onclick="nav(2)"><div class="stp-n">2</div>Análise com IA</div>
   <div class="stp" id="st3" onclick="nav(3)"><div class="stp-n">3</div>Formato</div>
   <div class="stp" id="st4" onclick="nav(4)"><div class="stp-n">4</div>Copy & Mockups</div>
@@ -304,8 +304,8 @@ textarea.inp{resize:vertical;min-height:86px}
      PASSO 1 — SCANNER
 ════════════════════════════════ -->
 <div class="screen on" id="s1">
-  <div class="pg-title">Scanner de <span>Oferta</span></div>
-  <div class="pg-sub">Encontre produtos virais com anúncios ativos na Biblioteca de Anúncios da Meta</div>
+  <div class="pg-title">Banco de <span>Ideias</span></div>
+  <div class="pg-sub">Produtos de referência para inspirar o seu. <b style="color:var(--gold)">Atenção:</b> estes são exemplos criados para demonstração — não são anúncios reais da Meta. Use como ponto de partida ou pule direto para criar o seu produto do zero.</div>
 
   <div class="card">
     <div class="card-title">🔍 Configurar busca</div>
@@ -315,19 +315,27 @@ textarea.inp{resize:vertical;min-height:86px}
         <option value="marcenaria">🪵 Marcenaria / DIY</option>
         <option value="fitness">💪 Fitness / Musculação</option>
         <option value="culinaria">🍳 Culinária / Emagrecimento</option>
-        <option value="renda">💰 Renda Extra / Digital</option>
+        <option value="financas">💰 Finanças Pessoais</option>
+        <option value="ia_digital">🤖 IA & Marketing Digital</option>
+        <option value="saude">❤️ Saúde & Bem-estar</option>
+        <option value="pet">🐾 Pets</option>
+        <option value="beleza">💄 Beleza & Skincare</option>
         <option value="espiritualidade">🌟 Espiritualidade</option>
         <option value="direitos">⚖️ Direitos do Consumidor</option>
-        <option value="imoveis">🏠 Imóveis / Decoração</option>
+        <option value="imoveis">🏠 Imóveis / Corretores</option>
       </select>
       <input class="inp" id="kwInput" placeholder="Palavra-chave adicional...">
       <button class="btn btn-gold" onclick="scan()">⚡ Escanear</button>
     </div>
     <div class="scan-extras">
-      <span>Mín. anúncios: <input type="number" id="minAds" value="5" class="inp" style="width:58px;padding:5px 8px;display:inline;min-width:0;margin-left:4px"></span>
-      <label><input type="checkbox" id="chkAtivo" checked style="accent-color:var(--gold)"> Apenas ativos</label>
-      <label><input type="checkbox" id="chkHot" style="accent-color:var(--red)"> Só virais</label>
+      <label><input type="checkbox" id="chkAtivo" checked style="accent-color:var(--gold)"> Mostrar todos</label>
+      <label><input type="checkbox" id="chkHot" style="accent-color:var(--red)"> Só os em alta 🔥</label>
     </div>
+  </div>
+
+  <div style="background:#0d0d0d;border:1px solid #2a2a2a;border-radius:10px;padding:14px 16px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div style="font-size:13px;color:var(--muted2)">Prefere criar seu próprio produto do zero?</div>
+    <button class="btn btn-gold" onclick="criarDoZero()" style="padding:9px 16px;font-size:12px">✏️ Criar produto do zero →</button>
   </div>
 
   <div id="scanOut" style="display:none">
@@ -777,32 +785,57 @@ let criData = [];
 let copyText = '';
 let copyReady = false, mockReady = false, criReady = false;
 
-// ════════════ AD DATABASE ════════════
+// ════════════ BANCO DE IDEIAS ════════════
+// ⚠️ Produtos de EXEMPLO para inspiração — não são anúncios reais da Meta
 const ADS = {
   marcenaria: [
-    { id:1, av:'MR', brand:'Biblioteca Marceneiro Raíz', text:'São +6.000 projetos de móveis prontos e rápidos pra você baixar e montar na sua garagem! Estantes, mesas, cadeiras, decoração e muito mais!', ads:34, days:41, hot:true, price:'R$ 37', old:'R$ 197' },
-    { id:2, av:'CP', brand:'Carpintaria Pro Brasil', text:'Projetos completos com medidas profissionais para montar móveis em casa. Já são +500 alunos transformando madeira em dinheiro.', ads:18, days:28, hot:false, price:'R$ 27', old:'R$ 97' },
-    { id:3, av:'OL', brand:'Oficina do Lucro', text:'Transforme madeira em dinheiro! Sistema completo com projetos de alta demanda para vender online sem estoque.', ads:22, days:35, hot:true, price:'R$ 47', old:'R$ 147' },
+    { id:1, av:'MR', brand:'Biblioteca Marceneiro Raíz', text:'São +6.000 projetos de móveis prontos para baixar e montar na garagem. Estantes, mesas, cadeiras e decoração com medidas exatas e lista de materiais.', nicho:'marcenaria', hot:true, price:'R$ 37', old:'R$ 197', dor:'Quer fazer móveis mas não sabe por onde começar', desejo:'Ter renda extra com marcenaria em casa', b1:'Mini Curso Ferramentas Essenciais', b2:'Calculadora de Lucro Automática', b3:'Atualizações Mensais Gratuitas', gar:'7 dias' },
+    { id:2, av:'CP', brand:'Carpintaria do Zero', text:'Do iniciante ao profissional: projetos passo a passo com vídeo, lista de materiais e medidas para montar em casa sem curso caro.', nicho:'marcenaria', hot:false, price:'R$ 27', old:'R$ 97', dor:'Não tem conhecimento técnico e tem medo de errar', desejo:'Aprender carpintaria sozinho e economizar em móveis', b1:'Guia de Ferramentas para Iniciantes', b2:'Lista de Fornecedores de Madeira Baratos', b3:'Suporte por 30 dias', gar:'7 dias' },
+    { id:3, av:'OL', brand:'Oficina Lucrativa', text:'Como faturar R$3.000/mês na garagem vendendo móveis sob encomenda. Sistema com projetos prontos + precificação + como encontrar clientes.', nicho:'marcenaria', hot:true, price:'R$ 47', old:'R$ 147', dor:'Quer empreender mas não sabe como virar renda', desejo:'Ter negócio próprio fazendo o que gosta', b1:'Scripts de Venda para WhatsApp', b2:'Planilha de Precificação', b3:'Grupo VIP de Marceneiros', gar:'7 dias' },
   ],
   fitness: [
-    { id:4, av:'TI', brand:'Treino Inteligente', text:'Treinos de 45min em qualquer academia, sem esperar máquina. Método validado por +2.000 alunos em todo o Brasil.', ads:28, days:32, hot:true, price:'R$ 29', old:'R$ 97' },
-    { id:5, av:'CC', brand:'Corpo em Chamas', text:'Queime gordura sem cardio excessivo. O método que a indústria da academia não quer que você conheça.', ads:15, days:19, hot:false, price:'R$ 37', old:'R$ 127' },
+    { id:4, av:'TI', brand:'Treino Inteligente', text:'Treinos de 45min para academia lotada — sem esperar máquina, sem enrolar. Método de alta intensidade adaptado para qualquer nível.', nicho:'fitness', hot:true, price:'R$ 29', old:'R$ 97', dor:'Academia lotada atrapalha o treino e tira a motivação', desejo:'Ter resultado real sem depender de horário ou equipamento', b1:'Plano Alimentar Simples 21 dias', b2:'Guia de Suplementação Básica', b3:'Treino para Viagem (sem academia)', gar:'7 dias' },
+    { id:5, av:'GS', brand:'Gluteos & Shape', text:'Protocolo feminino de 8 semanas focado em glúteos e definição. Treinos de 30min que funcionam em casa ou academia.', nicho:'fitness', hot:true, price:'R$ 37', old:'R$ 127', dor:'Treina há meses sem ver resultado nos glúteos', desejo:'Ter shape definido e glúteos avantajados em 60 dias', b1:'Cardápio Anti-Inchaço 7 dias', b2:'Guia de Roupas que Valorizam o Shape', b3:'Checklist Semanal de Evolução', gar:'7 dias' },
+    { id:6, av:'HM', brand:'Homem em Forma 40+', text:'Para homens acima de 40 que perderam o ritmo. Treinos adaptados à testosterona em queda, com foco em força e eliminação de barriga.', nicho:'fitness', hot:false, price:'R$ 37', old:'R$ 127', dor:'Não tem mais o mesmo resultado que tinha aos 30', desejo:'Voltar a ter disposição, força e corpo definido', b1:'Guia de Alimentação para Hipertrofia 40+', b2:'Suplementos Naturais para Testosterona', b3:'Treino Express 20min/dia', gar:'7 dias' },
   ],
   culinaria: [
-    { id:6, av:'CQ', brand:'A Cozinha que Queima', text:'17 receitas que aceleram o metabolismo e eliminam barriga. Aprovadas por nutricionistas. Sem dieta radical.', ads:41, days:52, hot:true, price:'R$ 27', old:'R$ 97' },
-    { id:7, av:'RV', brand:'Receitas que Vendem', text:'400 receitas caseiras que viraram negócio. Custo baixíssimo, lucro alto, sem precisar sair de casa.', ads:12, days:14, hot:false, price:'R$ 19', old:'R$ 67' },
+    { id:7, av:'CQ', brand:'A Cozinha que Emagrece', text:'17 receitas que aceleram o metabolismo e eliminam barriga sem passar fome. Fáceis, rápidas e com ingredientes de mercado.', nicho:'culinaria', hot:true, price:'R$ 27', old:'R$ 97', dor:'Faz dieta, sofre, não consegue manter e engorda tudo de volta', desejo:'Emagrecer de vez sem sacrifício', b1:'Cardápio Semanal Anti-Inflamatório', b2:'Lista de Compras Saudável por R$150', b3:'Receitas de Lanche sem Culpa', gar:'7 dias' },
+    { id:8, av:'LV', brand:'Doces que Vendem', text:'50 receitas de doces gourmet para vender no WhatsApp, feiras e encomendas. Custo de R$3, venda por R$15. Com precificação e embalagem inclusa.', nicho:'culinaria', hot:true, price:'R$ 37', old:'R$ 127', dor:'Quer uma renda extra mas não tem dinheiro para investir', desejo:'Ganhar dinheiro fazendo doces em casa', b1:'Calculadora de Custo e Lucro', b2:'Templates de Cardápio para WhatsApp', b3:'Script de Venda para Encomendas', gar:'7 dias' },
+    { id:9, av:'AF', brand:'Air Fryer Master', text:'+200 receitas exclusivas para Air Fryer: de frango crocante a sobremesas. Saudáveis, rápidas e com tempo e temperatura exatos.', nicho:'culinaria', hot:false, price:'R$ 19', old:'R$ 67', dor:'Comprou a Air Fryer e só faz frango', desejo:'Aproveitar ao máximo o aparelho e variar as refeições', b1:'Guia de Temperatura por Alimento', b2:'Receitas Fitness para Air Fryer', b3:'Receitas Doces e Sobremesas', gar:'7 dias' },
   ],
-  renda: [
-    { id:8, av:'FP', brand:'Fábrica de PDFs', text:'Como criar e vender PDFs simples por R$17 todo dia, sem aparecer, sem tráfego pago e sem lista de e-mails.', ads:55, days:60, hot:true, price:'R$ 17', old:'R$ 47' },
+  financas: [
+    { id:10, av:'ZD', brand:'Zere Dívidas em 90 dias', text:'O método passo a passo para sair das dívidas sem empréstimo e sem cortar tudo que você gosta. Já ajudou +3.000 famílias.', nicho:'financas', hot:true, price:'R$ 27', old:'R$ 97', dor:'Está endividado, pagando mínimo do cartão e sem saída', desejo:'Ficar no zero e ter dinheiro sobrando no fim do mês', b1:'Planilha de Controle Financeiro Automática', b2:'Guia de Negociação com Bancos', b3:'Método do Envelope Digital', gar:'7 dias' },
+    { id:11, av:'PI', brand:'Primeira Renda Extra', text:'Como ganhar os primeiros R$500 extras por mês online em 30 dias, mesmo sem experiência. 7 métodos testados e comprovados.', nicho:'financas', hot:true, price:'R$ 17', old:'R$ 47', dor:'Salário não cobre as contas e não sabe como ganhar mais', desejo:'Ter uma renda extra sem depender de emprego fixo', b1:'Lista de Plataformas para Começar Hoje', b2:'Scripts de Prospecção de Clientes', b3:'Checklist dos Primeiros 30 dias', gar:'7 dias' },
+    { id:12, av:'IV', brand:'Invista seu Primeiro R$100', text:'O guia direto ao ponto para quem nunca investiu. Como começar com pouco, onde colocar e como fazer o dinheiro trabalhar por você.', nicho:'financas', hot:false, price:'R$ 27', old:'R$ 87', dor:'Quer investir mas tem medo de perder dinheiro ou não entende nada', desejo:'Fazer o dinheiro render sem precisar ser especialista', b1:'Planilha de Controle de Investimentos', b2:'Glossário Financeiro sem Enrolação', b3:'Simulador de Aposentadoria', gar:'7 dias' },
   ],
-  espiritualidade: [
-    { id:9, av:'CS', brand:'Cartilha da Sabedoria', text:'Mensagens do plano espiritual recebidas durante 40 dias de silêncio. Orientação divina para cada fase da sua vida.', ads:19, days:22, hot:false, price:'R$ 37', old:'R$ 127' },
+  ia_digital: [
+    { id:13, av:'IA', brand:'ChatGPT para Iniciantes', text:'Como usar IA no dia a dia para trabalhar menos e ganhar mais. Do zero ao avançado em 60 páginas simples e práticas.', nicho:'ia_digital', hot:true, price:'R$ 27', old:'R$ 97', dor:'Todo mundo fala de IA mas não sabe como usar de verdade', desejo:'Dominar a IA para se destacar no trabalho e nos negócios', b1:'100 Prompts Prontos para Usar Hoje', b2:'Guia de IA para Freelancers', b3:'Templates de Prompts para Vendas', gar:'7 dias' },
+    { id:14, av:'CN', brand:'Canva Pro do Zero', text:'Do iniciante ao designer: como criar posts, logos, eBooks e apresentações profissionais no Canva sem pagar nada.', nicho:'ia_digital', hot:true, price:'R$ 19', old:'R$ 67', dor:'Gasta com designer ou entrega materiais feios', desejo:'Criar arte profissional sozinho e economizar', b1:'+500 Templates Editáveis', b2:'Guia de Identidade Visual', b3:'Pack de Fontes e Cores Premium', gar:'7 dias' },
+    { id:15, av:'RL', brand:'Reels que Vendem', text:'O método para criar Reels virais que atraem clientes mesmo com 0 seguidores. Roteiro, edição e call to action que converte.', nicho:'ia_digital', hot:true, price:'R$ 37', old:'R$ 127', dor:'Posta todo dia e ninguém vê, ninguém compra', desejo:'Ter Reels que viralizam e geram vendas automáticas', b1:'30 Ganchos de Reel para Copiar', b2:'Guia de Edição no CapCut', b3:'Calendário de Conteúdo 30 dias', gar:'7 dias' },
+  ],
+  saude: [
+    { id:16, av:'SB', brand:'Sono Profundo', text:'O protocolo de 21 dias para dormir melhor, acordar disposto e acabar com a insônia sem remédio. Baseado em ciência do sono.', nicho:'saude', hot:true, price:'R$ 27', old:'R$ 97', dor:'Dorme mal, acorda cansado e vive sem energia', desejo:'Dormir profundamente e acordar com disposição todo dia', b1:'Rotina Noturna de 20min', b2:'Guia de Alimentação pro Sono', b3:'Meditação Guiada para Dormir', gar:'7 dias' },
+    { id:17, av:'AR', brand:'Ansiedade Zero', text:'Técnicas práticas para controlar a ansiedade no dia a dia sem depender de medicamento. Método validado por psicólogos.', nicho:'saude', hot:true, price:'R$ 37', old:'R$ 127', dor:'Ansiedade paralisa, impede de dormir e atrapalha tudo', desejo:'Ter calma e controle emocional no dia a dia', b1:'Diário de Emoções Guiado', b2:'7 Técnicas de Respiração Anti-Pânico', b3:'Áudios de Meditação Guiada', gar:'7 dias' },
+    { id:18, av:'DC', brand:'Detox Digital 7 dias', text:'Como largar o celular, descansar a mente e voltar a focar no que importa. Plano prático de 7 dias com desafios diários.', nicho:'saude', hot:false, price:'R$ 17', old:'R$ 47', dor:'Viciado no celular, sem foco e com sensação de vazio', desejo:'Retomar o controle da atenção e ter mais presença', b1:'Agenda de Desafios Diários', b2:'Guia de Apps que Ajudam no Detox', b3:'Rotina Matinal Produtiva', gar:'7 dias' },
+  ],
+  pet: [
+    { id:19, av:'CP', brand:'Cachorros Obedientes', text:'Como adestrar seu cão em casa em 21 dias sem rédea de correção nem gritar. Método positivo que funciona para qualquer raça.', nicho:'pet', hot:true, price:'R$ 37', old:'R$ 127', dor:'Cachorro desobedece, late demais e destrói a casa', desejo:'Ter um cachorro educado que obedece sem estresse', b1:'Guia de Linguagem Corporal Canina', b2:'Fichas de Treino por Comando', b3:'Cardápio de Petiscos Saudáveis Caseiros', gar:'7 dias' },
+    { id:20, av:'RC', brand:'Receitas Naturais Pet', text:'+80 receitas de comida natural para cães e gatos. Mais saúde, menos ração ultraprocessada e economia de até 40% por mês.', nicho:'pet', hot:false, price:'R$ 27', old:'R$ 87', dor:'Preocupado com a saúde do pet mas não sabe por onde começar', desejo:'Dar alimentação saudável e economizar com ração', b1:'Tabela de Alimentos Permitidos e Proibidos', b2:'Calculadora de Porção por Peso', b3:'Plano Alimentar Semanal', gar:'7 dias' },
   ],
   direitos: [
-    { id:10, av:'MP', brand:'Manual do Passageiro', text:'Saiba seus direitos e receba indenização por voo atrasado, cancelado ou bagagem extraviada — sem advogado.', ads:24, days:31, hot:true, price:'R$ 27', old:'R$ 87' },
+    { id:21, av:'MP', brand:'Manual do Passageiro', text:'Saiba seus direitos e receba indenização por voo atrasado, cancelado ou bagagem extraviada — sem advogado e em minutos.', nicho:'direitos', hot:true, price:'R$ 27', old:'R$ 87', dor:'Teve voo cancelado mas não sabe que tem direito a indenização', desejo:'Receber o dinheiro que tem direito sem precisar de advogado', b1:'Modelos de Reclamação Prontos', b2:'Guia de Sites para Abrir Reclamação', b3:'Calculadora de Indenização', gar:'7 dias' },
+    { id:22, av:'DC', brand:'Direitos do Consumidor', text:'O guia completo para não ser enganado em compras, contratos e serviços. Como reclamar, cancelar e ser ressarcido.', nicho:'direitos', hot:false, price:'R$ 19', old:'R$ 67', dor:'Já foi enganado em compra e não soube como agir', desejo:'Conhecer seus direitos e nunca mais ser passado para trás', b1:'Templates de E-mail para Reclamação', b2:'Lista de Órgãos de Defesa do Consumidor', b3:'Modelos de Petição Simples', gar:'7 dias' },
+  ],
+  beleza: [
+    { id:23, av:'SK', brand:'Skincare Simples', text:'Rotina de skincare para pele brasileira com produtos de farmácia. Menos de R$80 por mês para ter pele hidratada, sem acne e com viço.', nicho:'beleza', hot:true, price:'R$ 27', old:'R$ 97', dor:'Gasta fortuna em produtos que não funcionam', desejo:'Ter pele bonita com rotina simples e barata', b1:'Lista de Produtos de Farmácia que Funcionam', b2:'Rotina Manhã e Noite por Tipo de Pele', b3:'Guia Anti-Manchas e Anti-Acne', gar:'7 dias' },
+    { id:24, av:'MC', brand:'Maquiagem do Zero', text:'Do "não sei nem passar base" ao look perfeito em 20 minutos. Método para iniciantes com produtos acessíveis e técnicas de profissional.', nicho:'beleza', hot:false, price:'R$ 29', old:'R$ 97', dor:'Não sabe se maquiar e se sente insegura', desejo:'Aprender maquiagem e se sentir linda todo dia', b1:'Lista de Maquiagem Essencial por R$150', b2:'Guia de Maquiagem para Cada Ocasião', b3:'Técnicas de Contorno para Iniciantes', gar:'7 dias' },
+  ],
+  espiritualidade: [
+    { id:25, av:'CS', brand:'Cartilha da Sabedoria', text:'Mensagens e reflexões para quem busca paz interior, propósito e conexão espiritual no dia a dia corrido.', nicho:'espiritualidade', hot:false, price:'R$ 37', old:'R$ 127', dor:'Sente vazio, sem propósito e desconectado de si mesmo', desejo:'Ter paz interior e clareza sobre o caminho certo', b1:'Diário de Gratidão 30 dias', b2:'Meditações Guiadas em Áudio', b3:'Guia de Orações para Cada Situação', gar:'7 dias' },
+    { id:26, av:'MM', brand:'Manifestação na Prática', text:'Como usar a lei da atração de forma prática e científica para atrair oportunidades, relacionamentos e prosperidade.', nicho:'espiritualidade', hot:true, price:'R$ 27', old:'R$ 97', dor:'Quer mudar de vida mas não sabe como sair do lugar', desejo:'Atrair prosperidade e realizar seus sonhos', b1:'Rotina de Manifestação 21 dias', b2:'Diário de Visão e Metas', b3:'Áudios de Afirmação Positiva', gar:'7 dias' },
   ],
   imoveis: [
-    { id:11, av:'DA', brand:'DescreveAI Imóveis', text:'IA que escreve descrições profissionais de imóveis em 10 segundos. Corretores vendem 3x mais rápido.', ads:11, days:16, hot:false, price:'R$ 47', old:'R$ 197' },
+    { id:27, av:'DA', brand:'DescreveAI Imóveis', text:'IA que escreve descrições profissionais de imóveis em 10 segundos. Corretores que usam vendem 3x mais rápido.', nicho:'imoveis', hot:false, price:'R$ 47', old:'R$ 197', dor:'Perde tempo escrevendo descrições e os textos ficam fracos', desejo:'Ter descrições profissionais sem esforço e fechar mais negócios', b1:'100 Títulos de Anúncio que Convertem', b2:'Guia de Fotografia de Imóveis com Celular', b3:'Scripts de WhatsApp para Corretores', gar:'7 dias' },
   ],
 };
 
@@ -870,40 +903,38 @@ function scan() {
   const nicho = document.getElementById('nichoSel').value;
   const kw = document.getElementById('kwInput').value.toLowerCase();
   const onlyHot = document.getElementById('chkHot').checked;
-  load('Escaneando Biblioteca de Anúncios...', 'Verificando anúncios ativos na Meta');
+  load('Buscando produtos de referência...', 'Filtrando banco de ideias por nicho');
 
   setTimeout(() => {
     unload();
     let res = [];
     if (nicho && ADS[nicho]) res = ADS[nicho];
     else Object.values(ADS).forEach(a => res.push(...a));
-    if (kw) res = res.filter(a => a.brand.toLowerCase().includes(kw) || a.text.toLowerCase().includes(kw));
-    const min = parseInt(document.getElementById('minAds').value) || 0;
-    res = res.filter(a => a.ads >= min);
+    if (kw) res = res.filter(a => a.brand.toLowerCase().includes(kw) || a.text.toLowerCase().includes(kw) || a.nicho.includes(kw));
     if (onlyHot) res = res.filter(a => a.hot);
 
-    document.getElementById('scanLabel').textContent = `${res.length} produto(s) encontrado(s) com anúncios ativos`;
+    document.getElementById('scanLabel').textContent = `${res.length} produto(s) de referência encontrado(s)`;
     document.getElementById('adsGrid').innerHTML = res.length ? res.map(a => `
       <div class="adcard" id="ac${a.id}" onclick="pickAd(${a.id})">
-        ${a.hot ? '<div class="badge hot">🔥 VIRAL</div>' : `<div class="badge">${a.ads} ADS</div>`}
+        ${a.hot ? '<div class="badge hot">🔥 EM ALTA</div>' : '<div class="badge">EXEMPLO</div>'}
         <div class="adcard-top">
           <div class="av">${a.av}</div>
           <div>
             <div class="adcard-brand">${a.brand}</div>
-            <div class="adcard-meta">Ativo há ${a.days} dias • ${a.price}</div>
+            <div class="adcard-meta">${a.price} → de ${a.old}</div>
           </div>
         </div>
         <div class="adcard-text">${a.text}</div>
         <div class="adcard-stats">
-          <span>📢 <b>${a.ads}</b> anúncios</span>
           <span>💰 <b>${a.price}</b></span>
-          <span>📅 <b>${a.days}d</b> ativo</span>
+          <span>🛡️ <b>${a.gar}</b></span>
+          <span style="color:var(--muted2);font-size:10px">⚠️ Exemplo</span>
         </div>
       </div>`).join('') : '<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--muted)">Nenhum produto encontrado com esses filtros.</div>';
 
     document.getElementById('scanOut').style.display = 'block';
-    toast('Scanner concluído!', `${res.length} produtos encontrados`);
-  }, 1700);
+    toast('Banco de ideias carregado!', `${res.length} referências encontradas`);
+  }, 800);
 }
 
 function pickAd(id) {
@@ -918,29 +949,30 @@ function pickAd(id) {
 function salvar() {
   if (!_pickedAd) return;
   selAd = _pickedAd;
-  load('Salvando na Fábrica...', `Migrando "${selAd.brand}" para sua biblioteca`);
+  load('Carregando referência...', `Preenchendo briefing com dados de "${selAd.brand}"`);
   setTimeout(() => {
     unload();
     cred -= 2; updCred();
     document.getElementById('b2name').textContent = selAd.brand;
-    document.getElementById('b2meta').textContent = `${selAd.ads} anúncios ativos • ${selAd.price} (de ${selAd.old}) • Ativo há ${selAd.days} dias`;
+    document.getElementById('b2meta').textContent = `${selAd.price} (de ${selAd.old}) • Garantia ${selAd.gar} • Nicho: ${selAd.nicho}`;
+    // Preenche briefing completo com dados do produto
     brief = {
       nome: selAd.brand,
-      nicho: Object.entries(ADS).find(([k,v]) => v.find(a => a.id === selAd.id))?.[0] || 'infoproduto',
+      nicho: selAd.nicho,
       preco: selAd.price,
       precoOld: selAd.old,
       desc: selAd.text,
-      dor: 'Não sabe por onde começar e desperdiça dinheiro com soluções erradas',
-      desejo: 'Ter resultado rápido sem precisar de curso caro ou equipamento profissional',
-      b1: 'Mini Curso Essencial — guia para iniciantes do zero',
-      b2: 'Calculadora de Lucro Automática — planilha que calcula seu lucro em cada projeto',
-      b3: 'Atualizações Mensais Gratuitas — novos conteúdos todo mês',
-      gar: '7 dias incondicional',
+      dor: selAd.dor,
+      desejo: selAd.desejo,
+      b1: selAd.b1,
+      b2: selAd.b2,
+      b3: selAd.b3,
+      gar: selAd.gar,
     };
     mkDone(1);
     nav(2);
-    toast('Salvo!', 'Produto na fábrica. Agora analise com IA.');
-  }, 1100);
+    toast('Referência carregada!', 'Briefing pré-preenchido. Ajuste antes de gerar.');
+  }, 800);
 }
 
 // ════════════ PASSO 2 — ANÁLISE ════════════
@@ -956,6 +988,14 @@ function analyze(k) {
     box.classList.add('on');
     toast('Análise pronta!', '2 créditos usados');
   }, 1400);
+}
+
+// ════════════ CRIAR DO ZERO ════════════
+function criarDoZero() {
+  selAd = null; _pickedAd = null;
+  brief = { nome:'', nicho:'', preco:'R$ 37', precoOld:'R$ 197', desc:'', dor:'', desejo:'', b1:'', b2:'', b3:'', gar:'7 dias' };
+  mkDone(1); nav(3);
+  toast('Modo criação livre!', 'Preencha o briefing com seu produto');
 }
 
 // ════════════ PASSO 3 — FORMATO ════════════
@@ -1051,50 +1091,115 @@ function editCopy() {
   }
 }
 
-// ════════════ PASSO 4 — MOCKUPS ════════════
+// ════════════ PASSO 4 — MOCKUPS REAIS (Canvas API) ════════════
+window._mockData = [];
+
 function genMockups() {
   if (!copyReady) { toast('Atenção', 'Gere a copy primeiro'); return; }
   document.getElementById('btnGM').disabled = true;
-  load('Gerando 5 Mockups...', 'IA criando design das capas e bônus');
-
+  load('Gerando Mockups...', 'Desenhando imagens reais com Canvas');
   const b = brief;
   const mocks = [
-    { icon: '📦', label: b.nome || 'Produto Principal', bg: 'linear-gradient(135deg,#1a1000,#0a0800)', color: '#F5C842' },
-    { icon: '🎓', label: b.b1 || 'Bônus 1', bg: 'linear-gradient(135deg,#001a0d,#000f07)', color: '#22c55e' },
-    { icon: '📊', label: b.b2 || 'Bônus 2', bg: 'linear-gradient(135deg,#001020,#000810)', color: '#3b82f6' },
-    { icon: '🔄', label: b.b3 || 'Bônus 3', bg: 'linear-gradient(135deg,#1a0010,#0a0008)', color: '#a855f7' },
-    { icon: '🎁', label: 'Pack Completo', bg: 'linear-gradient(135deg,#1a1000,#100a00)', color: '#f97316' },
+    { label: b.nome || 'Produto Principal', emoji: '📦', accent: '#F5C842', bg1: '#1a1000', bg2: '#0a0800', tipo: 'PRODUTO PRINCIPAL' },
+    { label: b.b1 || 'Bônus 1', emoji: '🎓', accent: '#22c55e', bg1: '#001a0d', bg2: '#000f07', tipo: 'BÔNUS #1' },
+    { label: b.b2 || 'Bônus 2', emoji: '📊', accent: '#3b82f6', bg1: '#001020', bg2: '#000810', tipo: 'BÔNUS #2' },
+    { label: b.b3 || 'Bônus 3', emoji: '🔄', accent: '#a855f7', bg1: '#100020', bg2: '#080010', tipo: 'BÔNUS #3' },
+    { label: 'Pack Completo', emoji: '🎁', accent: '#f97316', bg1: '#1a0800', bg2: '#0a0400', tipo: 'PACK COMPLETO' },
   ];
-
   setTimeout(() => {
     unload();
     document.getElementById('mockDiv').style.display = 'block';
     document.getElementById('mockWrap').style.display = 'block';
     document.getElementById('mockGrid').innerHTML = mocks.map((m, i) => `
-      <div class="mockcard" style="animation-delay:${i * 0.08}s">
-        <div class="mock-thumb" style="background:${m.bg}">
-          <span style="font-size:42px;position:relative;z-index:1">${m.icon}</span>
-          <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;z-index:1;font-family:'DM Mono',monospace;font-size:9px;color:${m.color};letter-spacing:1px;text-transform:uppercase;padding:0 8px">ZAKOV MOCKUP</div>
-        </div>
+      <div class="mockcard">
+        <canvas id="mc${i}" width="300" height="300" style="width:100%;display:block;cursor:pointer" onclick="dlMockCanvas(${i})" title="Clique para baixar"></canvas>
         <div class="mock-label">${m.label}</div>
         <div class="mock-acts">
-          <div class="mock-act" onclick="editMock(${i})">✏️ Editar</div>
-          <div class="mock-act" onclick="dlMock(${i})">⬇️ Baixar</div>
+          <div class="mock-act" onclick="dlMockCanvas(${i})">⬇️ Baixar PNG</div>
+          <div class="mock-act" onclick="editMockLabel(${i})">✏️ Editar nome</div>
         </div>
       </div>`).join('');
-
+    mocks.forEach((m, i) => { window._mockData[i] = { m, b }; drawMockup(i, m, b); });
     document.getElementById('btnGM').disabled = false;
-    mockReady = true;
-    cred -= 15; updCred();
-    checkP4();
-    toast('5 mockups prontos!', 'Clique em Editar ou Baixar em cada um');
-  }, 2000);
+    mockReady = true; cred -= 15; updCred(); checkP4();
+    toast('5 mockups reais gerados!', 'Clique em ⬇️ Baixar PNG em cada um');
+  }, 600);
 }
 
-function editMock(i) { toast('Editor aberto!', 'Edite cor, texto e ícone do mockup'); }
-function dlMock(i) {
-  const mocks = ['produto-principal', 'bonus-1', 'bonus-2', 'bonus-3', 'pack-completo'];
-  toast('Download!', `Mockup "${mocks[i]}" baixado (PNG sem fundo)`);
+function drawMockup(i, m, b) {
+  const canvas = document.getElementById('mc' + i);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = 300, H = 300;
+  // BG
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, m.bg1); grad.addColorStop(1, m.bg2);
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+  // Border
+  ctx.strokeStyle = m.accent; ctx.lineWidth = 3;
+  ctx.strokeRect(6, 6, W-12, H-12);
+  ctx.strokeStyle = m.accent+'44'; ctx.lineWidth = 1;
+  ctx.strokeRect(14, 14, W-28, H-28);
+  // Top tag
+  ctx.fillStyle = m.accent; ctx.fillRect(20, 20, W-40, 28);
+  ctx.fillStyle = '#000'; ctx.font = 'bold 11px monospace';
+  ctx.textAlign = 'center'; ctx.fillText(m.tipo, W/2, 39);
+  // Emoji
+  ctx.font = '68px serif'; ctx.textAlign = 'center';
+  ctx.fillText(m.emoji, W/2, 142);
+  // Divider
+  ctx.strokeStyle = m.accent+'55'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(30, 162); ctx.lineTo(W-30, 162); ctx.stroke();
+  // Name
+  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'center';
+  wrapText(ctx, m.label.toUpperCase(), W/2, 186, W-40, 19);
+  // Price badge
+  ctx.fillStyle = m.accent;
+  roundRect(ctx, (W-110)/2, 234, 110, 28, 14); ctx.fill();
+  ctx.fillStyle = '#000'; ctx.font = 'bold 14px monospace'; ctx.textAlign = 'center';
+  ctx.fillText(b.preco || 'R$ 37', W/2, 253);
+  // Footer
+  ctx.fillStyle = m.accent+'77'; ctx.font = '9px monospace'; ctx.textAlign = 'center';
+  ctx.fillText('ZAKOV • FÁBRICA DE LOW TICKET', W/2, H-10);
+}
+
+function wrapText(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' '); let line = '';
+  for (let n = 0; n < words.length; n++) {
+    const test = line + words[n] + ' ';
+    if (ctx.measureText(test).width > maxW && n > 0) {
+      ctx.fillText(line.trim(), x, y); line = words[n] + ' '; y += lineH;
+    } else line = test;
+  }
+  ctx.fillText(line.trim(), x, y);
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
+  ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+  ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+  ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
+}
+
+function dlMockCanvas(i) {
+  const canvas = document.getElementById('mc' + i);
+  if (!canvas) return;
+  const d = window._mockData[i];
+  const name = (d?.m?.label || 'mockup').toLowerCase().replace(/[^a-z0-9]/g, '-');
+  const a = document.createElement('a');
+  a.download = `zakov-${name}.png`; a.href = canvas.toDataURL('image/png'); a.click();
+  toast('PNG baixado!', d?.m?.label || 'Mockup');
+}
+
+function editMockLabel(i) {
+  const d = window._mockData[i]; if (!d) return;
+  const novo = prompt('Novo nome para este mockup:', d.m.label);
+  if (!novo) return;
+  d.m.label = novo;
+  document.querySelectorAll('.mockcard')[i].querySelector('.mock-label').textContent = novo;
+  drawMockup(i, d.m, d.b);
+  toast('Atualizado!', 'Mockup redesenhado');
 }
 
 function checkP4() {
