@@ -4,1033 +4,873 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ZAKOV — Fábrica de Low Ticket</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --gold:#F5C842;--gold2:#ffd84d;--bg:#070707;
-  --s1:#0f0f0f;--s2:#161616;--s3:#1e1e1e;--s4:#252525;
-  --border:#262626;--border2:#303030;
-  --text:#eeeeee;--muted:#555;--muted2:#888;
-  --green:#22c55e;--red:#ef4444;--blue:#3b82f6;
-  --r:10px;--r2:14px;
+  --gold:#F5C842;--gold2:#ffd84d;
+  --bg:#080808;--s1:#101010;--s2:#181818;--s3:#222;
+  --border:#282828;--border2:#333;
+  --text:#eee;--muted:#555;--muted2:#888;
+  --green:#22c55e;--red:#ef4444;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
 
-/* ── TOPBAR ── */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300}
-.logo{font-family:'Syne',sans-serif;font-size:21px;font-weight:900;letter-spacing:-1.5px}
-.logo em{color:var(--gold);font-style:normal}
-.topright{display:flex;align-items:center;gap:10px}
-.topbadge{font-size:10px;color:var(--muted2);background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 10px}
-.credits{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:6px 13px;font-family:'DM Mono',monospace;font-size:12px;cursor:default}
-.cdot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+/* ─── TOPBAR ─── */
+.topbar{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:500}
+.logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:900;letter-spacing:-1px;cursor:pointer;transition:.2s}
+.logo:hover{opacity:.75}
+.logo b{color:var(--gold)}
+.topbtns{display:flex;align-items:center;gap:8px}
+.topbtn{background:transparent;border:1px solid var(--border2);color:var(--muted2);border-radius:7px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:5px}
+.topbtn:hover{border-color:var(--gold);color:var(--gold)}
+.lib-count{background:var(--gold);color:#000;border-radius:20px;padding:1px 6px;font-size:10px;font-family:'DM Mono',monospace}
 
-/* ── STEPPER ── */
-.stepper{display:flex;background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:200}
-.stepper::-webkit-scrollbar{display:none}
-.stp{display:flex;align-items:center;gap:8px;padding:13px 18px;font-size:11.5px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.2s;user-select:none;flex-shrink:0}
-.stp:hover{color:var(--muted2)}
-.stp.active{color:var(--gold);border-bottom-color:var(--gold)}
-.stp.done{color:var(--green)}
-.stp-n{width:19px;height:19px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;flex-shrink:0;transition:.2s}
-.stp.active .stp-n{background:var(--gold);color:#000;font-weight:700}
-.stp.done .stp-n{background:var(--green);color:#000}
+/* ─── HOME ─── */
+#home{padding:0 20px 60px;max-width:860px;margin:0 auto}
+.home-hero{text-align:center;padding:64px 0 48px}
+.home-hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,6vw,60px);font-weight:900;letter-spacing:-2px;line-height:1.05;margin-bottom:16px}
+.home-hero h1 b{color:var(--gold)}
+.home-hero p{color:var(--muted2);font-size:15px;max-width:480px;margin:0 auto 36px;line-height:1.65}
+.home-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:12px 22px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.15s}
+.btn-gold{background:var(--gold);color:#000}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(245,200,66,.25)}
+.btn-out{background:transparent;border:1px solid var(--border2);color:var(--text)}
+.btn-out:hover{border-color:var(--gold);color:var(--gold)}
+.btn-sm{padding:8px 14px;font-size:12px}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 
-/* ── WRAP ── */
-.wrap{max-width:900px;margin:0 auto;padding:32px 22px}
-.screen{display:none;animation:fadeUp .3s ease}
-.screen.on{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:40px}
+@media(max-width:620px){.how-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.how-grid{grid-template-columns:1fr}}
+.how-card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px}
+.how-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin-bottom:8px}
+.how-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:5px}
+.how-desc{font-size:12px;color:var(--muted2);line-height:1.55}
 
-/* ── HEADINGS ── */
-.pg-title{font-family:'Syne',sans-serif;font-size:25px;font-weight:800;margin-bottom:4px}
-.pg-title span{color:var(--gold)}
-.pg-sub{color:var(--muted);font-size:13px;margin-bottom:24px;line-height:1.5}
+.nicho-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.nicho-card{background:var(--s1);border:2px solid var(--border);border-radius:10px;padding:14px 12px;cursor:pointer;transition:.2s;text-align:center}
+.nicho-card:hover,.nicho-card.sel{border-color:var(--gold);background:#141000}
+.nicho-icon{font-size:26px;margin-bottom:7px}
+.nicho-name{font-size:12px;font-weight:600}
+.nicho-count{font-size:10px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace}
 
-/* ── CARD ── */
-.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:16px}
-.card-title{font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+/* ─── PRODUTO CARDS ─── */
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+@media(max-width:560px){.prod-grid{grid-template-columns:1fr}}
+.pcard{background:var(--s2);border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:.2s;position:relative}
+.pcard:hover{border-color:var(--border2)}
+.pcard.sel{border-color:var(--gold);background:#141000}
+.pcard-hot{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;font-family:'DM Mono',monospace}
+.pcard-name{font-weight:700;font-size:13px;margin-bottom:4px;padding-right:50px;line-height:1.3}
+.pcard-price{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin-bottom:8px}
+.pcard-desc{font-size:11.5px;color:var(--muted2);line-height:1.5;margin-bottom:10px}
+.pcard-tags{display:flex;gap:6px;flex-wrap:wrap}
+.ptag{background:var(--s3);border:1px solid var(--border);border-radius:20px;padding:2px 8px;font-size:10px;color:var(--muted2)}
 
-/* ── INPUTS ── */
-.inp{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:.2s;width:100%}
+/* ─── SEÇÃO ─── */
+.section{max-width:860px;margin:0 auto;padding:0 20px}
+.section-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px}
+.section-title b{color:var(--gold)}
+.section-sub{color:var(--muted2);font-size:13px;margin-bottom:20px;line-height:1.5}
+.notice{display:flex;gap:10px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:11px 14px;font-size:12px;color:#ccc;line-height:1.6;margin-bottom:16px}
+.notice-warn{background:#140000;border-color:#2e0000;color:#ffaaaa}
+.notice-ok{background:#001408;border-color:#003018;color:#aaffcc}
+
+/* ─── BRIEFING FORM ─── */
+.brief-form{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px}
+.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:540px){.brief-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:600;color:var(--muted2);display:flex;align-items:center;gap:5px}
+.field label span{color:var(--red)}
+.inp{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:.2s;width:100%}
 .inp:focus{border-color:var(--gold)}
 .inp::placeholder{color:var(--muted)}
 select.inp{cursor:pointer}
-textarea.inp{resize:vertical;min-height:86px}
+textarea.inp{resize:vertical;min-height:80px}
+.field-hint{font-size:10px;color:var(--muted);margin-top:2px}
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 17px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.15s;white-space:nowrap;line-height:1}
-.btn-gold{background:var(--gold);color:#000}
-.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(245,200,66,.25)}
-.btn-out{background:transparent;border:1px solid var(--border2);color:var(--text)}
-.btn-out:hover{border-color:var(--gold);color:var(--gold)}
-.btn-green{background:var(--green);color:#000}
-.btn-green:hover{filter:brightness(1.1)}
-.btn-red{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
-.btn-red:hover{border-color:var(--red);color:var(--red)}
-.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
-.btn-full{width:100%;justify-content:center;padding:13px}
-.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}
-
-/* ── SCANNER ── */
-.scan-controls{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:12px}
-@media(max-width:600px){.scan-controls{grid-template-columns:1fr 1fr;} .scan-controls .btn{grid-column:1/-1}}
-.scan-extras{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--muted2);flex-wrap:wrap}
-.scan-extras label{display:flex;align-items:center;gap:5px;cursor:pointer}
-.ads-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
-@media(max-width:560px){.ads-grid{grid-template-columns:1fr}}
-.adcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.adcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.03),transparent);opacity:0;transition:.2s}
-.adcard:hover{border-color:var(--border2)}
-.adcard:hover::before{opacity:1}
-.adcard.sel{border-color:var(--gold);background:#181400}
-.adcard-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#d47800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#000;flex-shrink:0}
-.adcard-brand{font-weight:600;font-size:13px;line-height:1.3}
-.adcard-meta{font-size:10px;color:var(--muted);margin-top:1px}
-.adcard-text{font-size:11.5px;color:#999;line-height:1.55;margin-bottom:10px}
-.adcard-stats{display:flex;gap:10px;font-size:11px;color:var(--muted)}
-.adcard-stats b{color:var(--text)}
-.badge{position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 7px;border-radius:20px;background:var(--gold);color:#000}
-.badge.hot{background:var(--red);color:#fff}
-.scan-label{font-size:11.5px;color:var(--muted2);margin-top:4px}
-
-/* ── ANALYSIS ── */
-.sel-banner{display:flex;align-items:center;gap:12px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:12px 16px;margin-bottom:18px}
-.sel-banner-icon{font-size:18px;flex-shrink:0}
-.sel-banner-name{font-weight:600;font-size:13px}
-.sel-banner-meta{color:var(--muted);font-size:11px;margin-top:2px}
-.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-@media(max-width:480px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
-.tool-btn{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:13px 10px;text-align:center;cursor:pointer;transition:.2s;font-size:12px;color:var(--muted2)}
-.tool-btn:hover{border-color:var(--gold);color:var(--gold);background:#141000}
-.tool-icon{font-size:19px;margin-bottom:5px;display:block}
-.ana-box{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-top:14px;font-size:13px;line-height:1.7;color:#bbb;display:none}
-.ana-box.on{display:block;animation:fadeUp .3s ease}
-.ana-box h4{color:var(--gold);font-family:'Syne',sans-serif;font-size:14px;margin-bottom:10px;font-weight:700}
-.ana-box ul{padding-left:16px}
-.ana-box li{margin-bottom:6px}
-
-/* ── FORMAT ── */
+/* ─── FORMATO ─── */
 .fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:500px){.fmt-grid{grid-template-columns:1fr}}
-.fmtcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r2);padding:20px;cursor:pointer;transition:.2s}
-.fmtcard:hover{border-color:var(--border2);transform:translateY(-2px)}
-.fmtcard.sel{border-color:var(--gold);background:#141000}
-.fmt-icon{font-size:30px;margin-bottom:11px;display:block}
-.fmt-name{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;margin-bottom:3px}
-.fmt-price{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:10px}
-.fmt-desc{font-size:12px;color:var(--muted2);line-height:1.55;margin-bottom:12px}
-.fmt-feats{list-style:none;display:flex;flex-direction:column;gap:5px}
-.fmt-feats li{font-size:11.5px;color:#777;display:flex;align-items:flex-start;gap:6px}
-.fmt-feats li::before{content:'⚡';font-size:9px;flex-shrink:0;margin-top:2px}
-.fmt-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px}
+@media(max-width:480px){.fmt-grid{grid-template-columns:1fr}}
+.fmt-card{background:var(--s2);border:2px solid var(--border);border-radius:12px;padding:18px;cursor:pointer;transition:.2s}
+.fmt-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.fmt-card.sel{border-color:var(--gold);background:#141000}
+.fmt-icon{font-size:28px;margin-bottom:10px}
+.fmt-name{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;margin-bottom:4px}
+.fmt-cred{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:8px}
+.fmt-desc{font-size:12px;color:var(--muted2);line-height:1.55;margin-bottom:10px}
+.fmt-list{list-style:none;display:flex;flex-direction:column;gap:4px}
+.fmt-list li{font-size:11.5px;color:#777;display:flex;gap:5px}
+.fmt-list li::before{content:'⚡';font-size:9px;flex-shrink:0;margin-top:2px}
 
-/* ── COPY & MOCKUPS ── */
-.ai-out{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.9;color:#ccc;min-height:280px;white-space:pre-wrap;display:none;position:relative;overflow-x:auto}
-.ai-cursor{display:inline-block;width:8px;height:13px;background:var(--gold);animation:blink .7s infinite;margin-left:1px;vertical-align:text-bottom}
-.mock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-top:16px}
-.mockcard{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.2s}
-.mockcard:hover{border-color:var(--gold);transform:translateY(-2px)}
-.mock-thumb{height:115px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden}
-.mock-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.6))}
-.mock-label{padding:9px 11px;font-size:11px;font-weight:600;border-top:1px solid var(--border);line-height:1.3}
-.mock-acts{display:flex;gap:6px;padding:0 11px 11px}
-.mock-act{flex:1;background:var(--s3);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--text);cursor:pointer;padding:5px;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
-.mock-act:hover{border-color:var(--gold);color:var(--gold)}
+/* ─── COPY OUTPUT ─── */
+.copy-box{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:18px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.85;color:#ccc;min-height:240px;white-space:pre-wrap;outline:none;transition:.2s}
+.copy-box:focus{border-color:var(--gold)}
+.cursor-blink{display:inline-block;width:7px;height:12px;background:var(--gold);animation:bl .7s infinite;margin-left:1px;vertical-align:text-bottom}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
 
-/* ── CRIATIVOS ── */
-.cri-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;transition:.2s}
-.cri-card:hover{border-color:var(--border2)}
-.cri-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
-.cri-tag{background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
-.cri-hook{font-size:15px;font-weight:700;margin-bottom:7px;line-height:1.4;color:var(--text)}
+/* ─── MOCKUP CANVAS ─── */
+.mock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.mock-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:.2s}
+.mock-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mock-canvas{width:100%;display:block;cursor:pointer}
+.mock-foot{padding:8px 10px 10px}
+.mock-name{font-size:11px;font-weight:600;margin-bottom:7px}
+.mock-btns{display:flex;gap:6px}
+.mock-btn{flex:1;background:var(--s3);border:1px solid var(--border);border-radius:6px;padding:5px;font-size:10px;font-weight:600;color:var(--text);cursor:pointer;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
+.mock-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ─── CRIATIVOS ─── */
+.cri-card{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.cri-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.cri-tag{background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px}
+.cri-hook{font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.4}
 .cri-copy{font-size:12.5px;color:#999;line-height:1.65}
 
-/* ── PREVIEW ── */
-.preview-shell{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
-.pbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:var(--s1);border-bottom:1px solid var(--border)}
-.pdot{width:10px;height:10px;border-radius:50%}
-.purl{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
-.pframe{width:100%;height:580px;border:none;background:#fff}
+/* ─── PREVIEW ─── */
+.preview-shell{background:var(--s2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.pbar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--s1);border-bottom:1px solid var(--border)}
+.pdot{width:9px;height:9px;border-radius:50%}
+.purl{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:3px 9px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.pframe{width:100%;height:560px;border:none;background:#fff}
 
-/* ── TABS ── */
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+/* ─── TABS ─── */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:18px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:11px 16px;font-size:12.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;flex-shrink:0}
+.tab{padding:10px 16px;font-size:12.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:.2s}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
 
-/* ── SHARE ── */
-.share-box{background:#0b1500;border:1px solid var(--green);border-radius:var(--r);padding:20px;margin-bottom:14px}
-.share-link-row{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;margin:10px 0}
-.share-link-txt{flex:1;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ─── BIBLIOTECA PANEL ─── */
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:900;display:none}
+.panel-overlay.on{display:block}
+.panel{position:fixed;top:0;right:0;width:min(440px,100vw);height:100vh;background:var(--s1);border-left:1px solid var(--border);z-index:901;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s ease}
+.panel.on{transform:translateX(0)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800}
+.panel-title b{color:var(--gold)}
+.panel-close{width:30px;height:30px;border-radius:7px;background:var(--s3);border:none;color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.panel-close:hover{background:var(--border2);color:var(--gold)}
+.panel-body{flex:1;overflow-y:auto;padding:14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.panel-foot{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0}
 
-/* ── INFO BAR ── */
-.info-bar{display:flex;align-items:flex-start;gap:8px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:11px 14px;font-size:12px;color:#ccc;margin-bottom:18px}
-.divider{border:none;border-top:1px solid var(--border);margin:22px 0}
+.lib-item{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:9px}
+.lib-item-top{display:flex;justify-content:space-between;gap:8px;margin-bottom:7px;align-items:flex-start}
+.lib-item-name{font-weight:700;font-size:13px;font-family:'Syne',sans-serif}
+.lib-item-date{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0}
+.lib-item-meta{display:flex;gap:8px;font-size:11px;color:var(--muted2);margin-bottom:9px;flex-wrap:wrap}
+.lib-item-acts{display:flex;gap:6px;flex-wrap:wrap}
+.lib-act{flex:1;min-width:60px;background:var(--s3);border:1px solid var(--border);border-radius:6px;padding:6px;font-size:10px;font-weight:600;color:var(--text);cursor:pointer;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
+.lib-act:hover{border-color:var(--gold);color:var(--gold)}
+.lib-act.pri{background:var(--gold);color:#000;border-color:var(--gold)}
+.lib-act.pri:hover{background:var(--gold2)}
+.lib-act.del:hover{border-color:var(--red);color:var(--red)}
 
-/* ── LOADER ── */
-.loader{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+/* ─── COMO USAR PANEL ─── */
+.tut-step{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--border)}
+.tut-step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tut-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tut-num{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tut-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800}
+.tut-body{font-size:12.5px;color:var(--muted2);line-height:1.7;padding-left:38px}
+.tut-body b{color:var(--text)}
+
+/* ─── LOADER / TOAST ─── */
+.loader{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px}
 .loader.on{display:flex}
-.spin{width:46px;height:46px;border:3px solid var(--s3);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite}
+.spin{width:44px;height:44px;border:3px solid var(--s3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:700}
+.load-t{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
 .load-s{font-size:12px;color:var(--muted2)}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--s1);border:1px solid var(--gold);border-radius:var(--r);padding:12px 18px;font-size:12px;transform:translateX(140%);transition:.3s ease;z-index:9998;max-width:290px}
+.toast{position:fixed;bottom:18px;right:18px;background:var(--s1);border:1px solid var(--gold);border-radius:9px;padding:11px 16px;font-size:12px;transform:translateX(130%);transition:.3s;z-index:9998;max-width:270px}
 .toast.on{transform:translateX(0)}
 .toast-t{color:var(--gold);font-weight:600;font-size:13px;margin-bottom:2px}
 
-/* ── MISC ── */
-.label-sm{font-size:11px;font-weight:600;color:var(--muted2);margin-bottom:5px;display:block}
-.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:500px){.brief-grid{grid-template-columns:1fr}}
-.section-sub{font-size:12px;font-weight:600;color:var(--muted2);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
-
-/* ── TUTORIAL PANEL ── */
-.tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;display:none;backdrop-filter:blur(3px)}
-.tut-overlay.on{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.tut-panel{position:fixed;top:0;right:0;width:min(520px,100vw);height:100vh;background:var(--s1);border-left:1px solid var(--border);z-index:9001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
-.tut-panel.on{transform:translateX(0)}
-.tut-panel-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
-.tut-panel-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
-.tut-panel-title span{color:var(--gold)}
-.tut-close{width:32px;height:32px;border-radius:8px;background:var(--s3);border:none;color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
-.tut-close:hover{background:var(--border);color:var(--gold)}
-.tut-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
-.tut-tabs::-webkit-scrollbar{display:none}
-.tut-tab{padding:11px 16px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:.2s}
-.tut-tab.on{color:var(--gold);border-bottom-color:var(--gold)}
-.tut-body{flex:1;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.tut-body::-webkit-scrollbar{width:4px}
-.tut-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.tut-step{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
-.tut-step:last-child{border-bottom:none}
-.tut-step-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.tut-step-num{width:32px;height:32px;border-radius:50%;background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tut-step-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800}
-.tut-step-tag{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);background:rgba(245,200,66,.1);padding:2px 8px;border-radius:20px}
-.tut-instr{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
-.tut-instr-n{width:22px;height:22px;border-radius:50%;background:var(--gold);color:#000;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.tut-instr-t{font-size:13px;font-weight:600;margin-bottom:3px}
-.tut-instr-d{font-size:12px;color:var(--muted2);line-height:1.6}
-.tut-tip{display:flex;gap:10px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:12px;font-size:12px;color:#ccc;line-height:1.6;margin:12px 0}
-.tut-ok{display:flex;gap:10px;background:#001408;border:1px solid #003018;border-radius:8px;padding:12px;font-size:12px;color:#aaffcc;line-height:1.6;margin:12px 0}
-.tut-warn{display:flex;gap:10px;background:#140000;border:1px solid #2e0000;border-radius:8px;padding:12px;font-size:12px;color:#ffaaaa;line-height:1.6;margin:12px 0}
-.tut-eg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
-.tut-eg{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px}
-.tut-eg-title{font-size:10px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:6px}
-.tut-eg-body{font-size:11.5px;color:var(--muted2);line-height:1.5}
-.tut-credits-table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
-.tut-credits-table th{background:var(--s2);padding:8px 12px;text-align:left;font-size:10px;font-family:'DM Mono',monospace;color:var(--muted2)}
-.tut-credits-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted2)}
-.tut-credits-table td:last-child{font-family:'DM Mono',monospace;color:var(--gold)}
-.tut-credits-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--text)}
-.faq-q2{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--s2);gap:10px;transition:.2s}
-.faq-q2:hover{border-color:var(--border2)}
-.faq-q2.open{border-color:rgba(245,200,66,.4);background:#141000}
-.faq-q2-icon{color:var(--gold);font-size:16px;transition:transform .3s;flex-shrink:0}
-.faq-q2.open .faq-q2-icon{transform:rotate(45deg)}
-.faq-a2{display:none;padding:10px 14px 14px;font-size:12px;color:var(--muted2);line-height:1.7;border:1px solid rgba(245,200,66,.2);border-top:none;border-radius:0 0 8px 8px;background:#0d0d00;margin-bottom:6px}
-.faq-q2.open+.faq-a2{display:block;animation:fadeUp .2s ease}
-
-/* ── BIBLIOTECA ── */
-.lib-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:8000;display:none;backdrop-filter:blur(3px)}
-.lib-overlay.on{display:block;animation:fadeIn .2s ease}
-.lib-panel{position:fixed;top:0;left:0;width:min(480px,100vw);height:100vh;background:var(--s1);border-right:1px solid var(--border);z-index:8001;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
-.lib-panel.on{transform:translateX(0)}
-.lib-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
-.lib-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
-.lib-title span{color:var(--gold)}
-.lib-close{width:32px;height:32px;border-radius:8px;background:var(--s3);border:none;color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
-.lib-close:hover{background:var(--border);color:var(--gold)}
-.lib-body{flex:1;overflow-y:auto;padding:16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.lib-body::-webkit-scrollbar{width:4px}
-.lib-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.lib-empty{text-align:center;padding:48px 20px;color:var(--muted)}
-.lib-empty-icon{font-size:40px;margin-bottom:12px}
-.lib-empty-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--muted2)}
-.lib-empty-sub{font-size:12px;line-height:1.6}
-.lib-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.lib-count b{color:var(--gold)}
-.prod-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px;transition:.2s}
-.prod-card:hover{border-color:var(--border2)}
-.prod-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:8px}
-.prod-card-name{font-weight:700;font-size:14px;font-family:'Syne',sans-serif;line-height:1.3}
-.prod-card-nicho{font-size:10px;font-family:'DM Mono',monospace;color:var(--gold);background:rgba(245,200,66,.1);padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;display:inline-block}
-.prod-card-date{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0}
-.prod-card-meta{display:flex;gap:10px;font-size:11px;color:var(--muted2);margin-bottom:10px;flex-wrap:wrap}
-.prod-card-meta span{display:flex;align-items:center;gap:4px}
-.prod-card-acts{display:flex;gap:7px;flex-wrap:wrap}
-.prod-act{flex:1;min-width:70px;background:var(--s3);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:11px;font-weight:600;color:var(--text);cursor:pointer;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
-.prod-act:hover{border-color:var(--gold);color:var(--gold)}
-.prod-act.danger:hover{border-color:var(--red);color:var(--red)}
-.prod-act.primary{background:var(--gold);color:#000;border-color:var(--gold)}
-.prod-act.primary:hover{background:var(--gold2)}
-.lib-footer{padding:14px 16px;border-top:1px solid var(--border);flex-shrink:0}
+/* ─── DIVIDER ─── */
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.btn-full{width:100%;justify-content:center;padding:13px}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
+<!-- ─── TOPBAR ─── -->
 <div class="topbar">
-  <div class="logo">ZAK<em>OV</em></div>
-  <div class="topright">
-    <button class="btn btn-out" onclick="openLib()" style="padding:7px 13px;font-size:12px">📦 Meus Produtos <span id="libBadge" style="display:none;background:var(--gold);color:#000;border-radius:20px;padding:1px 6px;font-size:10px;font-family:'DM Mono',monospace;margin-left:2px">0</span></button>
-    <button class="btn btn-out" onclick="openTut()" style="padding:7px 13px;font-size:12px">❓ Como usar</button>
-    <div class="topbadge">Fábrica de Low Ticket</div>
-    <div class="credits"><div class="cdot"></div><span id="credTxt">200 créditos</span></div>
-  </div>
-</div>
-
-<!-- STEPPER -->
-<div class="stepper">
-  <div class="stp active" id="st1" onclick="nav(1)"><div class="stp-n">1</div>Banco de Ideias</div>
-  <div class="stp" id="st2" onclick="nav(2)"><div class="stp-n">2</div>Análise com IA</div>
-  <div class="stp" id="st3" onclick="nav(3)"><div class="stp-n">3</div>Formato</div>
-  <div class="stp" id="st4" onclick="nav(4)"><div class="stp-n">4</div>Copy & Mockups</div>
-  <div class="stp" id="st5" onclick="nav(5)"><div class="stp-n">5</div>5 Criativos</div>
-  <div class="stp" id="st6" onclick="nav(6)"><div class="stp-n">6</div>Página Pronta</div>
-</div>
-
-<div class="wrap">
-
-<!-- ════════════════════════════════
-     PASSO 1 — SCANNER
-════════════════════════════════ -->
-<div class="screen on" id="s1">
-  <div class="pg-title">Banco de <span>Ideias</span></div>
-  <div class="pg-sub">Produtos de referência para inspirar o seu. <b style="color:var(--gold)">Atenção:</b> estes são exemplos criados para demonstração — não são anúncios reais da Meta. Use como ponto de partida ou pule direto para criar o seu produto do zero.</div>
-
-  <div class="card">
-    <div class="card-title">🔍 Configurar busca</div>
-    <div class="scan-controls">
-      <select class="inp" id="nichoSel">
-        <option value="">Selecione um nicho...</option>
-        <option value="marcenaria">🪵 Marcenaria / DIY</option>
-        <option value="fitness">💪 Fitness / Musculação</option>
-        <option value="culinaria">🍳 Culinária / Emagrecimento</option>
-        <option value="financas">💰 Finanças Pessoais</option>
-        <option value="ia_digital">🤖 IA & Marketing Digital</option>
-        <option value="saude">❤️ Saúde & Bem-estar</option>
-        <option value="pet">🐾 Pets</option>
-        <option value="beleza">💄 Beleza & Skincare</option>
-        <option value="espiritualidade">🌟 Espiritualidade</option>
-        <option value="direitos">⚖️ Direitos do Consumidor</option>
-        <option value="imoveis">🏠 Imóveis / Corretores</option>
-      </select>
-      <input class="inp" id="kwInput" placeholder="Palavra-chave adicional...">
-      <button class="btn btn-gold" onclick="scan()">⚡ Escanear</button>
-    </div>
-    <div class="scan-extras">
-      <label><input type="checkbox" id="chkAtivo" checked style="accent-color:var(--gold)"> Mostrar todos</label>
-      <label><input type="checkbox" id="chkHot" style="accent-color:var(--red)"> Só os em alta 🔥</label>
-    </div>
-  </div>
-
-  <div style="background:#0d0d0d;border:1px solid #2a2a2a;border-radius:10px;padding:14px 16px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div style="font-size:13px;color:var(--muted2)">Prefere criar seu próprio produto do zero?</div>
-    <button class="btn btn-gold" onclick="criarDoZero()" style="padding:9px 16px;font-size:12px">✏️ Criar produto do zero →</button>
-  </div>
-
-  <div id="scanOut" style="display:none">
-    <div class="scan-label" id="scanLabel"></div>
-    <div class="ads-grid" id="adsGrid"></div>
-    <button class="btn btn-gold btn-full" id="btnSalvar" onclick="salvar()" disabled style="margin-top:14px">💾 Salvar anúncio e ir para Análise →</button>
+  <div class="logo" onclick="goHome()">ZAK<b>OV</b></div>
+  <div class="topbtns">
+    <button class="topbtn" onclick="openLib()">
+      📦 Meus Produtos
+      <span class="lib-count" id="libCount" style="display:none">0</span>
+    </button>
+    <button class="topbtn" onclick="openTut()">❓ Como usar</button>
   </div>
 </div>
 
 <!-- ════════════════════════════════
-     PASSO 2 — ANÁLISE COM IA
+     HOME
 ════════════════════════════════ -->
-<div class="screen" id="s2">
-  <div class="pg-title">Análise com <span>IA</span></div>
-  <div class="pg-sub">6 ferramentas para radiografar o produto antes de modelar — cada análise consome 2 créditos</div>
-
-  <div class="sel-banner">
-    <div class="sel-banner-icon">📦</div>
-    <div>
-      <div class="sel-banner-name" id="b2name">—</div>
-      <div class="sel-banner-meta" id="b2meta">—</div>
+<div id="home">
+  <div class="home-hero">
+    <div style="display:inline-flex;align-items:center;gap:7px;background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;font-family:'DM Mono',monospace;color:var(--gold);margin-bottom:20px">⚡ FÁBRICA DE LOW TICKET</div>
+    <h1>Crie seu infoproduto<br>do <b>zero ao ar</b></h1>
+    <p>Escolha uma ideia de referência ou crie seu produto do zero. A IA escreve a copy, gera mockups reais e monta a página de vendas completa.</p>
+    <div class="home-actions">
+      <button class="btn btn-gold" onclick="goIdeias()">🔍 Ver banco de ideias</button>
+      <button class="btn btn-out" onclick="goZero()">✏️ Criar do zero</button>
     </div>
   </div>
 
-  <div class="tools-grid">
-    <div class="tool-btn" onclick="analyze('palavras')"><span class="tool-icon">🔑</span>Palavras-chave</div>
-    <div class="tool-btn" onclick="analyze('publico')"><span class="tool-icon">👥</span>Público-alvo</div>
-    <div class="tool-btn" onclick="analyze('copy')"><span class="tool-icon">📝</span>Análise de Copy</div>
-    <div class="tool-btn" onclick="analyze('ab')"><span class="tool-icon">🔬</span>Teste A/B</div>
-    <div class="tool-btn" onclick="analyze('oferta')"><span class="tool-icon">🏗️</span>Estrutura da Oferta</div>
-    <div class="tool-btn" onclick="analyze('avatar')"><span class="tool-icon">🎯</span>Avatar do Cliente</div>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-num">PASSO 01</div><div class="how-title">Escolha ou crie</div><div class="how-desc">Use uma ideia do banco como referência ou preencha seu produto do zero.</div></div>
+    <div class="how-card"><div class="how-num">PASSO 02</div><div class="how-title">Preencha o briefing</div><div class="how-desc">Nome, preço, dor do cliente, desejo, bônus e garantia. A IA usa tudo isso.</div></div>
+    <div class="how-card"><div class="how-num">PASSO 03</div><div class="how-title">Gere com IA</div><div class="how-desc">Copy das 9 dobras em tempo real + mockups PNG reais para baixar.</div></div>
+    <div class="how-card"><div class="how-num">PASSO 04</div><div class="how-title">5 criativos prontos</div><div class="how-desc">Hooks para Meta Ads em 5 ângulos: Dor, Social, Número, Urgência e Curiosidade.</div></div>
+    <div class="how-card"><div class="how-num">PASSO 05</div><div class="how-title">Página no ar</div><div class="how-desc">Preview da LP na tela, download do HTML e link para compartilhar.</div></div>
+    <div class="how-card"><div class="how-num">BÔNUS</div><div class="how-title">Quiz Funnel</div><div class="how-desc">Gere também um quiz interativo de 8 perguntas para capturar leads antes de vender.</div></div>
   </div>
-
-  <div class="ana-box" id="anaBox"></div>
-  <button class="btn btn-gold btn-full" style="margin-top:20px" onclick="nav(3)">Avançar para Formato →</button>
 </div>
 
 <!-- ════════════════════════════════
-     PASSO 3 — FORMATO
+     BANCO DE IDEIAS
 ════════════════════════════════ -->
-<div class="screen" id="s3">
-  <div class="pg-title">Escolha o <span>Formato</span></div>
-  <div class="pg-sub">Os dois convertem — depende do seu estilo e objetivo. Você pode gerar ambos no final.</div>
-
-  <div class="info-bar">⚡ <span>A IA vai usar o anúncio salvo para preencher o briefing automaticamente.</span></div>
-
-  <div class="fmt-grid">
-    <div class="fmtcard" id="fLP" onclick="selFmt('lp')">
-      <span class="fmt-icon">🌐</span>
-      <div class="fmt-name">Página de Vendas</div>
-      <div class="fmt-price">~50 CRÉDITOS</div>
-      <div class="fmt-desc">LP completa com 9 dobras: headline, benefícios, prova social, bônus, garantia e CTA com copy gerada por IA.</div>
-      <ul class="fmt-feats">
-        <li>9 dobras prontas + efeito de digitação em tempo real</li>
-        <li>5 mockups visuais editáveis e baixáveis</li>
-        <li>HTML completo para download</li>
-        <li>Preview visual na tela</li>
-        <li>Link para visualizar e compartilhar</li>
-      </ul>
+<div id="pgIdeias" style="display:none">
+  <div class="section" style="padding-top:32px;padding-bottom:60px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button class="topbtn" onclick="goHome()">← Voltar</button>
+      <div class="section-title">Banco de <b>Ideias</b></div>
     </div>
-    <div class="fmtcard" id="fQZ" onclick="selFmt('quiz')">
-      <span class="fmt-icon">📋</span>
-      <div class="fmt-name">Quiz Funnel</div>
-      <div class="fmt-price">50 CRÉDITOS</div>
-      <div class="fmt-desc">Quiz de 10 etapas — qualifica o lead, agita a dor e vende. Ideal para capturar lista e segmentar.</div>
-      <ul class="fmt-feats">
-        <li>Hook + qualificação + captura + oferta</li>
-        <li>Fluxo condicional (resposta X → dobra Y)</li>
-        <li>Captura de leads integrada</li>
-        <li>HTML completo para download</li>
-        <li>Link para compartilhar direto</li>
-      </ul>
+    <div class="section-sub">27 produtos de exemplo para inspirar o seu. <b style="color:var(--gold)">Não são anúncios reais da Meta</b> — são referências para você modelar o seu próprio produto.</div>
+
+    <div class="notice"><span>💡</span><span>Clique em um nicho para filtrar, depois clique em um produto para ver os detalhes e usá-lo como base.</span></div>
+
+    <!-- Nicho filter -->
+    <div class="nicho-grid" id="nichoGrid" style="margin-bottom:20px"></div>
+
+    <!-- Products -->
+    <div id="prodGrid" class="prod-grid"></div>
+
+    <!-- CTA do zero -->
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:16px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:2px">Não achou o que procurava?</div>
+        <div style="font-size:12px;color:var(--muted2)">Crie seu produto do zero com briefing completo</div>
+      </div>
+      <button class="btn btn-gold btn-sm" onclick="goZero()">✏️ Criar do zero →</button>
     </div>
   </div>
-  <p class="fmt-note">💡 Quer os dois? Comece por qualquer um. No passo final, gere o outro com 1 clique (50 créditos extras).</p>
-  <button class="btn btn-gold btn-full" id="btnFmt" onclick="nav(4)" disabled style="margin-top:16px">Ir para Copy & Mockups →</button>
 </div>
 
 <!-- ════════════════════════════════
-     PASSO 4 — COPY & MOCKUPS
+     BRIEFING
 ════════════════════════════════ -->
-<div class="screen" id="s4">
-  <div class="pg-title">Copy & <span>Mockups</span></div>
-  <div class="pg-sub">IA gera a copy completa com efeito de digitação + 5 mockups visuais editáveis</div>
-
-  <div class="btn-row">
-    <button class="btn btn-gold" id="btnGC" onclick="genCopy()">⚡ Gerar Copy com IA</button>
-    <button class="btn btn-out" id="btnGM" onclick="genMockups()" disabled>🎨 Gerar 5 Mockups</button>
-  </div>
-
-  <!-- COPY OUTPUT -->
-  <div id="copyWrap" style="display:none">
-    <div class="section-sub">📄 Copy das 9 Dobras</div>
-    <div class="ai-out" id="copyBox" style="display:block">
-      <span id="copyTxt"></span><span class="ai-cursor" id="aiCur" style="display:none"></span>
+<div id="pgBriefing" style="display:none">
+  <div class="section" style="padding-top:32px;padding-bottom:60px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button class="topbtn" id="briefBack" onclick="briefGoBack()">← Voltar</button>
+      <div class="section-title">Briefing do <b>Produto</b></div>
     </div>
-    <div class="btn-row" style="margin-top:10px">
-      <button class="btn btn-out" onclick="cpCopy()">📋 Copiar copy</button>
-      <button class="btn btn-out" onclick="editCopy()">✏️ Editar</button>
+    <div class="section-sub">Preencha os dados do seu produto. A IA usa cada campo para escrever a copy e gerar os mockups.</div>
+
+    <div class="notice"><span>⚡</span><span id="briefNotice">Preencha os campos abaixo com as informações do seu produto.</span></div>
+
+    <div class="brief-form">
+      <div class="brief-grid">
+        <div class="field full">
+          <label>Nome do produto <span>*</span></label>
+          <input class="inp" id="bNome" placeholder="Ex: Treino Inteligente, A Cozinha que Emagrece...">
+          <div class="field-hint">O nome que vai aparecer na página de vendas e nos mockups</div>
+        </div>
+        <div class="field">
+          <label>Nicho / Categoria <span>*</span></label>
+          <select class="inp" id="bNicho">
+            <option value="">Selecione...</option>
+            <option value="Fitness / Musculação">💪 Fitness / Musculação</option>
+            <option value="Culinária / Emagrecimento">🍳 Culinária / Emagrecimento</option>
+            <option value="Marcenaria / DIY">🪵 Marcenaria / DIY</option>
+            <option value="Finanças Pessoais">💰 Finanças Pessoais</option>
+            <option value="IA & Marketing Digital">🤖 IA & Marketing Digital</option>
+            <option value="Saúde & Bem-estar">❤️ Saúde & Bem-estar</option>
+            <option value="Pets">🐾 Pets</option>
+            <option value="Beleza & Skincare">💄 Beleza & Skincare</option>
+            <option value="Espiritualidade">🌟 Espiritualidade</option>
+            <option value="Direitos do Consumidor">⚖️ Direitos do Consumidor</option>
+            <option value="Imóveis">🏠 Imóveis</option>
+            <option value="Outro">📦 Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Formato do produto <span>*</span></label>
+          <select class="inp" id="bFormato">
+            <option value="">Selecione...</option>
+            <option value="Ebook / PDF">📄 Ebook / PDF</option>
+            <option value="Mini Curso">🎓 Mini Curso em Vídeo</option>
+            <option value="Planilha / Template">📊 Planilha / Template</option>
+            <option value="Checklist / Guia">✅ Checklist / Guia</option>
+            <option value="App / Ferramenta Digital">⚙️ App / Ferramenta Digital</option>
+            <option value="Receituário / Protocolo">📋 Receituário / Protocolo</option>
+            <option value="Outro">📦 Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Preço de venda <span>*</span></label>
+          <input class="inp" id="bPreco" placeholder="Ex: R$ 37">
+        </div>
+        <div class="field">
+          <label>Preço "de" (riscado)</label>
+          <input class="inp" id="bPrecoOld" placeholder="Ex: R$ 197">
+          <div class="field-hint">Valor original antes do desconto</div>
+        </div>
+        <div class="field full">
+          <label>O que o produto entrega <span>*</span></label>
+          <textarea class="inp" id="bDesc" placeholder="Ex: +200 receitas para Air Fryer com tempo e temperatura exatos, do frango crocante a sobremesas saudáveis..."></textarea>
+          <div class="field-hint">Descreva o conteúdo principal. Seja específico — a IA vai usar esse texto para escrever a copy.</div>
+        </div>
+        <div class="field full">
+          <label>Qual é a maior dor do seu cliente? <span>*</span></label>
+          <input class="inp" id="bDor" placeholder="Ex: Comprou a Air Fryer e só faz frango, não sabe aproveitar o aparelho">
+          <div class="field-hint">O problema que o produto resolve</div>
+        </div>
+        <div class="field full">
+          <label>O que o cliente deseja alcançar? <span>*</span></label>
+          <input class="inp" id="bDesejo" placeholder="Ex: Variar as refeições, comer de forma saudável e impressionar a família">
+          <div class="field-hint">O resultado que o cliente quer após comprar</div>
+        </div>
+        <div class="field">
+          <label>Bônus 1</label>
+          <input class="inp" id="bB1" placeholder="Ex: Guia de Temperatura por Alimento">
+        </div>
+        <div class="field">
+          <label>Bônus 2</label>
+          <input class="inp" id="bB2" placeholder="Ex: Receitas Fitness para Air Fryer">
+        </div>
+        <div class="field">
+          <label>Bônus 3</label>
+          <input class="inp" id="bB3" placeholder="Ex: Receitas Doces e Sobremesas">
+        </div>
+        <div class="field">
+          <label>Garantia</label>
+          <input class="inp" id="bGar" placeholder="Ex: 7 dias incondicional" value="7 dias incondicional">
+        </div>
+        <div class="field full">
+          <label>Público-alvo (avatar)</label>
+          <input class="inp" id="bAvatar" placeholder="Ex: Mulheres de 30-50 anos que compraram Air Fryer e usam pouco">
+          <div class="field-hint">Quem é seu cliente ideal?</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-gold" style="flex:1;justify-content:center;padding:13px" onclick="saveBrief()">Salvar e escolher formato →</button>
+        <button class="btn btn-out btn-sm" onclick="clearBrief()">🗑️ Limpar</button>
+      </div>
     </div>
   </div>
-
-  <div class="divider" id="mockDiv" style="display:none"></div>
-
-  <!-- MOCKUPS -->
-  <div id="mockWrap" style="display:none">
-    <div class="section-sub">🎨 5 Mockups Visuais</div>
-    <div class="mock-grid" id="mockGrid"></div>
-  </div>
-
-  <button class="btn btn-gold btn-full" id="btnP4" onclick="nav(5)" disabled style="margin-top:20px">Ir para 5 Criativos →</button>
 </div>
 
 <!-- ════════════════════════════════
-     PASSO 5 — 5 CRIATIVOS
+     FORMATO
 ════════════════════════════════ -->
-<div class="screen" id="s5">
-  <div class="pg-title">5 <span>Criativos</span> para Anúncio</div>
-  <div class="pg-sub">Hooks prontos para Meta Ads em 5 ângulos: Dor, Prova Social, Especificidade, Urgência e Curiosidade</div>
+<div id="pgFormato" style="display:none">
+  <div class="section" style="padding-top:32px;padding-bottom:60px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button class="topbtn" onclick="show('pgBriefing')">← Voltar</button>
+      <div class="section-title">Escolha o <b>Formato</b></div>
+    </div>
+    <div class="section-sub">Qual entrega você quer gerar? Você pode gerar os dois — comece por um.</div>
 
-  <div class="btn-row">
-    <button class="btn btn-gold" id="btnGCri" onclick="genCreatives()">⚡ Gerar 5 Criativos</button>
+    <div style="background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:#ccc">
+      ⚡ Produto: <b id="fmtProdNome" style="color:var(--gold)">—</b> &nbsp;·&nbsp; <span id="fmtProdPreco" style="color:var(--muted2)">—</span>
+      &nbsp;<button class="topbtn btn-sm" onclick="show('pgBriefing')" style="margin-left:8px">✏️ Editar</button>
+    </div>
+
+    <div class="fmt-grid">
+      <div class="fmt-card" id="fLP" onclick="selFmt('lp')">
+        <div class="fmt-icon">🌐</div>
+        <div class="fmt-name">Página de Vendas</div>
+        <div class="fmt-cred">~75 CRÉDITOS</div>
+        <div class="fmt-desc">LP completa com 9 dobras de copy geradas por IA, mockups PNG para baixar e preview na tela.</div>
+        <ul class="fmt-list">
+          <li>Copy das 9 dobras em tempo real</li>
+          <li>5 mockups PNG reais (baixáveis)</li>
+          <li>5 criativos para Meta Ads</li>
+          <li>HTML completo para hospedar</li>
+          <li>Link de compartilhamento</li>
+        </ul>
+      </div>
+      <div class="fmt-card" id="fQZ" onclick="selFmt('quiz')">
+        <div class="fmt-icon">📋</div>
+        <div class="fmt-name">Quiz Funnel</div>
+        <div class="fmt-cred">50 CRÉDITOS</div>
+        <div class="fmt-desc">Quiz interativo de 8 perguntas que qualifica o lead, captura o e-mail e apresenta a oferta.</div>
+        <ul class="fmt-list">
+          <li>8 perguntas geradas por IA</li>
+          <li>Fluxo: hook → qualificação → oferta</li>
+          <li>Captura de e-mail integrada</li>
+          <li>HTML completo para hospedar</li>
+          <li>Link de compartilhamento</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">💡 No final você pode gerar o outro formato também (créditos extras)</p>
+    <button class="btn btn-gold btn-full" id="btnFmt" onclick="goGerar()" disabled style="margin-top:16px">Gerar com IA →</button>
   </div>
-
-  <div id="criOut" style="margin-top:4px"></div>
-
-  <button class="btn btn-gold btn-full" id="btnP5" onclick="buildResult()" disabled style="margin-top:20px">🚀 Ver Página Pronta →</button>
 </div>
 
 <!-- ════════════════════════════════
-     PASSO 6 — PÁGINA PRONTA
+     GERAR (copy + mockups + criativos)
 ════════════════════════════════ -->
-<div class="screen" id="s6">
-  <div class="pg-title">Página <span>Pronta!</span> 🚀</div>
-  <div class="pg-sub">Preview visual da LP — publique, copie o HTML ou gere o quiz adicional</div>
+<div id="pgGerar" style="display:none">
+  <div class="section" style="padding-top:32px;padding-bottom:60px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button class="topbtn" onclick="show('pgFormato')">← Voltar</button>
+      <div class="section-title">Gerando com <b>IA</b></div>
+    </div>
+    <div class="section-sub">Copy completa + mockups PNG reais + 5 criativos para anúncio</div>
 
-  <div class="tabs">
-    <div class="tab on" id="tLP" onclick="showTab('lp')">🌐 Página de Vendas</div>
-    <div class="tab" id="tQZ" onclick="showTab('quiz')">📋 Quiz Funnel</div>
-    <div class="tab" id="tCri" onclick="showTab('cri')">🎬 Criativos</div>
-  </div>
-
-  <!-- LP -->
-  <div id="tabLP">
     <div class="btn-row">
-      <button class="btn btn-gold" onclick="dlLP()">⬇️ Baixar HTML</button>
-      <button class="btn btn-out" onclick="cpLP()">📋 Copiar HTML</button>
-      <button class="btn btn-green" onclick="toggleShare('lp')">🔗 Link para compartilhar</button>
-      <button class="btn btn-out" onclick="newProduct()">🔄 Novo produto</button>
+      <button class="btn btn-gold" id="btnGC" onclick="genCopy()">⚡ Gerar Copy (9 dobras)</button>
+      <button class="btn btn-out" id="btnGM" onclick="genMockups()" disabled>🎨 Gerar Mockups PNG</button>
+      <button class="btn btn-out" id="btnGCri" onclick="genCreatives()" disabled>🎬 Gerar 5 Criativos</button>
     </div>
-    <div id="shareLP" style="display:none">
-      <div class="share-box">
-        <div style="font-size:22px;margin-bottom:6px">✅</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px">Página disponível</div>
-        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Copie o link e compartilhe com qualquer pessoa</div>
-        <div class="share-link-row">
-          <span class="share-link-txt" id="slLP">—</span>
-        </div>
-        <div class="btn-row" style="justify-content:center">
-          <button class="btn btn-green" onclick="cpLink('lp')">📋 Copiar link</button>
-          <button class="btn btn-out" onclick="openLink('lp')">↗ Abrir em nova aba</button>
-        </div>
-      </div>
-    </div>
-    <div class="preview-shell">
-      <div class="pbar">
-        <div class="pdot" style="background:#ff5f57"></div>
-        <div class="pdot" style="background:#febc2e"></div>
-        <div class="pdot" style="background:#28c840"></div>
-        <div class="purl" id="puLP">zakov.app/p/—</div>
-      </div>
-      <iframe class="pframe" id="ifrLP" title="Preview LP"></iframe>
-    </div>
-  </div>
 
-  <!-- QUIZ -->
-  <div id="tabQZ" style="display:none">
-    <div class="btn-row">
-      <button class="btn btn-gold" onclick="dlQZ()">⬇️ Baixar HTML</button>
-      <button class="btn btn-out" onclick="cpQZ()">📋 Copiar HTML</button>
-      <button class="btn btn-green" onclick="toggleShare('quiz')">🔗 Link para compartilhar</button>
-    </div>
-    <div id="shareQZ" style="display:none">
-      <div class="share-box">
-        <div style="font-size:22px;margin-bottom:6px">✅</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px">Quiz disponível</div>
-        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Copie o link e compartilhe com qualquer pessoa</div>
-        <div class="share-link-row">
-          <span class="share-link-txt" id="slQZ">—</span>
-        </div>
-        <div class="btn-row" style="justify-content:center">
-          <button class="btn btn-green" onclick="cpLink('quiz')">📋 Copiar link</button>
-          <button class="btn btn-out" onclick="openLink('quiz')">↗ Abrir em nova aba</button>
+    <!-- COPY -->
+    <div id="copyWrap" style="display:none">
+      <div style="font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
+        <span>📄 Copy das 9 Dobras — <span style="color:var(--gold)">clique no texto para editar</span></span>
+        <div class="btn-row" style="margin:0;gap:6px">
+          <button class="topbtn" onclick="cpCopy()">📋 Copiar</button>
+          <button class="topbtn" onclick="resetCopy()">🔄 Regerar</button>
         </div>
       </div>
+      <div class="copy-box" id="copyBox" contenteditable="false" spellcheck="false" onclick="this.contentEditable='true';this.style.borderColor='var(--gold)'" onblur="this.contentEditable='false';this.style.borderColor='var(--border)';copyText=this.innerText"></div>
     </div>
-    <div id="qzArea">
-      <div style="text-align:center;padding:40px 20px;color:var(--muted2)">
-        <div style="font-size:36px;margin-bottom:12px">📋</div>
-        <div style="font-size:14px;font-weight:600;margin-bottom:6px">Quiz ainda não gerado</div>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Gere o Quiz Funnel com 10 etapas interativas</div>
-        <button class="btn btn-gold" onclick="genQuiz()">⚡ Gerar Quiz Funnel agora (50 créditos)</button>
-      </div>
-    </div>
-    <div class="preview-shell" id="qzShell" style="display:none">
-      <div class="pbar">
-        <div class="pdot" style="background:#ff5f57"></div>
-        <div class="pdot" style="background:#febc2e"></div>
-        <div class="pdot" style="background:#28c840"></div>
-        <div class="purl" id="puQZ">zakov.app/quiz/—</div>
-      </div>
-      <iframe class="pframe" id="ifrQZ" title="Preview Quiz"></iframe>
-    </div>
-  </div>
 
-  <!-- CRIATIVOS -->
-  <div id="tabCri" style="display:none">
-    <div id="criOutFinal">
-      <div style="text-align:center;padding:32px;color:var(--muted2)">
-        <div style="font-size:32px;margin-bottom:10px">🎬</div>
-        <div style="font-size:14px;margin-bottom:14px">Criativos não gerados ainda</div>
-        <button class="btn btn-gold" onclick="nav(5)">← Ir para o Passo 5</button>
+    <hr class="divider" id="mockDiv" style="display:none">
+
+    <!-- MOCKUPS -->
+    <div id="mockWrap" style="display:none">
+      <div style="font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:12px">🎨 5 Mockups PNG — clique em ⬇️ para baixar cada um</div>
+      <div class="mock-grid" id="mockGrid"></div>
+    </div>
+
+    <hr class="divider" id="criDiv" style="display:none">
+
+    <!-- CRIATIVOS -->
+    <div id="criWrap" style="display:none">
+      <div style="font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:12px">🎬 5 Criativos para Meta Ads</div>
+      <div id="criOut"></div>
+    </div>
+
+    <button class="btn btn-gold btn-full" id="btnIr" onclick="goResultado()" disabled style="margin-top:24px">🚀 Ver Página Pronta →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     RESULTADO FINAL
+════════════════════════════════ -->
+<div id="pgResultado" style="display:none">
+  <div class="section" style="padding-top:32px;padding-bottom:60px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <button class="topbtn" onclick="show('pgGerar')">← Voltar</button>
+      <div class="section-title">Página <b>Pronta!</b> 🚀</div>
+    </div>
+    <div class="section-sub">Visualize, baixe o HTML e compartilhe o link</div>
+
+    <div class="tabs">
+      <div class="tab on" id="tLP" onclick="showTab('lp')">🌐 Página de Vendas</div>
+      <div class="tab" id="tQZ" onclick="showTab('quiz')">📋 Quiz Funnel</div>
+      <div class="tab" id="tCri" onclick="showTab('cri')">🎬 Criativos</div>
+    </div>
+
+    <!-- LP -->
+    <div id="tabLP">
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="dlLP()">⬇️ Baixar HTML</button>
+        <button class="btn btn-out" onclick="cpLP()">📋 Copiar HTML</button>
+        <button class="btn btn-out" onclick="shareLP()">🔗 Compartilhar</button>
+        <button class="btn btn-out" onclick="goHome()">🔄 Novo produto</button>
       </div>
+      <div id="shareLPBox" style="display:none;margin-bottom:14px">
+        <div style="background:#0b1500;border:1px solid var(--green);border-radius:9px;padding:16px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">✅</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:3px">Link para visualização</div>
+          <div style="font-size:11px;color:#aaa;margin-bottom:8px">Funciona enquanto esta janela estiver aberta. Para link permanente, baixe o HTML e hospede no Netlify.</div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:10px;word-break:break-all;text-align:left" id="slLP">—</div>
+          <div class="btn-row" style="justify-content:center"><button class="btn btn-out btn-sm" onclick="cpLPLink()">📋 Copiar link</button><button class="btn btn-gold btn-sm" onclick="openLPLink()">↗ Abrir</button></div>
+        </div>
+      </div>
+      <div class="preview-shell">
+        <div class="pbar">
+          <div class="pdot" style="background:#ff5f57"></div>
+          <div class="pdot" style="background:#febc2e"></div>
+          <div class="pdot" style="background:#28c840"></div>
+          <div class="purl" id="puLP">zakov • página de vendas</div>
+        </div>
+        <iframe class="pframe" id="ifrLP" title="Preview LP"></iframe>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="tabQZ" style="display:none">
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="dlQZ()">⬇️ Baixar HTML</button>
+        <button class="btn btn-out" onclick="cpQZ()">📋 Copiar HTML</button>
+        <button class="btn btn-out" onclick="shareQZ()">🔗 Compartilhar</button>
+      </div>
+      <div id="shareQZBox" style="display:none;margin-bottom:14px">
+        <div style="background:#0b1500;border:1px solid var(--green);border-radius:9px;padding:16px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">✅</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:8px">Link do Quiz</div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:10px;word-break:break-all;text-align:left" id="slQZ">—</div>
+          <div class="btn-row" style="justify-content:center"><button class="btn btn-out btn-sm" onclick="cpQZLink()">📋 Copiar link</button><button class="btn btn-gold btn-sm" onclick="openQZLink()">↗ Abrir</button></div>
+        </div>
+      </div>
+      <div id="qzArea">
+        <div style="text-align:center;padding:40px;color:var(--muted2)">
+          <div style="font-size:34px;margin-bottom:10px">📋</div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px">Quiz ainda não gerado</div>
+          <button class="btn btn-gold" onclick="genQuiz()">⚡ Gerar Quiz Funnel (50 créditos)</button>
+        </div>
+      </div>
+      <div class="preview-shell" id="qzShell" style="display:none">
+        <div class="pbar">
+          <div class="pdot" style="background:#ff5f57"></div>
+          <div class="pdot" style="background:#febc2e"></div>
+          <div class="pdot" style="background:#28c840"></div>
+          <div class="purl" id="puQZ">zakov • quiz funnel</div>
+        </div>
+        <iframe class="pframe" id="ifrQZ" title="Preview Quiz"></iframe>
+      </div>
+    </div>
+
+    <!-- CRIATIVOS -->
+    <div id="tabCri" style="display:none">
+      <div id="criOutFinal"><div style="text-align:center;padding:32px;color:var(--muted2)"><div style="font-size:28px;margin-bottom:10px">🎬</div><div>Volte ao passo anterior e clique em "Gerar 5 Criativos"</div><button class="btn btn-gold" style="margin-top:14px" onclick="show('pgGerar')">← Ir para Gerar</button></div></div>
     </div>
   </div>
 </div>
 
-</div><!-- /wrap -->
-
-<!-- BIBLIOTECA DE PRODUTOS -->
-<div class="lib-overlay" id="libOverlay" onclick="closeLib()"></div>
-<div class="lib-panel" id="libPanel">
-  <div class="lib-header">
-    <div class="lib-title">📦 Meus <span>Produtos</span></div>
-    <button class="lib-close" onclick="closeLib()">✕</button>
+<!-- ─── BIBLIOTECA PANEL ─── -->
+<div class="panel-overlay" id="libOverlay" onclick="closeLib()"></div>
+<div class="panel" id="libPanel">
+  <div class="panel-head">
+    <div class="panel-title">📦 Meus <b>Produtos</b></div>
+    <button class="panel-close" onclick="closeLib()">✕</button>
   </div>
-  <div class="lib-body" id="libBody">
-    <div class="lib-empty">
-      <div class="lib-empty-icon">📭</div>
-      <div class="lib-empty-title">Nenhum produto salvo ainda</div>
-      <div class="lib-empty-sub">Quando você finalizar um produto no Passo 6, ele aparece aqui com nome, nicho, data e botão para baixar o HTML.</div>
+  <div class="panel-body" id="libBody">
+    <div style="text-align:center;padding:40px 16px;color:var(--muted2)">
+      <div style="font-size:36px;margin-bottom:10px">📭</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:5px">Nenhum produto ainda</div>
+      <div style="font-size:12px;line-height:1.6">Quando você finalizar um produto, ele aparece aqui com opções para baixar, visualizar e copiar.</div>
     </div>
   </div>
-  <div class="lib-footer">
-    <button class="btn btn-red btn-full" onclick="clearLib()" style="font-size:12px;padding:10px">🗑️ Limpar biblioteca</button>
+  <div class="panel-foot">
+    <button class="btn btn-out btn-full btn-sm" onclick="clearLib()" style="color:var(--red);border-color:var(--border2)">🗑️ Limpar biblioteca</button>
   </div>
 </div>
 
-<!-- TUTORIAL PANEL -->
-<div class="tut-overlay" id="tutOverlay" onclick="closeTut()"></div>
-<div class="tut-panel" id="tutPanel">
-  <div class="tut-panel-header">
-    <div class="tut-panel-title">Como usar o <span>ZAKOV</span></div>
-    <button class="tut-close" onclick="closeTut()">✕</button>
+<!-- ─── COMO USAR PANEL ─── -->
+<div class="panel-overlay" id="tutOverlay" onclick="closeTut()"></div>
+<div class="panel" id="tutPanel" style="right:auto;left:0;border-left:none;border-right:1px solid var(--border);transform:translateX(-100%)">
+  <div class="panel-head">
+    <div class="panel-title">❓ Como <b>Usar</b></div>
+    <button class="panel-close" onclick="closeTut()">✕</button>
   </div>
-  <div class="tut-tabs">
-    <div class="tut-tab on" onclick="tutTab(0,this)">📖 Passo a Passo</div>
-    <div class="tut-tab" onclick="tutTab(1,this)">💳 Créditos</div>
-    <div class="tut-tab" onclick="tutTab(2,this)">❓ FAQ</div>
-  </div>
-  <div class="tut-body" id="tutBody">
-
-    <!-- TAB 0: PASSO A PASSO -->
-    <div id="tutTab0">
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">1</div>
-          <div><div class="tut-step-name">Scanner de Oferta</div><div class="tut-step-tag">COMECE AQUI</div></div>
-        </div>
-        <div class="tut-tip"><span>💡</span><span>Encontre produtos que já estão vendendo na Meta para usar como referência e modelar o seu.</span></div>
-        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Selecione um nicho</div><div class="tut-instr-d">Clique no menu "Selecione um nicho..." e escolha a categoria do produto que quer criar.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Clique em ⚡ Escanear</div><div class="tut-instr-d">O sistema exibe cards de produtos com anúncios ativos. Cada card mostra: quantos anúncios está rodando, há quantos dias e o preço.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique no card desejado</div><div class="tut-instr-d">O card fica com <b style="color:var(--gold)">borda dourada</b>. Prefira os com badge <span style="background:#ef4444;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px">🔥 VIRAL</span> — são os que mais vendem.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">4</div><div><div class="tut-instr-t">Clique em 💾 Salvar anúncio</div><div class="tut-instr-d">O produto é salvo e você avança automaticamente para o Passo 2. Os campos do briefing já ficam pré-preenchidos.</div></div></div>
-        <div class="tut-ok"><span>✅</span><span><b>Resultado:</b> Produto salvo, briefing pré-preenchido, sistema vai para Análise com IA.</span></div>
-      </div>
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">2</div>
-          <div><div class="tut-step-name">Análise com IA</div><div class="tut-step-tag">OPCIONAL</div></div>
-        </div>
-        <div class="tut-tip"><span>💡</span><span>Disseque o produto de referência antes de criar o seu. Cada ferramenta gasta 2 créditos.</span></div>
-        <div class="tut-eg-grid">
-          <div class="tut-eg"><div class="tut-eg-title">🔑 PALAVRAS-CHAVE</div><div class="tut-eg-body">Palavras que o cliente usa para buscar esse produto</div></div>
-          <div class="tut-eg"><div class="tut-eg-title">👥 PÚBLICO-ALVO</div><div class="tut-eg-body">Perfil de quem compra: idade, dor, onde está</div></div>
-          <div class="tut-eg"><div class="tut-eg-title">📝 ANÁLISE DE COPY</div><div class="tut-eg-body">O que funciona no texto: gatilhos e pontos fortes</div></div>
-          <div class="tut-eg"><div class="tut-eg-title">🎯 AVATAR</div><div class="tut-eg-body">Persona real: sonho, medo, situação de vida</div></div>
-        </div>
-        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em qualquer ferramenta</div><div class="tut-instr-d">O resultado aparece logo abaixo. Use pelo menos <b>Avatar do Cliente</b> e <b>Estrutura da Oferta</b> — são as mais úteis para a copy.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Clique em "Avançar para Formato"</div><div class="tut-instr-d">Quando estiver pronto, clique no botão amarelo no final para ir ao Passo 3.</div></div></div>
-      </div>
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">3</div>
-          <div><div class="tut-step-name">Escolha o Formato</div><div class="tut-step-tag">DECISÃO</div></div>
-        </div>
-        <div class="tut-eg-grid">
-          <div class="tut-eg" style="border-color:rgba(245,200,66,.3)"><div class="tut-eg-title">🌐 PÁGINA DE VENDAS</div><div class="tut-eg-body">Quer vender direto? Use a LP. 9 dobras geradas por IA, HTML para baixar, preview na tela.</div></div>
-          <div class="tut-eg" style="border-color:rgba(34,197,94,.3)"><div class="tut-eg-title">📋 QUIZ FUNNEL</div><div class="tut-eg-body">Quer capturar e-mails? Use o Quiz. 10 etapas interativas, qualifica o lead antes de vender.</div></div>
-        </div>
-        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique no card do formato desejado</div><div class="tut-instr-d">O card fica com borda dourada. O botão de avançar só aparece após selecionar.</div></div></div>
-        <div class="tut-warn"><span>⚠️</span><span>Você pode gerar os dois. No Passo 6, tem botão para gerar o outro formato (50 créditos extras).</span></div>
-      </div>
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">4</div>
-          <div><div class="tut-step-name">Copy & Mockups</div><div class="tut-step-tag">IA TRABALHANDO</div></div>
-        </div>
-        <div class="tut-tip"><span>💡</span><span>A IA usa os dados do produto salvo para escrever a página de vendas completa. O texto aparece sendo digitado em tempo real.</span></div>
-        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em ⚡ Gerar Copy com IA</div><div class="tut-instr-d">Aguarde o cursor dourado desaparecer — isso significa que terminou. A copy tem 9 dobras completas.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Edite se quiser (✏️ Editar)</div><div class="tut-instr-d">Clique em Editar para modificar o texto direto na tela. Troque nome, preço, tom. Clique em Editar novamente para salvar.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique em 🎨 Gerar 5 Mockups</div><div class="tut-instr-d">Gera 5 capas visuais: produto principal + 3 bônus + pack completo. Cada uma tem botão Editar e Baixar.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">4</div><div><div class="tut-instr-t">Avance para "Ir para 5 Criativos"</div><div class="tut-instr-d">O botão fica ativo após gerar a copy ou os mockups.</div></div></div>
-      </div>
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">5</div>
-          <div><div class="tut-step-name">5 Criativos para Anúncio</div><div class="tut-step-tag">META ADS</div></div>
-        </div>
-        <div class="tut-tip"><span>💡</span><span>5 versões de texto para anúncio em ângulos diferentes. Teste todos para ver qual converte mais.</span></div>
-        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em ⚡ Gerar 5 Criativos</div><div class="tut-instr-d">A IA gera: Hook de Dor, Prova Social, Número Específico, Urgência e Curiosidade.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Copie com 📋 Copiar em cada card</div><div class="tut-instr-d">Cole direto no Gerenciador de Anúncios da Meta ou salve para usar depois.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique em 🚀 Ver Página Pronta</div><div class="tut-instr-d">Vai para o Passo 6 onde está o resultado final completo.</div></div></div>
-      </div>
-
-      <div class="tut-step">
-        <div class="tut-step-header">
-          <div class="tut-step-num">6</div>
-          <div><div class="tut-step-name">Página Pronta</div><div class="tut-step-tag">ENTREGA FINAL</div></div>
-        </div>
-        <div class="tut-tip"><span>💡</span><span>Sua LP está pronta e funcionando. Você vê ela na tela, baixa o HTML ou compartilha o link.</span></div>
-        <div class="tut-instr"><div class="tut-instr-n">⬇️</div><div><div class="tut-instr-t">Baixar HTML</div><div class="tut-instr-d">Baixa o arquivo .html no seu computador. Hospede no Netlify (grátis) para ter um link permanente.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">📋</div><div><div class="tut-instr-t">Copiar HTML</div><div class="tut-instr-d">Copia o código completo para colar em qualquer editor ou plataforma.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">🔗</div><div><div class="tut-instr-t">Link para compartilhar</div><div class="tut-instr-d">Gera um link que abre a sua LP no navegador. Compartilhe no WhatsApp ou e-mail. <b style="color:#ffaaaa">Atenção:</b> funciona só com o ZAKOV aberto. Para link permanente, hospede no Netlify.</div></div></div>
-        <div class="tut-instr"><div class="tut-instr-n">📋</div><div><div class="tut-instr-t">Aba Quiz Funnel</div><div class="tut-instr-d">Se não gerou o Quiz, clique em "Gerar Quiz Funnel agora" nessa aba. Custa 50 créditos e gera o quiz completo com 10 etapas.</div></div></div>
-        <div class="tut-ok"><span>🚀</span><span><b>Pronto!</b> LP, Quiz (opcional), 5 criativos e 5 mockups — tudo em menos de 10 minutos. Clique em "🔄 Novo produto" para criar outro.</span></div>
-
-        <div style="margin-top:16px;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">📌 COMO HOSPEDAR NO NETLIFY (grátis)</div>
-          <div style="font-size:12px;color:var(--muted2);line-height:1.8">
-            1. Acesse <b style="color:var(--text)">netlify.com</b> e crie conta grátis<br>
-            2. Na dashboard, <b style="color:var(--text)">arraste o arquivo .html</b> para a tela<br>
-            3. Em segundos você recebe um link <b style="color:var(--gold)">nome.netlify.app</b><br>
-            4. Compartilhe esse link nos anúncios ou WhatsApp
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /tutTab0 -->
-
-    <!-- TAB 1: CRÉDITOS -->
-    <div id="tutTab1" style="display:none">
-      <div class="tut-tip" style="margin-bottom:16px"><span>💡</span><span>Você começa com <b>200 créditos</b>. O fluxo completo (sem quiz) gasta ~80. Dá para fazer 2 produtos completos.</span></div>
-      <table class="tut-credits-table">
-        <thead><tr><th>Ação</th><th>Créditos</th></tr></thead>
-        <tbody>
-          <tr><td>Salvar anúncio (Passo 1)</td><td>2</td></tr>
-          <tr><td>Cada análise com IA (Passo 2)</td><td>2</td></tr>
-          <tr><td>Gerar Copy — 9 dobras (Passo 4)</td><td>30</td></tr>
-          <tr><td>Gerar 5 Mockups (Passo 4)</td><td>15</td></tr>
-          <tr><td>Gerar 5 Criativos (Passo 5)</td><td>20</td></tr>
-          <tr><td>Montar Página Final (Passo 6)</td><td>10</td></tr>
-          <tr><td>Gerar Quiz Funnel (Passo 6)</td><td>50</td></tr>
-          <tr><td><b>Total fluxo completo (sem quiz)</b></td><td>~80</td></tr>
-        </tbody>
-      </table>
-      <div class="tut-tip" style="margin-top:12px"><span>🔄</span><span>Quando os créditos acabarem, clique em <b>"🔄 Novo produto"</b> no Passo 6 para reiniciar com 200 créditos.</span></div>
+  <div class="panel-body">
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">1</div><div class="tut-name">Escolha ou crie um produto</div></div>
+      <div class="tut-body">Clique em <b>"Ver banco de ideias"</b> para escolher uma referência já preenchida, ou <b>"Criar do zero"</b> para preencher os dados do seu produto do zero.</div>
     </div>
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">2</div><div class="tut-name">Preencha o briefing</div></div>
+      <div class="tut-body">Nome, nicho, formato, preço, descrição, dor do cliente, desejo, bônus e garantia. <b>Todos os campos com * são obrigatórios.</b> Se usou o banco de ideias, os campos já vêm preenchidos — ajuste conforme o seu produto real.</div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">3</div><div class="tut-name">Escolha o formato</div></div>
+      <div class="tut-body"><b>Página de Vendas</b>: LP com 9 dobras de copy + mockups + criativos. <b>Quiz Funnel</b>: 8 perguntas interativas que qualificam e vendem. Você pode gerar os dois — comece por um.</div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">4</div><div class="tut-name">Gere com IA</div></div>
+      <div class="tut-body">Clique em <b>"Gerar Copy"</b> para escrever as 9 dobras em tempo real. Depois <b>"Gerar Mockups"</b> para criar 5 imagens PNG reais para baixar. Por fim <b>"Gerar 5 Criativos"</b> para os textos de anúncio.<br><br>Você pode <b>clicar na copy para editar</b> o texto diretamente na tela.</div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">5</div><div class="tut-name">Página Pronta</div></div>
+      <div class="tut-body"><b>⬇️ Baixar HTML</b>: baixa o arquivo para hospedar em qualquer servidor.<br><b>📋 Copiar HTML</b>: copia o código para colar onde quiser.<br><b>🔗 Compartilhar</b>: gera link temporário (funciona enquanto o ZAKOV estiver aberto).<br><br>Para link permanente: hospede no <b>Netlify.com</b> (grátis, arraste o arquivo e receba um link).</div>
+    </div>
+    <div class="tut-step">
+      <div class="tut-hd"><div class="tut-num">📦</div><div class="tut-name">Meus Produtos</div></div>
+      <div class="tut-body">Cada produto finalizado é salvo automaticamente em <b>"Meus Produtos"</b> na topbar. Você pode baixar o HTML, visualizar ou excluir qualquer produto de lá.</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:14px;margin-top:4px">
+      <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">📌 COMO HOSPEDAR NO NETLIFY</div>
+      <div style="font-size:12px;color:var(--muted2);line-height:1.8">1. Acesse <b style="color:var(--text)">netlify.com</b><br>2. Crie conta grátis<br>3. Arraste o .html para a tela<br>4. Receba link permanente em segundos</div>
+    </div>
+  </div>
+</div>
 
-    <!-- TAB 2: FAQ -->
-    <div id="tutTab2" style="display:none">
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>Posso usar meu próprio produto, não o do Scanner?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Sim. O Scanner é só referência. No Passo 4, antes de gerar a copy, você pode editar todos os campos: nome, preço, descrição, bônus etc. Substitua pelos dados do seu produto real.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>O link de compartilhamento é permanente?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Não. O link funciona só enquanto o ZAKOV está aberto no navegador. Para link permanente, baixe o HTML e hospede no Netlify (grátis). Você recebe um link no formato <b>nome.netlify.app</b> que funciona para sempre.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>Como colocar o link do meu checkout na página?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Baixe o HTML, abra em qualquer editor de texto (Bloco de Notas funciona), procure por <b>href="#"</b> no botão de CTA e substitua pelo link do seu checkout no Hotmart, Kiwify ou outra plataforma. Salve e hospede o arquivo alterado.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>A copy gerada é igual para todo mundo?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Não. A IA gera do zero a cada vez, com base nos dados específicos do seu briefing. Mesmo usando o mesmo produto de referência, o resultado é diferente. Você também pode editar qualquer trecho diretamente na tela.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>A copy ficou ruim. O que faço?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Duas opções: <b>1)</b> Clique em ✏️ Editar e corrija os trechos direto na tela. <b>2)</b> Clique em ⚡ Gerar Copy com IA novamente para gerar uma versão nova (30 créditos). Tente pelo menos 2 gerações antes de editar manualmente.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>Posso criar produtos em nichos diferentes?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Sim. Ao terminar um produto, clique em "🔄 Novo produto" no Passo 6. O sistema reseta tudo e você começa do zero com 200 créditos novos.</div>
-
-      <div class="faq-q2" onclick="this.classList.toggle('open')">
-        <span>Meu cliente recebe o ZAKOV ou só o HTML?</span>
-        <span class="faq-q2-icon">+</span>
-      </div>
-      <div class="faq-a2">Você decide. Pode: <b>a)</b> dar o ZAKOV para o cliente usar sozinho, <b>b)</b> criar os produtos pelos clientes e entregar só o HTML final, ou <b>c)</b> vender como serviço — cobrar pela criação e entregar a LP pronta. Os três modelos funcionam.</div>
-
-    </div><!-- /tutTab2 -->
-
-  </div><!-- /tut-body -->
-</div><!-- /tut-panel -->
-
-<!-- LOADER -->
+<!-- LOADER / TOAST -->
 <div class="loader" id="loader">
   <div class="spin"></div>
   <div class="load-t" id="loadT">Processando...</div>
-  <div class="load-s" id="loadS">Aguarde um momento</div>
+  <div class="load-s" id="loadS">Aguarde</div>
 </div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <div class="toast-t" id="toastT"></div>
-  <div id="toastM"></div>
-</div>
+<div class="toast" id="toast"><div class="toast-t" id="toastT"></div><div id="toastM"></div></div>
 
 <script>
-// ════════════ STATE ════════════
-let cred = 200;
-let selAd = null, _pickedAd = null;
-let fmt = null;
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
 let brief = {};
+let fmt = null;
+let copyText = '';
 let lpHTML = '', qzHTML = '';
 let lpBlob = null, qzBlob = null;
 let criData = [];
-let copyText = '';
 let copyReady = false, mockReady = false, criReady = false;
+let _mockData = [];
+let _selNicho = 'all';
 
-// ════════════ BANCO DE IDEIAS ════════════
-// ⚠️ Produtos de EXEMPLO para inspiração — não são anúncios reais da Meta
-const ADS = {
-  marcenaria: [
-    { id:1, av:'MR', brand:'Biblioteca Marceneiro Raíz', text:'São +6.000 projetos de móveis prontos para baixar e montar na garagem. Estantes, mesas, cadeiras e decoração com medidas exatas e lista de materiais.', nicho:'marcenaria', hot:true, price:'R$ 37', old:'R$ 197', dor:'Quer fazer móveis mas não sabe por onde começar', desejo:'Ter renda extra com marcenaria em casa', b1:'Mini Curso Ferramentas Essenciais', b2:'Calculadora de Lucro Automática', b3:'Atualizações Mensais Gratuitas', gar:'7 dias' },
-    { id:2, av:'CP', brand:'Carpintaria do Zero', text:'Do iniciante ao profissional: projetos passo a passo com vídeo, lista de materiais e medidas para montar em casa sem curso caro.', nicho:'marcenaria', hot:false, price:'R$ 27', old:'R$ 97', dor:'Não tem conhecimento técnico e tem medo de errar', desejo:'Aprender carpintaria sozinho e economizar em móveis', b1:'Guia de Ferramentas para Iniciantes', b2:'Lista de Fornecedores de Madeira Baratos', b3:'Suporte por 30 dias', gar:'7 dias' },
-    { id:3, av:'OL', brand:'Oficina Lucrativa', text:'Como faturar R$3.000/mês na garagem vendendo móveis sob encomenda. Sistema com projetos prontos + precificação + como encontrar clientes.', nicho:'marcenaria', hot:true, price:'R$ 47', old:'R$ 147', dor:'Quer empreender mas não sabe como virar renda', desejo:'Ter negócio próprio fazendo o que gosta', b1:'Scripts de Venda para WhatsApp', b2:'Planilha de Precificação', b3:'Grupo VIP de Marceneiros', gar:'7 dias' },
-  ],
-  fitness: [
-    { id:4, av:'TI', brand:'Treino Inteligente', text:'Treinos de 45min para academia lotada — sem esperar máquina, sem enrolar. Método de alta intensidade adaptado para qualquer nível.', nicho:'fitness', hot:true, price:'R$ 29', old:'R$ 97', dor:'Academia lotada atrapalha o treino e tira a motivação', desejo:'Ter resultado real sem depender de horário ou equipamento', b1:'Plano Alimentar Simples 21 dias', b2:'Guia de Suplementação Básica', b3:'Treino para Viagem (sem academia)', gar:'7 dias' },
-    { id:5, av:'GS', brand:'Gluteos & Shape', text:'Protocolo feminino de 8 semanas focado em glúteos e definição. Treinos de 30min que funcionam em casa ou academia.', nicho:'fitness', hot:true, price:'R$ 37', old:'R$ 127', dor:'Treina há meses sem ver resultado nos glúteos', desejo:'Ter shape definido e glúteos avantajados em 60 dias', b1:'Cardápio Anti-Inchaço 7 dias', b2:'Guia de Roupas que Valorizam o Shape', b3:'Checklist Semanal de Evolução', gar:'7 dias' },
-    { id:6, av:'HM', brand:'Homem em Forma 40+', text:'Para homens acima de 40 que perderam o ritmo. Treinos adaptados à testosterona em queda, com foco em força e eliminação de barriga.', nicho:'fitness', hot:false, price:'R$ 37', old:'R$ 127', dor:'Não tem mais o mesmo resultado que tinha aos 30', desejo:'Voltar a ter disposição, força e corpo definido', b1:'Guia de Alimentação para Hipertrofia 40+', b2:'Suplementos Naturais para Testosterona', b3:'Treino Express 20min/dia', gar:'7 dias' },
-  ],
-  culinaria: [
-    { id:7, av:'CQ', brand:'A Cozinha que Emagrece', text:'17 receitas que aceleram o metabolismo e eliminam barriga sem passar fome. Fáceis, rápidas e com ingredientes de mercado.', nicho:'culinaria', hot:true, price:'R$ 27', old:'R$ 97', dor:'Faz dieta, sofre, não consegue manter e engorda tudo de volta', desejo:'Emagrecer de vez sem sacrifício', b1:'Cardápio Semanal Anti-Inflamatório', b2:'Lista de Compras Saudável por R$150', b3:'Receitas de Lanche sem Culpa', gar:'7 dias' },
-    { id:8, av:'LV', brand:'Doces que Vendem', text:'50 receitas de doces gourmet para vender no WhatsApp, feiras e encomendas. Custo de R$3, venda por R$15. Com precificação e embalagem inclusa.', nicho:'culinaria', hot:true, price:'R$ 37', old:'R$ 127', dor:'Quer uma renda extra mas não tem dinheiro para investir', desejo:'Ganhar dinheiro fazendo doces em casa', b1:'Calculadora de Custo e Lucro', b2:'Templates de Cardápio para WhatsApp', b3:'Script de Venda para Encomendas', gar:'7 dias' },
-    { id:9, av:'AF', brand:'Air Fryer Master', text:'+200 receitas exclusivas para Air Fryer: de frango crocante a sobremesas. Saudáveis, rápidas e com tempo e temperatura exatos.', nicho:'culinaria', hot:false, price:'R$ 19', old:'R$ 67', dor:'Comprou a Air Fryer e só faz frango', desejo:'Aproveitar ao máximo o aparelho e variar as refeições', b1:'Guia de Temperatura por Alimento', b2:'Receitas Fitness para Air Fryer', b3:'Receitas Doces e Sobremesas', gar:'7 dias' },
-  ],
-  financas: [
-    { id:10, av:'ZD', brand:'Zere Dívidas em 90 dias', text:'O método passo a passo para sair das dívidas sem empréstimo e sem cortar tudo que você gosta. Já ajudou +3.000 famílias.', nicho:'financas', hot:true, price:'R$ 27', old:'R$ 97', dor:'Está endividado, pagando mínimo do cartão e sem saída', desejo:'Ficar no zero e ter dinheiro sobrando no fim do mês', b1:'Planilha de Controle Financeiro Automática', b2:'Guia de Negociação com Bancos', b3:'Método do Envelope Digital', gar:'7 dias' },
-    { id:11, av:'PI', brand:'Primeira Renda Extra', text:'Como ganhar os primeiros R$500 extras por mês online em 30 dias, mesmo sem experiência. 7 métodos testados e comprovados.', nicho:'financas', hot:true, price:'R$ 17', old:'R$ 47', dor:'Salário não cobre as contas e não sabe como ganhar mais', desejo:'Ter uma renda extra sem depender de emprego fixo', b1:'Lista de Plataformas para Começar Hoje', b2:'Scripts de Prospecção de Clientes', b3:'Checklist dos Primeiros 30 dias', gar:'7 dias' },
-    { id:12, av:'IV', brand:'Invista seu Primeiro R$100', text:'O guia direto ao ponto para quem nunca investiu. Como começar com pouco, onde colocar e como fazer o dinheiro trabalhar por você.', nicho:'financas', hot:false, price:'R$ 27', old:'R$ 87', dor:'Quer investir mas tem medo de perder dinheiro ou não entende nada', desejo:'Fazer o dinheiro render sem precisar ser especialista', b1:'Planilha de Controle de Investimentos', b2:'Glossário Financeiro sem Enrolação', b3:'Simulador de Aposentadoria', gar:'7 dias' },
-  ],
-  ia_digital: [
-    { id:13, av:'IA', brand:'ChatGPT para Iniciantes', text:'Como usar IA no dia a dia para trabalhar menos e ganhar mais. Do zero ao avançado em 60 páginas simples e práticas.', nicho:'ia_digital', hot:true, price:'R$ 27', old:'R$ 97', dor:'Todo mundo fala de IA mas não sabe como usar de verdade', desejo:'Dominar a IA para se destacar no trabalho e nos negócios', b1:'100 Prompts Prontos para Usar Hoje', b2:'Guia de IA para Freelancers', b3:'Templates de Prompts para Vendas', gar:'7 dias' },
-    { id:14, av:'CN', brand:'Canva Pro do Zero', text:'Do iniciante ao designer: como criar posts, logos, eBooks e apresentações profissionais no Canva sem pagar nada.', nicho:'ia_digital', hot:true, price:'R$ 19', old:'R$ 67', dor:'Gasta com designer ou entrega materiais feios', desejo:'Criar arte profissional sozinho e economizar', b1:'+500 Templates Editáveis', b2:'Guia de Identidade Visual', b3:'Pack de Fontes e Cores Premium', gar:'7 dias' },
-    { id:15, av:'RL', brand:'Reels que Vendem', text:'O método para criar Reels virais que atraem clientes mesmo com 0 seguidores. Roteiro, edição e call to action que converte.', nicho:'ia_digital', hot:true, price:'R$ 37', old:'R$ 127', dor:'Posta todo dia e ninguém vê, ninguém compra', desejo:'Ter Reels que viralizam e geram vendas automáticas', b1:'30 Ganchos de Reel para Copiar', b2:'Guia de Edição no CapCut', b3:'Calendário de Conteúdo 30 dias', gar:'7 dias' },
-  ],
-  saude: [
-    { id:16, av:'SB', brand:'Sono Profundo', text:'O protocolo de 21 dias para dormir melhor, acordar disposto e acabar com a insônia sem remédio. Baseado em ciência do sono.', nicho:'saude', hot:true, price:'R$ 27', old:'R$ 97', dor:'Dorme mal, acorda cansado e vive sem energia', desejo:'Dormir profundamente e acordar com disposição todo dia', b1:'Rotina Noturna de 20min', b2:'Guia de Alimentação pro Sono', b3:'Meditação Guiada para Dormir', gar:'7 dias' },
-    { id:17, av:'AR', brand:'Ansiedade Zero', text:'Técnicas práticas para controlar a ansiedade no dia a dia sem depender de medicamento. Método validado por psicólogos.', nicho:'saude', hot:true, price:'R$ 37', old:'R$ 127', dor:'Ansiedade paralisa, impede de dormir e atrapalha tudo', desejo:'Ter calma e controle emocional no dia a dia', b1:'Diário de Emoções Guiado', b2:'7 Técnicas de Respiração Anti-Pânico', b3:'Áudios de Meditação Guiada', gar:'7 dias' },
-    { id:18, av:'DC', brand:'Detox Digital 7 dias', text:'Como largar o celular, descansar a mente e voltar a focar no que importa. Plano prático de 7 dias com desafios diários.', nicho:'saude', hot:false, price:'R$ 17', old:'R$ 47', dor:'Viciado no celular, sem foco e com sensação de vazio', desejo:'Retomar o controle da atenção e ter mais presença', b1:'Agenda de Desafios Diários', b2:'Guia de Apps que Ajudam no Detox', b3:'Rotina Matinal Produtiva', gar:'7 dias' },
-  ],
-  pet: [
-    { id:19, av:'CP', brand:'Cachorros Obedientes', text:'Como adestrar seu cão em casa em 21 dias sem rédea de correção nem gritar. Método positivo que funciona para qualquer raça.', nicho:'pet', hot:true, price:'R$ 37', old:'R$ 127', dor:'Cachorro desobedece, late demais e destrói a casa', desejo:'Ter um cachorro educado que obedece sem estresse', b1:'Guia de Linguagem Corporal Canina', b2:'Fichas de Treino por Comando', b3:'Cardápio de Petiscos Saudáveis Caseiros', gar:'7 dias' },
-    { id:20, av:'RC', brand:'Receitas Naturais Pet', text:'+80 receitas de comida natural para cães e gatos. Mais saúde, menos ração ultraprocessada e economia de até 40% por mês.', nicho:'pet', hot:false, price:'R$ 27', old:'R$ 87', dor:'Preocupado com a saúde do pet mas não sabe por onde começar', desejo:'Dar alimentação saudável e economizar com ração', b1:'Tabela de Alimentos Permitidos e Proibidos', b2:'Calculadora de Porção por Peso', b3:'Plano Alimentar Semanal', gar:'7 dias' },
-  ],
-  direitos: [
-    { id:21, av:'MP', brand:'Manual do Passageiro', text:'Saiba seus direitos e receba indenização por voo atrasado, cancelado ou bagagem extraviada — sem advogado e em minutos.', nicho:'direitos', hot:true, price:'R$ 27', old:'R$ 87', dor:'Teve voo cancelado mas não sabe que tem direito a indenização', desejo:'Receber o dinheiro que tem direito sem precisar de advogado', b1:'Modelos de Reclamação Prontos', b2:'Guia de Sites para Abrir Reclamação', b3:'Calculadora de Indenização', gar:'7 dias' },
-    { id:22, av:'DC', brand:'Direitos do Consumidor', text:'O guia completo para não ser enganado em compras, contratos e serviços. Como reclamar, cancelar e ser ressarcido.', nicho:'direitos', hot:false, price:'R$ 19', old:'R$ 67', dor:'Já foi enganado em compra e não soube como agir', desejo:'Conhecer seus direitos e nunca mais ser passado para trás', b1:'Templates de E-mail para Reclamação', b2:'Lista de Órgãos de Defesa do Consumidor', b3:'Modelos de Petição Simples', gar:'7 dias' },
-  ],
-  beleza: [
-    { id:23, av:'SK', brand:'Skincare Simples', text:'Rotina de skincare para pele brasileira com produtos de farmácia. Menos de R$80 por mês para ter pele hidratada, sem acne e com viço.', nicho:'beleza', hot:true, price:'R$ 27', old:'R$ 97', dor:'Gasta fortuna em produtos que não funcionam', desejo:'Ter pele bonita com rotina simples e barata', b1:'Lista de Produtos de Farmácia que Funcionam', b2:'Rotina Manhã e Noite por Tipo de Pele', b3:'Guia Anti-Manchas e Anti-Acne', gar:'7 dias' },
-    { id:24, av:'MC', brand:'Maquiagem do Zero', text:'Do "não sei nem passar base" ao look perfeito em 20 minutos. Método para iniciantes com produtos acessíveis e técnicas de profissional.', nicho:'beleza', hot:false, price:'R$ 29', old:'R$ 97', dor:'Não sabe se maquiar e se sente insegura', desejo:'Aprender maquiagem e se sentir linda todo dia', b1:'Lista de Maquiagem Essencial por R$150', b2:'Guia de Maquiagem para Cada Ocasião', b3:'Técnicas de Contorno para Iniciantes', gar:'7 dias' },
-  ],
-  espiritualidade: [
-    { id:25, av:'CS', brand:'Cartilha da Sabedoria', text:'Mensagens e reflexões para quem busca paz interior, propósito e conexão espiritual no dia a dia corrido.', nicho:'espiritualidade', hot:false, price:'R$ 37', old:'R$ 127', dor:'Sente vazio, sem propósito e desconectado de si mesmo', desejo:'Ter paz interior e clareza sobre o caminho certo', b1:'Diário de Gratidão 30 dias', b2:'Meditações Guiadas em Áudio', b3:'Guia de Orações para Cada Situação', gar:'7 dias' },
-    { id:26, av:'MM', brand:'Manifestação na Prática', text:'Como usar a lei da atração de forma prática e científica para atrair oportunidades, relacionamentos e prosperidade.', nicho:'espiritualidade', hot:true, price:'R$ 27', old:'R$ 97', dor:'Quer mudar de vida mas não sabe como sair do lugar', desejo:'Atrair prosperidade e realizar seus sonhos', b1:'Rotina de Manifestação 21 dias', b2:'Diário de Visão e Metas', b3:'Áudios de Afirmação Positiva', gar:'7 dias' },
-  ],
-  imoveis: [
-    { id:27, av:'DA', brand:'DescreveAI Imóveis', text:'IA que escreve descrições profissionais de imóveis em 10 segundos. Corretores que usam vendem 3x mais rápido.', nicho:'imoveis', hot:false, price:'R$ 47', old:'R$ 197', dor:'Perde tempo escrevendo descrições e os textos ficam fracos', desejo:'Ter descrições profissionais sem esforço e fechar mais negócios', b1:'100 Títulos de Anúncio que Convertem', b2:'Guia de Fotografia de Imóveis com Celular', b3:'Scripts de WhatsApp para Corretores', gar:'7 dias' },
-  ],
-};
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+const PAGES = ['home','pgIdeias','pgBriefing','pgFormato','pgGerar','pgResultado'];
 
-// ════════════ ANÁLISE DATA ════════════
-const ANA_DATA = {
-  palavras: { t:'🔑 Palavras-chave Identificadas', c:`<ul>
-    <li><b>Principal:</b> projetos prontos, marcenaria garagem, móveis rápidos</li>
-    <li><b>Secundárias:</b> montagem fácil, madeira dinheiro, baixar projetos, sem curso caro</li>
-    <li><b>Negativas:</b> faculdade, certificado, equipamento profissional</li>
-    <li><b>Emocionais:</b> lucro garantido, na sua garagem, hoje mesmo, acesso imediato</li>
-  </ul>` },
-  publico: { t:'👥 Público-alvo Mapeado', c:`<ul>
-    <li><b>Perfil:</b> Homens 30-55 anos, classes C/D, interesse em DIY e bricolagem</li>
-    <li><b>Dor principal:</b> Quer fazer seus próprios móveis mas não sabe por onde começar</li>
-    <li><b>Desejo:</b> Economizar dinheiro e ter renda extra com habilidade manual</li>
-    <li><b>Objeção nº1:</b> "Não tenho espaço / equipamento profissional"</li>
-    <li><b>Onde está:</b> YouTube DIY, grupos Facebook reforma, Instagram decoração</li>
-  </ul>` },
-  copy: { t:'📝 Análise de Copy', c:`<ul>
-    <li><b>Hook:</b> ✅ Forte — número específico + velocidade + resultado claro</li>
-    <li><b>Gatilhos:</b> Especificidade, facilidade, quantidade, autoridade implícita</li>
-    <li><b>Ponto forte:</b> "pra você baixar e montar" — ação imediata e concreta</li>
-    <li><b>Oportunidade:</b> Adicionar prova social numérica e urgência real</li>
-    <li><b>Tom:</b> Direto, coloquial — ideal para o avatar 30-55 anos</li>
-  </ul>` },
-  ab: { t:'🔬 Sugestões de Teste A/B', c:`<ul>
-    <li><b>Versão A (atual):</b> Foco em quantidade — "6.000 projetos"</li>
-    <li><b>Versão B:</b> Transformação — "Da garagem bagunçada à marcenaria lucrativa em 30 dias"</li>
-    <li><b>Versão C:</b> Dor — "Por que você ainda paga R$800 em móveis que faria em casa por R$50?"</li>
-    <li><b>Imagem:</b> Testar produto vs. resultado final vs. processo em ação</li>
-  </ul>` },
-  oferta: { t:'🏗️ Estrutura da Oferta', c:`<ul>
-    <li><b>Core:</b> 6.000+ projetos técnicos digitais</li>
-    <li><b>Bônus 1:</b> Mini Curso Ferramentas Essenciais</li>
-    <li><b>Bônus 2:</b> Calculadora de Lucro Automática</li>
-    <li><b>Bônus 3:</b> Atualizações Mensais Gratuitas</li>
-    <li><b>Ancoragem:</b> De R$197 por R$37 (81% off) + Garantia 7 dias incondicional</li>
-  </ul>` },
-  avatar: { t:'🎯 Avatar do Cliente', c:`<ul>
-    <li><b>Nome:</b> Marcos, 42 anos, interior de SP</li>
-    <li><b>Situação:</b> Motorista, tem garagem, viu vizinho montando móveis e ficou curioso</li>
-    <li><b>Sonho:</b> Renda extra fazendo o que gosta nas horas vagas</li>
-    <li><b>Medo:</b> Gastar e não conseguir executar, perder dinheiro</li>
-    <li><b>Frase que pensa:</b> "Se eu tivesse um guia simples, eu faria isso facilmente"</li>
-  </ul>` },
-};
-
-// ════════════ NAVEGAÇÃO ════════════
-function nav(n) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
-  document.getElementById('s' + n).classList.add('on');
-  document.querySelectorAll('.stp').forEach(s => s.classList.remove('active'));
-  document.getElementById('st' + n).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-function mkDone(n) {
-  const e = document.getElementById('st' + n);
-  e.classList.remove('active');
-  e.classList.add('done');
-  e.querySelector('.stp-n').textContent = '✓';
+function show(id) {
+  PAGES.forEach(p => document.getElementById(p).style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// ════════════ PASSO 1 — SCANNER ════════════
-function scan() {
-  const nicho = document.getElementById('nichoSel').value;
-  const kw = document.getElementById('kwInput').value.toLowerCase();
-  const onlyHot = document.getElementById('chkHot').checked;
-  load('Buscando produtos de referência...', 'Filtrando banco de ideias por nicho');
-
-  setTimeout(() => {
-    unload();
-    let res = [];
-    if (nicho && ADS[nicho]) res = ADS[nicho];
-    else Object.values(ADS).forEach(a => res.push(...a));
-    if (kw) res = res.filter(a => a.brand.toLowerCase().includes(kw) || a.text.toLowerCase().includes(kw) || a.nicho.includes(kw));
-    if (onlyHot) res = res.filter(a => a.hot);
-
-    document.getElementById('scanLabel').textContent = `${res.length} produto(s) de referência encontrado(s)`;
-    document.getElementById('adsGrid').innerHTML = res.length ? res.map(a => `
-      <div class="adcard" id="ac${a.id}" onclick="pickAd(${a.id})">
-        ${a.hot ? '<div class="badge hot">🔥 EM ALTA</div>' : '<div class="badge">EXEMPLO</div>'}
-        <div class="adcard-top">
-          <div class="av">${a.av}</div>
-          <div>
-            <div class="adcard-brand">${a.brand}</div>
-            <div class="adcard-meta">${a.price} → de ${a.old}</div>
-          </div>
-        </div>
-        <div class="adcard-text">${a.text}</div>
-        <div class="adcard-stats">
-          <span>💰 <b>${a.price}</b></span>
-          <span>🛡️ <b>${a.gar}</b></span>
-          <span style="color:var(--muted2);font-size:10px">⚠️ Exemplo</span>
-        </div>
-      </div>`).join('') : '<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--muted)">Nenhum produto encontrado com esses filtros.</div>';
-
-    document.getElementById('scanOut').style.display = 'block';
-    toast('Banco de ideias carregado!', `${res.length} referências encontradas`);
-  }, 800);
+function goHome() {
+  copyReady = false; mockReady = false; criReady = false;
+  copyText = ''; lpHTML = ''; qzHTML = ''; lpBlob = null; qzBlob = null;
+  criData = []; fmt = null; brief = {};
+  // Reset buttons
+  ['btnGC','btnGM','btnGCri','btnFmt'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.disabled = (id !== 'btnGC');
+  });
+  document.getElementById('btnGM').disabled = true;
+  document.getElementById('btnGCri').disabled = true;
+  document.getElementById('btnIr').disabled = true;
+  document.getElementById('copyWrap').style.display = 'none';
+  document.getElementById('mockWrap').style.display = 'none';
+  document.getElementById('criWrap').style.display = 'none';
+  document.getElementById('mockDiv').style.display = 'none';
+  document.getElementById('criDiv').style.display = 'none';
+  document.getElementById('shareLPBox').style.display = 'none';
+  document.getElementById('fLP').classList.remove('sel');
+  document.getElementById('fQZ').classList.remove('sel');
+  show('home');
 }
 
-function pickAd(id) {
-  document.querySelectorAll('.adcard').forEach(c => c.classList.remove('sel'));
-  document.getElementById('ac' + id).classList.add('sel');
-  let found = null;
-  Object.values(ADS).forEach(arr => { const f = arr.find(a => a.id === id); if (f) found = f; });
-  _pickedAd = found;
-  document.getElementById('btnSalvar').disabled = false;
+function goIdeias() { renderNichos(); renderProds('all'); show('pgIdeias'); }
+function goZero() { clearBrief(); document.getElementById('briefNotice').textContent = 'Preencha os dados do seu produto do zero.'; document.getElementById('briefBack').onclick = ()=>show('home'); show('pgBriefing'); }
+
+function briefGoBack() { show('home'); }
+
+// ══════════════════════════════════════════
+// BANCO DE IDEIAS
+// ══════════════════════════════════════════
+const NICHOS = [
+  {k:'all', icon:'🔍', name:'Todos', count:27},
+  {k:'fitness', icon:'💪', name:'Fitness', count:3},
+  {k:'culinaria', icon:'🍳', name:'Culinária', count:3},
+  {k:'marcenaria', icon:'🪵', name:'Marcenaria', count:3},
+  {k:'financas', icon:'💰', name:'Finanças', count:3},
+  {k:'ia', icon:'🤖', name:'IA & Digital', count:3},
+  {k:'saude', icon:'❤️', name:'Saúde', count:3},
+  {k:'pet', icon:'🐾', name:'Pets', count:2},
+  {k:'beleza', icon:'💄', name:'Beleza', count:2},
+  {k:'espirit', icon:'🌟', name:'Espiritualidade', count:2},
+  {k:'direitos', icon:'⚖️', name:'Direitos', count:2},
+];
+
+const PRODS = [
+  // FITNESS
+  {id:1, nicho:'fitness', hot:true, nome:'Treino Inteligente', formato:'Mini Curso', preco:'R$ 29', precoOld:'R$ 97', desc:'Treinos de 45min para academia lotada — sem esperar máquina, sem enrolar. Método de alta intensidade adaptado para qualquer nível.', dor:'Academia lotada atrapalha o treino e tira a motivação', desejo:'Ter resultado real sem depender de horário ou equipamento', b1:'Plano Alimentar Simples 21 dias', b2:'Guia de Suplementação Básica', b3:'Treino para Viagem (sem academia)', gar:'7 dias', avatar:'Homens e mulheres de 25-40 anos que frequentam academia'},
+  {id:2, nicho:'fitness', hot:true, nome:'Glúteos & Shape Feminino', formato:'Protocolo / PDF', preco:'R$ 37', precoOld:'R$ 127', desc:'Protocolo feminino de 8 semanas focado em glúteos e definição. Treinos de 30min que funcionam em casa ou academia.', dor:'Treina há meses sem ver resultado nos glúteos', desejo:'Ter shape definido e glúteos avantajados em 60 dias', b1:'Cardápio Anti-Inchaço 7 dias', b2:'Guia de Roupas que Valorizam o Shape', b3:'Checklist Semanal de Evolução', gar:'7 dias', avatar:'Mulheres de 20-40 anos que treinam mas não veem resultado'},
+  {id:3, nicho:'fitness', hot:false, nome:'Homem em Forma 40+', formato:'Ebook / PDF', preco:'R$ 37', precoOld:'R$ 127', desc:'Para homens acima de 40 que perderam o ritmo. Treinos adaptados à testosterona em queda, com foco em força e eliminação de barriga.', dor:'Não tem mais o mesmo resultado que tinha aos 30', desejo:'Voltar a ter disposição, força e corpo definido', b1:'Guia de Alimentação para Hipertrofia 40+', b2:'Suplementos Naturais para Testosterona', b3:'Treino Express 20min/dia', gar:'7 dias', avatar:'Homens de 40-55 anos que querem voltar a se cuidar'},
+  // CULINÁRIA
+  {id:4, nicho:'culinaria', hot:true, nome:'A Cozinha que Emagrece', formato:'Ebook / PDF', preco:'R$ 27', precoOld:'R$ 97', desc:'17 receitas que aceleram o metabolismo e eliminam barriga sem passar fome. Fáceis, rápidas e com ingredientes de mercado.', dor:'Faz dieta, sofre, não consegue manter e engorda tudo de volta', desejo:'Emagrecer de vez sem sacrifício', b1:'Cardápio Semanal Anti-Inflamatório', b2:'Lista de Compras Saudável por R$150', b3:'Receitas de Lanche sem Culpa', gar:'7 dias', avatar:'Mulheres de 30-55 anos que querem emagrecer sem dieta radical'},
+  {id:5, nicho:'culinaria', hot:true, nome:'Doces que Vendem', formato:'Receituário / Protocolo', preco:'R$ 37', precoOld:'R$ 127', desc:'50 receitas de doces gourmet para vender no WhatsApp. Custo de R$3, venda por R$15. Com precificação e embalagem inclusa.', dor:'Quer renda extra mas não tem dinheiro para investir', desejo:'Ganhar dinheiro fazendo doces em casa', b1:'Calculadora de Custo e Lucro', b2:'Templates de Cardápio para WhatsApp', b3:'Script de Venda para Encomendas', gar:'7 dias', avatar:'Mulheres que gostam de cozinhar e querem renda extra'},
+  {id:6, nicho:'culinaria', hot:false, nome:'Air Fryer Master', formato:'Ebook / PDF', preco:'R$ 19', precoOld:'R$ 67', desc:'+200 receitas exclusivas para Air Fryer: frango crocante, sobremesas, fit. Saudáveis, rápidas e com tempo e temperatura exatos.', dor:'Comprou a Air Fryer e só faz frango', desejo:'Aproveitar ao máximo o aparelho e variar as refeições', b1:'Guia de Temperatura por Alimento', b2:'Receitas Fitness para Air Fryer', b3:'Receitas Doces e Sobremesas', gar:'7 dias', avatar:'Pessoas que compraram Air Fryer e usam pouco'},
+  // MARCENARIA
+  {id:7, nicho:'marcenaria', hot:true, nome:'Projetos Marceneiro Pro', formato:'App / Ferramenta Digital', preco:'R$ 37', precoOld:'R$ 197', desc:'+6.000 projetos de móveis com medidas exatas, lista de materiais e passo a passo. Estantes, mesas, cadeiras e decoração.', dor:'Quer fazer móveis mas não sabe por onde começar', desejo:'Ter renda extra com marcenaria em casa', b1:'Mini Curso Ferramentas Essenciais', b2:'Calculadora de Lucro Automática', b3:'Atualizações Mensais Gratuitas', gar:'7 dias', avatar:'Homens de 30-55 anos com garagem e interesse em DIY'},
+  {id:8, nicho:'marcenaria', hot:false, nome:'Carpintaria do Zero', formato:'Mini Curso', preco:'R$ 27', precoOld:'R$ 97', desc:'Do iniciante ao profissional: projetos passo a passo com vídeo, lista de materiais e medidas para montar em casa.', dor:'Não tem conhecimento técnico e tem medo de errar', desejo:'Aprender carpintaria sozinho e economizar em móveis', b1:'Guia de Ferramentas para Iniciantes', b2:'Lista de Fornecedores Baratos', b3:'Suporte por 30 dias', gar:'7 dias', avatar:'Iniciantes em marcenaria que querem começar do zero'},
+  {id:9, nicho:'marcenaria', hot:true, nome:'Oficina Lucrativa', formato:'Ebook / PDF', preco:'R$ 47', precoOld:'R$ 147', desc:'Como faturar R$3.000/mês na garagem vendendo móveis sob encomenda. Projetos prontos + precificação + como encontrar clientes.', dor:'Quer empreender mas não sabe como virar renda', desejo:'Ter negócio próprio fazendo o que gosta', b1:'Scripts de Venda para WhatsApp', b2:'Planilha de Precificação', b3:'Grupo VIP de Marceneiros', gar:'7 dias', avatar:'Marceneiros amadores que querem profissionalizar'},
+  // FINANÇAS
+  {id:10, nicho:'financas', hot:true, nome:'Zere Dívidas em 90 Dias', formato:'Ebook / PDF', preco:'R$ 27', precoOld:'R$ 97', desc:'Método passo a passo para sair das dívidas sem empréstimo e sem cortar tudo que você gosta.', dor:'Endividado, pagando mínimo do cartão e sem saída', desejo:'Ficar no zero e ter dinheiro sobrando no fim do mês', b1:'Planilha de Controle Financeiro', b2:'Guia de Negociação com Bancos', b3:'Método do Envelope Digital', gar:'7 dias', avatar:'Pessoas endividadas que querem controle financeiro'},
+  {id:11, nicho:'financas', hot:true, nome:'Primeira Renda Extra Online', formato:'Checklist / Guia', preco:'R$ 17', precoOld:'R$ 47', desc:'Como ganhar os primeiros R$500 extras por mês online em 30 dias, mesmo sem experiência. 7 métodos testados.', dor:'Salário não cobre as contas e não sabe como ganhar mais', desejo:'Ter renda extra sem depender de emprego fixo', b1:'Lista de Plataformas para Começar Hoje', b2:'Scripts de Prospecção', b3:'Checklist dos Primeiros 30 dias', gar:'7 dias', avatar:'Brasileiros que precisam de renda extra urgente'},
+  {id:12, nicho:'financas', hot:false, nome:'Invista seu Primeiro R$100', formato:'Ebook / PDF', preco:'R$ 27', precoOld:'R$ 87', desc:'Guia direto ao ponto para quem nunca investiu. Como começar com pouco, onde colocar e como fazer o dinheiro trabalhar.', dor:'Quer investir mas tem medo de perder ou não entende nada', desejo:'Fazer o dinheiro render sem ser especialista', b1:'Planilha de Controle de Investimentos', b2:'Glossário Financeiro Simples', b3:'Simulador de Aposentadoria', gar:'7 dias', avatar:'Iniciantes em investimentos que querem começar com segurança'},
+  // IA & DIGITAL
+  {id:13, nicho:'ia', hot:true, nome:'ChatGPT para Iniciantes', formato:'Ebook / PDF', preco:'R$ 27', precoOld:'R$ 97', desc:'Como usar IA no dia a dia para trabalhar menos e ganhar mais. Do zero ao avançado em guia simples e prático.', dor:'Todo mundo fala de IA mas não sabe como usar de verdade', desejo:'Dominar a IA para se destacar no trabalho e negócios', b1:'100 Prompts Prontos para Usar Hoje', b2:'Guia de IA para Freelancers', b3:'Templates de Prompts para Vendas', gar:'7 dias', avatar:'Profissionais e empreendedores que querem usar IA'},
+  {id:14, nicho:'ia', hot:true, nome:'Canva Pro do Zero', formato:'Mini Curso', preco:'R$ 19', precoOld:'R$ 67', desc:'Do iniciante ao designer: como criar posts, logos, eBooks e apresentações profissionais no Canva sem pagar nada.', dor:'Gasta com designer ou entrega materiais feios', desejo:'Criar artes profissionais sozinho e economizar', b1:'+500 Templates Editáveis', b2:'Guia de Identidade Visual', b3:'Pack de Fontes e Cores Premium', gar:'7 dias', avatar:'Empreendedores e criadores de conteúdo iniciantes'},
+  {id:15, nicho:'ia', hot:true, nome:'Reels que Vendem', formato:'Checklist / Guia', preco:'R$ 37', precoOld:'R$ 127', desc:'Método para criar Reels virais que atraem clientes mesmo com 0 seguidores. Roteiro, edição e call to action que converte.', dor:'Posta todo dia e ninguém vê, ninguém compra', desejo:'Ter Reels virais que geram vendas automáticas', b1:'30 Ganchos de Reel para Copiar', b2:'Guia de Edição no CapCut', b3:'Calendário de Conteúdo 30 dias', gar:'7 dias', avatar:'Empreendedores digitais que vendem pelas redes sociais'},
+  // SAÚDE
+  {id:16, nicho:'saude', hot:true, nome:'Sono Profundo 21 dias', formato:'Protocolo / PDF', preco:'R$ 27', precoOld:'R$ 97', desc:'Protocolo de 21 dias para dormir melhor, acordar disposto e acabar com a insônia sem remédio. Baseado em ciência do sono.', dor:'Dorme mal, acorda cansado e vive sem energia', desejo:'Dormir profundamente e acordar com disposição todo dia', b1:'Rotina Noturna de 20min', b2:'Guia de Alimentação pro Sono', b3:'Meditação Guiada para Dormir', gar:'7 dias', avatar:'Adultos de 30-55 anos com insônia ou sono ruim'},
+  {id:17, nicho:'saude', hot:true, nome:'Ansiedade Zero', formato:'Protocolo / PDF', preco:'R$ 37', precoOld:'R$ 127', desc:'Técnicas práticas para controlar a ansiedade no dia a dia sem depender de medicamento. Método validado por psicólogos.', dor:'Ansiedade paralisa, impede de dormir e atrapalha tudo', desejo:'Ter calma e controle emocional no dia a dia', b1:'Diário de Emoções Guiado', b2:'7 Técnicas de Respiração Anti-Pânico', b3:'Áudios de Meditação Guiada', gar:'7 dias', avatar:'Pessoas que sofrem com ansiedade e querem controle'},
+  {id:18, nicho:'saude', hot:false, nome:'Detox Digital 7 Dias', formato:'Checklist / Guia', preco:'R$ 17', precoOld:'R$ 47', desc:'Como largar o celular, descansar a mente e voltar a focar no que importa. Plano prático de 7 dias com desafios diários.', dor:'Viciado no celular, sem foco e com sensação de vazio', desejo:'Retomar controle da atenção e ter mais presença', b1:'Agenda de Desafios Diários', b2:'Guia de Apps que Ajudam no Detox', b3:'Rotina Matinal Produtiva', gar:'7 dias', avatar:'Pessoas que querem reduzir o uso do celular'},
+  // PETS
+  {id:19, nicho:'pet', hot:true, nome:'Cachorros Obedientes', formato:'Ebook / PDF', preco:'R$ 37', precoOld:'R$ 127', desc:'Como adestrar seu cão em casa em 21 dias sem rédea de correção nem gritar. Método positivo para qualquer raça.', dor:'Cachorro desobedece, late demais e destrói a casa', desejo:'Ter um cachorro educado sem estresse', b1:'Fichas de Treino por Comando', b2:'Guia de Linguagem Corporal Canina', b3:'Cardápio de Petiscos Saudáveis', gar:'7 dias', avatar:'Tutores de cães que têm problemas de comportamento'},
+  {id:20, nicho:'pet', hot:false, nome:'Receitas Naturais para Pets', formato:'Receituário / Protocolo', preco:'R$ 27', precoOld:'R$ 87', desc:'+80 receitas de comida natural para cães e gatos. Mais saúde, menos ração ultraprocessada e economia de 40%.', dor:'Preocupado com a saúde do pet mas não sabe começar', desejo:'Dar alimentação saudável e economizar com ração', b1:'Tabela de Alimentos Permitidos/Proibidos', b2:'Calculadora de Porção por Peso', b3:'Plano Alimentar Semanal', gar:'7 dias', avatar:'Tutores de pets preocupados com saúde e custo'},
+  // BELEZA
+  {id:21, nicho:'beleza', hot:true, nome:'Skincare Simples', formato:'Checklist / Guia', preco:'R$ 27', precoOld:'R$ 97', desc:'Rotina de skincare para pele brasileira com produtos de farmácia. Menos de R$80 por mês para ter pele hidratada e sem acne.', dor:'Gasta fortuna em produtos que não funcionam', desejo:'Ter pele bonita com rotina simples e barata', b1:'Lista de Produtos de Farmácia que Funcionam', b2:'Rotina Manhã e Noite por Tipo de Pele', b3:'Guia Anti-Manchas e Anti-Acne', gar:'7 dias', avatar:'Mulheres de 20-45 anos que querem skincare acessível'},
+  {id:22, nicho:'beleza', hot:false, nome:'Maquiagem do Zero', formato:'Mini Curso', preco:'R$ 29', precoOld:'R$ 97', desc:'Do "não sei nem passar base" ao look perfeito em 20 minutos. Método para iniciantes com produtos acessíveis.', dor:'Não sabe se maquiar e se sente insegura', desejo:'Aprender maquiagem e se sentir linda todo dia', b1:'Lista de Maquiagem Essencial por R$150', b2:'Guia por Ocasião', b3:'Técnicas de Contorno', gar:'7 dias', avatar:'Mulheres iniciantes em maquiagem'},
+  // ESPIRITUALIDADE
+  {id:23, nicho:'espirit', hot:false, nome:'Cartilha da Sabedoria Divina', formato:'Ebook / PDF', preco:'R$ 37', precoOld:'R$ 127', desc:'Mensagens e reflexões para quem busca paz interior, propósito e conexão espiritual no dia a dia corrido.', dor:'Sente vazio, sem propósito e desconectado de si mesmo', desejo:'Ter paz interior e clareza sobre o caminho certo', b1:'Diário de Gratidão 30 dias', b2:'Meditações Guiadas em Áudio', b3:'Guia de Orações para Cada Situação', gar:'7 dias', avatar:'Pessoas espiritualizadas que buscam paz e propósito'},
+  {id:24, nicho:'espirit', hot:true, nome:'Manifestação na Prática', formato:'Protocolo / PDF', preco:'R$ 27', precoOld:'R$ 97', desc:'Como usar a lei da atração de forma prática para atrair oportunidades, relacionamentos e prosperidade.', dor:'Quer mudar de vida mas não sabe como sair do lugar', desejo:'Atrair prosperidade e realizar seus sonhos', b1:'Rotina de Manifestação 21 dias', b2:'Diário de Visão e Metas', b3:'Áudios de Afirmação Positiva', gar:'7 dias', avatar:'Pessoas que acreditam em desenvolvimento pessoal'},
+  // DIREITOS
+  {id:25, nicho:'direitos', hot:true, nome:'Manual do Passageiro Inteligente', formato:'Ebook / PDF', preco:'R$ 27', precoOld:'R$ 87', desc:'Saiba seus direitos e receba indenização por voo atrasado, cancelado ou bagagem extraviada — sem advogado.', dor:'Teve voo cancelado mas não sabe que tem direito a indenização', desejo:'Receber o dinheiro que tem direito sem precisar de advogado', b1:'Modelos de Reclamação Prontos', b2:'Guia de Sites para Abrir Reclamação', b3:'Calculadora de Indenização', gar:'7 dias', avatar:'Passageiros que viajam e querem conhecer seus direitos'},
+  {id:26, nicho:'direitos', hot:false, nome:'Guia do Consumidor Esperto', formato:'Ebook / PDF', preco:'R$ 19', precoOld:'R$ 67', desc:'Guia completo para não ser enganado em compras, contratos e serviços. Como reclamar, cancelar e ser ressarcido.', dor:'Já foi enganado em compra e não soube como agir', desejo:'Conhecer seus direitos e nunca ser passado para trás', b1:'Templates de E-mail para Reclamação', b2:'Lista de Órgãos de Defesa', b3:'Modelos de Petição Simples', gar:'7 dias', avatar:'Consumidores que querem se proteger'},
+  // IMÓVEIS
+  {id:27, nicho:'imoveis', hot:false, nome:'DescreveAI para Corretores', formato:'Checklist / Guia', preco:'R$ 47', precoOld:'R$ 197', desc:'Guia de como usar IA para escrever descrições profissionais de imóveis em segundos. Corretores vendem mais rápido.', dor:'Perde tempo escrevendo descrições e os textos ficam fracos', desejo:'Ter descrições profissionais sem esforço e fechar mais', b1:'100 Títulos de Anúncio que Convertem', b2:'Guia de Fotografia com Celular', b3:'Scripts de WhatsApp para Corretores', gar:'7 dias', avatar:'Corretores de imóveis que querem vender mais rápido'},
+];
+
+function renderNichos() {
+  document.getElementById('nichoGrid').innerHTML = NICHOS.map(n => `
+    <div class="nicho-card ${_selNicho===n.k?'sel':''}" onclick="filterNicho('${n.k}')">
+      <div class="nicho-icon">${n.icon}</div>
+      <div class="nicho-name">${n.name}</div>
+      <div class="nicho-count">${n.count} produtos</div>
+    </div>`).join('');
 }
 
-function salvar() {
-  if (!_pickedAd) return;
-  selAd = _pickedAd;
-  load('Carregando referência...', `Preenchendo briefing com dados de "${selAd.brand}"`);
-  setTimeout(() => {
-    unload();
-    cred -= 2; updCred();
-    document.getElementById('b2name').textContent = selAd.brand;
-    document.getElementById('b2meta').textContent = `${selAd.price} (de ${selAd.old}) • Garantia ${selAd.gar} • Nicho: ${selAd.nicho}`;
-    // Preenche briefing completo com dados do produto
-    brief = {
-      nome: selAd.brand,
-      nicho: selAd.nicho,
-      preco: selAd.price,
-      precoOld: selAd.old,
-      desc: selAd.text,
-      dor: selAd.dor,
-      desejo: selAd.desejo,
-      b1: selAd.b1,
-      b2: selAd.b2,
-      b3: selAd.b3,
-      gar: selAd.gar,
-    };
-    mkDone(1);
-    nav(2);
-    toast('Referência carregada!', 'Briefing pré-preenchido. Ajuste antes de gerar.');
-  }, 800);
+function filterNicho(k) {
+  _selNicho = k;
+  renderNichos();
+  renderProds(k);
 }
 
-// ════════════ PASSO 2 — ANÁLISE ════════════
-function analyze(k) {
-  if (!selAd) { toast('Atenção', 'Volte e salve um produto primeiro'); return; }
-  load('Analisando com IA...', 'Processando dados do anúncio selecionado');
-  setTimeout(() => {
-    unload();
-    cred -= 2; updCred();
-    const d = ANA_DATA[k];
-    const box = document.getElementById('anaBox');
-    box.innerHTML = `<h4>${d.t}</h4>${d.c}`;
-    box.classList.add('on');
-    toast('Análise pronta!', '2 créditos usados');
-  }, 1400);
+function renderProds(nicho) {
+  const list = nicho === 'all' ? PRODS : PRODS.filter(p => p.nicho === nicho);
+  document.getElementById('prodGrid').innerHTML = list.map(p => `
+    <div class="pcard" onclick="useProd(${p.id})">
+      ${p.hot ? '<div class="pcard-hot">🔥 EM ALTA</div>' : ''}
+      <div class="pcard-name">${p.nome}</div>
+      <div class="pcard-price">${p.preco} <span style="text-decoration:line-through;opacity:.5;font-size:10px">${p.precoOld}</span></div>
+      <div class="pcard-desc">${p.desc}</div>
+      <div class="pcard-tags">
+        <div class="ptag">${p.formato}</div>
+        <div class="ptag">🛡️ ${p.gar}</div>
+      </div>
+    </div>`).join('');
 }
 
-// ════════════ CRIAR DO ZERO ════════════
-function criarDoZero() {
-  selAd = null; _pickedAd = null;
-  brief = { nome:'', nicho:'', preco:'R$ 37', precoOld:'R$ 197', desc:'', dor:'', desejo:'', b1:'', b2:'', b3:'', gar:'7 dias' };
-  mkDone(1); nav(3);
-  toast('Modo criação livre!', 'Preencha o briefing com seu produto');
+function useProd(id) {
+  const p = PRODS.find(x => x.id === id);
+  if (!p) return;
+  brief = { nome:p.nome, nicho:p.nicho, formato:p.formato, preco:p.preco, precoOld:p.precoOld, desc:p.desc, dor:p.dor, desejo:p.desejo, b1:p.b1, b2:p.b2, b3:p.b3, gar:p.gar, avatar:p.avatar };
+  // Fill briefing form
+  document.getElementById('bNome').value = p.nome;
+  // Set select by matching text
+  const nichoSel = document.getElementById('bNicho');
+  for(let o of nichoSel.options) if(o.value.toLowerCase().includes(p.nicho.toLowerCase().split('/')[0].trim().split('&')[0].trim())) { nichoSel.value = o.value; break; }
+  const fmtSel = document.getElementById('bFormato');
+  for(let o of fmtSel.options) if(o.value === p.formato) { fmtSel.value = o.value; break; }
+  document.getElementById('bPreco').value = p.preco;
+  document.getElementById('bPrecoOld').value = p.precoOld;
+  document.getElementById('bDesc').value = p.desc;
+  document.getElementById('bDor').value = p.dor;
+  document.getElementById('bDesejo').value = p.desejo;
+  document.getElementById('bB1').value = p.b1;
+  document.getElementById('bB2').value = p.b2;
+  document.getElementById('bB3').value = p.b3;
+  document.getElementById('bGar').value = p.gar;
+  document.getElementById('bAvatar').value = p.avatar;
+  document.getElementById('briefNotice').textContent = `Usando "${p.nome}" como referência. Ajuste os dados para o seu produto real antes de continuar.`;
+  document.getElementById('briefBack').onclick = ()=>show('pgIdeias');
+  show('pgBriefing');
+  toast('Referência carregada!', 'Ajuste os campos para o seu produto');
 }
 
-// ════════════ PASSO 3 — FORMATO ════════════
+// ══════════════════════════════════════════
+// BRIEFING
+// ══════════════════════════════════════════
+function saveBrief() {
+  const nome = document.getElementById('bNome').value.trim();
+  const nicho = document.getElementById('bNicho').value;
+  const preco = document.getElementById('bPreco').value.trim();
+  const desc = document.getElementById('bDesc').value.trim();
+  const dor = document.getElementById('bDor').value.trim();
+  const desejo = document.getElementById('bDesejo').value.trim();
+  if (!nome || !nicho || !preco || !desc || !dor || !desejo) {
+    toast('Campos obrigatórios!', 'Preencha nome, nicho, preço, descrição, dor e desejo');
+    return;
+  }
+  brief = {
+    nome, nicho,
+    formato: document.getElementById('bFormato').value,
+    preco,
+    precoOld: document.getElementById('bPrecoOld').value || 'R$ 197',
+    desc, dor, desejo,
+    b1: document.getElementById('bB1').value || 'Bônus 1',
+    b2: document.getElementById('bB2').value || 'Bônus 2',
+    b3: document.getElementById('bB3').value || 'Bônus 3',
+    gar: document.getElementById('bGar').value || '7 dias incondicional',
+    avatar: document.getElementById('bAvatar').value || '',
+  };
+  document.getElementById('fmtProdNome').textContent = brief.nome;
+  document.getElementById('fmtProdPreco').textContent = brief.preco + (brief.precoOld ? ` (de ${brief.precoOld})` : '');
+  show('pgFormato');
+  toast('Briefing salvo!', 'Agora escolha o formato');
+}
+
+function clearBrief() {
+  ['bNome','bPreco','bPrecoOld','bDesc','bDor','bDesejo','bB1','bB2','bB3','bAvatar'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('bNicho').value = '';
+  document.getElementById('bFormato').value = '';
+  document.getElementById('bGar').value = '7 dias incondicional';
+}
+
+// ══════════════════════════════════════════
+// FORMATO
+// ══════════════════════════════════════════
 function selFmt(f) {
   fmt = f;
-  document.getElementById('fLP').classList.toggle('sel', f === 'lp');
-  document.getElementById('fQZ').classList.toggle('sel', f === 'quiz');
+  document.getElementById('fLP').classList.toggle('sel', f==='lp');
+  document.getElementById('fQZ').classList.toggle('sel', f==='quiz');
   document.getElementById('btnFmt').disabled = false;
-  mkDone(3);
 }
 
-// ════════════ PASSO 4 — COPY ════════════
+function goGerar() {
+  if (!fmt) { toast('Selecione um formato', ''); return; }
+  document.getElementById('btnGC').disabled = false;
+  show('pgGerar');
+}
+
+// ══════════════════════════════════════════
+// COPY
+// ══════════════════════════════════════════
 async function genCopy() {
   const b = brief;
   document.getElementById('btnGC').disabled = true;
+  const box = document.getElementById('copyBox');
+  box.innerHTML = '';
   document.getElementById('copyWrap').style.display = 'block';
-  document.getElementById('copyBox').style.display = 'block';
-  document.getElementById('aiCur').style.display = 'inline-block';
-  document.getElementById('copyTxt').textContent = '';
+
+  const isCursor = `<span class="cursor-blink"></span>`;
+  box.innerHTML = isCursor;
 
   const prompt = `Você é o melhor copywriter de infoprodutos low ticket do Brasil.
-Crie uma página de vendas COMPLETA com 9 dobras para este produto:
+Crie uma página de vendas COMPLETA com 9 dobras para:
 
 PRODUTO: ${b.nome}
+FORMATO: ${b.formato||'Infoproduto digital'}
 NICHO: ${b.nicho}
 PREÇO: ${b.preco} (de ${b.precoOld})
 DESCRIÇÃO: ${b.desc}
 DOR DO CLIENTE: ${b.dor}
 DESEJO DO CLIENTE: ${b.desejo}
+AVATAR: ${b.avatar||'Não especificado'}
 BÔNUS 1: ${b.b1}
 BÔNUS 2: ${b.b2}
 BÔNUS 3: ${b.b3}
 GARANTIA: ${b.gar}
 
-Escreva com EXATAMENTE estes títulos:
+Use EXATAMENTE estes títulos:
 === DOBRA 1: HERO ===
 === DOBRA 2: CHECKLIST DE BENEFÍCIOS ===
 === DOBRA 3: AUTORIDADE ===
@@ -1041,356 +881,424 @@ Escreva com EXATAMENTE estes títulos:
 === DOBRA 8: GARANTIA ===
 === DOBRA 9: CTA FINAL ===
 
-Use linguagem coloquial brasileira, gatilhos emocionais fortes, urgência real. Retorne APENAS o texto das dobras, sem comentários.`;
+Linguagem coloquial brasileira, gatilhos emocionais, urgência real. Retorne APENAS o texto das dobras.`;
 
-  load('Gerando Copy com IA...', 'Escrevendo as 9 dobras da sua página');
-
+  load('Gerando Copy com IA...', 'Escrevendo as 9 dobras');
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] })
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({model:"claude-sonnet-4-20250514", max_tokens:1000, messages:[{role:"user",content:prompt}]})
     });
     unload();
     const data = await res.json();
-    const txt = data.content?.map(i => i.text || '').join('') || fbCopy(b);
-    await typeIt(document.getElementById('copyTxt'), txt, 3);
-    copyText = txt;
-  } catch (e) {
+    const txt = data.content?.map(i=>i.text||'').join('') || fbCopy(b);
+    box.innerHTML = '';
+    await typeIt(box, txt, 3);
+    copyText = box.innerText;
+  } catch(e) {
     unload();
     copyText = fbCopy(b);
-    await typeIt(document.getElementById('copyTxt'), copyText, 3);
+    box.innerHTML = '';
+    await typeIt(box, copyText, 2);
   }
-
-  document.getElementById('aiCur').style.display = 'none';
   document.getElementById('btnGC').disabled = false;
   document.getElementById('btnGM').disabled = false;
+  document.getElementById('btnGCri').disabled = false;
   copyReady = true;
-  cred -= 30; updCred();
-  checkP4();
-  toast('Copy pronta!', '9 dobras geradas com sucesso');
+  checkIr();
+  toast('Copy pronta!', 'Clique no texto para editar');
 }
 
-function cpCopy() {
-  navigator.clipboard?.writeText(copyText);
-  toast('Copiado!', 'Copy na área de transferência');
-}
-
-function editCopy() {
-  const box = document.getElementById('copyBox');
-  const isEditable = box.contentEditable === 'true';
-  box.contentEditable = isEditable ? 'false' : 'true';
-  if (!isEditable) {
-    box.style.borderColor = 'var(--gold)';
-    box.focus();
-    toast('Modo edição ativo', 'Edite o texto diretamente');
-  } else {
-    box.style.borderColor = 'var(--border)';
-    copyText = box.textContent;
-    toast('Salvo!', 'Edições aplicadas');
+async function typeIt(el, txt, d=4) {
+  el.textContent = '';
+  for (let i=0; i<txt.length; i++) {
+    el.textContent += txt[i];
+    if (i%6===0) await new Promise(r=>setTimeout(r,d));
   }
 }
 
-// ════════════ PASSO 4 — MOCKUPS REAIS (Canvas API) ════════════
-window._mockData = [];
+function cpCopy() { navigator.clipboard?.writeText(document.getElementById('copyBox').innerText); toast('Copiado!','Copy na área de transferência'); }
+function resetCopy() { copyReady=false; document.getElementById('copyWrap').style.display='none'; genCopy(); }
 
+// ══════════════════════════════════════════
+// MOCKUPS REAIS COM CANVAS
+// ══════════════════════════════════════════
 function genMockups() {
-  if (!copyReady) { toast('Atenção', 'Gere a copy primeiro'); return; }
-  document.getElementById('btnGM').disabled = true;
-  load('Gerando Mockups...', 'Desenhando imagens reais com Canvas');
   const b = brief;
+  load('Gerando Mockups...', 'Desenhando imagens PNG');
   const mocks = [
-    { label: b.nome || 'Produto Principal', emoji: '📦', accent: '#F5C842', bg1: '#1a1000', bg2: '#0a0800', tipo: 'PRODUTO PRINCIPAL' },
-    { label: b.b1 || 'Bônus 1', emoji: '🎓', accent: '#22c55e', bg1: '#001a0d', bg2: '#000f07', tipo: 'BÔNUS #1' },
-    { label: b.b2 || 'Bônus 2', emoji: '📊', accent: '#3b82f6', bg1: '#001020', bg2: '#000810', tipo: 'BÔNUS #2' },
-    { label: b.b3 || 'Bônus 3', emoji: '🔄', accent: '#a855f7', bg1: '#100020', bg2: '#080010', tipo: 'BÔNUS #3' },
-    { label: 'Pack Completo', emoji: '🎁', accent: '#f97316', bg1: '#1a0800', bg2: '#0a0400', tipo: 'PACK COMPLETO' },
+    {label:b.nome||'Produto Principal', emoji:'📦', accent:'#F5C842', bg:'#140e00', tipo:'PRODUTO PRINCIPAL'},
+    {label:b.b1||'Bônus 1', emoji:'🎓', accent:'#22c55e', bg:'#001408', tipo:'BÔNUS #1'},
+    {label:b.b2||'Bônus 2', emoji:'📊', accent:'#3b82f6', bg:'#001020', tipo:'BÔNUS #2'},
+    {label:b.b3||'Bônus 3', emoji:'🔄', accent:'#a855f7', bg:'#0e0018', tipo:'BÔNUS #3'},
+    {label:'Pack Completo', emoji:'🎁', accent:'#f97316', bg:'#140800', tipo:'PACK COMPLETO'},
   ];
-  setTimeout(() => {
+  setTimeout(()=>{
     unload();
-    document.getElementById('mockDiv').style.display = 'block';
-    document.getElementById('mockWrap').style.display = 'block';
-    document.getElementById('mockGrid').innerHTML = mocks.map((m, i) => `
-      <div class="mockcard">
-        <canvas id="mc${i}" width="300" height="300" style="width:100%;display:block;cursor:pointer" onclick="dlMockCanvas(${i})" title="Clique para baixar"></canvas>
-        <div class="mock-label">${m.label}</div>
-        <div class="mock-acts">
-          <div class="mock-act" onclick="dlMockCanvas(${i})">⬇️ Baixar PNG</div>
-          <div class="mock-act" onclick="editMockLabel(${i})">✏️ Editar nome</div>
+    document.getElementById('mockDiv').style.display='block';
+    document.getElementById('mockWrap').style.display='block';
+    document.getElementById('mockGrid').innerHTML = mocks.map((m,i)=>`
+      <div class="mock-card">
+        <canvas id="mc${i}" width="400" height="400" class="mock-canvas" onclick="dlMock(${i})" title="Clique para baixar PNG"></canvas>
+        <div class="mock-foot">
+          <div class="mock-name">${m.label}</div>
+          <div class="mock-btns">
+            <div class="mock-btn" onclick="dlMock(${i})">⬇️ Baixar PNG</div>
+            <div class="mock-btn" onclick="editMock(${i})">✏️ Renomear</div>
+          </div>
         </div>
       </div>`).join('');
-    mocks.forEach((m, i) => { window._mockData[i] = { m, b }; drawMockup(i, m, b); });
-    document.getElementById('btnGM').disabled = false;
-    mockReady = true; cred -= 15; updCred(); checkP4();
-    toast('5 mockups reais gerados!', 'Clique em ⬇️ Baixar PNG em cada um');
-  }, 600);
+    mocks.forEach((m,i)=>{ _mockData[i]={m,b}; drawMock(i,m,b); });
+    mockReady=true; checkIr();
+    toast('5 mockups prontos!','Clique em ⬇️ para baixar cada PNG');
+  }, 400);
 }
 
-function drawMockup(i, m, b) {
-  const canvas = document.getElementById('mc' + i);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = 300, H = 300;
-  // BG
-  const grad = ctx.createLinearGradient(0, 0, W, H);
-  grad.addColorStop(0, m.bg1); grad.addColorStop(1, m.bg2);
-  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
-  // Border
-  ctx.strokeStyle = m.accent; ctx.lineWidth = 3;
-  ctx.strokeRect(6, 6, W-12, H-12);
-  ctx.strokeStyle = m.accent+'44'; ctx.lineWidth = 1;
-  ctx.strokeRect(14, 14, W-28, H-28);
-  // Top tag
-  ctx.fillStyle = m.accent; ctx.fillRect(20, 20, W-40, 28);
-  ctx.fillStyle = '#000'; ctx.font = 'bold 11px monospace';
-  ctx.textAlign = 'center'; ctx.fillText(m.tipo, W/2, 39);
-  // Emoji
-  ctx.font = '68px serif'; ctx.textAlign = 'center';
-  ctx.fillText(m.emoji, W/2, 142);
-  // Divider
-  ctx.strokeStyle = m.accent+'55'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(30, 162); ctx.lineTo(W-30, 162); ctx.stroke();
-  // Name
-  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'center';
-  wrapText(ctx, m.label.toUpperCase(), W/2, 186, W-40, 19);
-  // Price badge
+function drawMock(i, m, b) {
+  const cv = document.getElementById('mc'+i);
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W=400, H=400;
+
+  // Background
+  ctx.fillStyle = m.bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Radial glow center
+  const glow = ctx.createRadialGradient(W/2,H/2,40,W/2,H/2,200);
+  glow.addColorStop(0, m.accent+'22');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0,0,W,H);
+
+  // Corner dots decoration
+  [[20,20],[W-20,20],[20,H-20],[W-20,H-20]].forEach(([x,y])=>{
+    ctx.beginPath(); ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fillStyle = m.accent+'66'; ctx.fill();
+  });
+
+  // Outer border
+  ctx.strokeStyle = m.accent+'99';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(10,10,W-20,H-20);
+
+  // Inner border
+  ctx.strokeStyle = m.accent+'33';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(18,18,W-36,H-36);
+
+  // Top pill tag
+  const tagW = 180, tagH = 30, tagX = (W-tagW)/2, tagY = 28;
   ctx.fillStyle = m.accent;
-  roundRect(ctx, (W-110)/2, 234, 110, 28, 14); ctx.fill();
-  ctx.fillStyle = '#000'; ctx.font = 'bold 14px monospace'; ctx.textAlign = 'center';
-  ctx.fillText(b.preco || 'R$ 37', W/2, 253);
-  // Footer
-  ctx.fillStyle = m.accent+'77'; ctx.font = '9px monospace'; ctx.textAlign = 'center';
-  ctx.fillText('ZAKOV • FÁBRICA DE LOW TICKET', W/2, H-10);
+  pillRect(ctx, tagX, tagY, tagW, tagH, 15);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.font = 'bold 12px "DM Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(m.tipo, W/2, tagY+20);
+
+  // Emoji large
+  ctx.font = '100px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(m.emoji, W/2, 192);
+
+  // Horizontal divider with dots
+  ctx.strokeStyle = m.accent+'55';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(40,210); ctx.lineTo(W-40,210); ctx.stroke();
+  ctx.beginPath(); ctx.arc(40,210,3,0,Math.PI*2);
+  ctx.fillStyle=m.accent+'99'; ctx.fill();
+  ctx.beginPath(); ctx.arc(W-40,210,3,0,Math.PI*2); ctx.fill();
+
+  // Product name
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 18px Syne, sans-serif';
+  ctx.textAlign = 'center';
+  wrapText(ctx, m.label.toUpperCase(), W/2, 240, W-60, 22);
+
+  // Price badge
+  const pw=140, ph=34, px=(W-pw)/2, py=300;
+  ctx.fillStyle = m.accent;
+  pillRect(ctx, px, py, pw, ph, 17);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.font = 'bold 16px "DM Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(b.preco||'R$ 37', W/2, py+22);
+
+  // Guarantee line
+  ctx.fillStyle = m.accent+'aa';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🛡️ GARANTIA ' + (b.gar||'7 DIAS').toUpperCase(), W/2, 356);
+
+  // Bottom branding
+  ctx.fillStyle = m.accent+'55';
+  ctx.font = '10px "DM Mono", monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('ZAKOV • FÁBRICA DE LOW TICKET', W/2, H-16);
 }
 
-function wrapText(ctx, text, x, y, maxW, lineH) {
-  const words = text.split(' '); let line = '';
-  for (let n = 0; n < words.length; n++) {
-    const test = line + words[n] + ' ';
-    if (ctx.measureText(test).width > maxW && n > 0) {
-      ctx.fillText(line.trim(), x, y); line = words[n] + ' '; y += lineH;
-    } else line = test;
+function pillRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function wrapText(ctx, txt, x, y, maxW, lh) {
+  const words = txt.split(' '); let line='';
+  for (let n=0; n<words.length; n++) {
+    const test = line+words[n]+' ';
+    if (ctx.measureText(test).width>maxW && n>0) {
+      ctx.fillText(line.trim(),x,y); line=words[n]+' '; y+=lh;
+    } else line=test;
   }
-  ctx.fillText(line.trim(), x, y);
+  ctx.fillText(line.trim(),x,y);
 }
 
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath(); ctx.moveTo(x+r, y);
-  ctx.lineTo(x+w-r, y); ctx.quadraticCurveTo(x+w, y, x+w, y+r);
-  ctx.lineTo(x+w, y+h-r); ctx.quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-  ctx.lineTo(x+r, y+h); ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-  ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y); ctx.closePath();
-}
-
-function dlMockCanvas(i) {
-  const canvas = document.getElementById('mc' + i);
-  if (!canvas) return;
-  const d = window._mockData[i];
-  const name = (d?.m?.label || 'mockup').toLowerCase().replace(/[^a-z0-9]/g, '-');
+function dlMock(i) {
+  const cv = document.getElementById('mc'+i);
+  if (!cv) return;
+  const d = _mockData[i];
+  const name = (d?.m?.label||'mockup').toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,30);
   const a = document.createElement('a');
-  a.download = `zakov-${name}.png`; a.href = canvas.toDataURL('image/png'); a.click();
-  toast('PNG baixado!', d?.m?.label || 'Mockup');
+  a.download = `zakov-${name}.png`;
+  a.href = cv.toDataURL('image/png');
+  a.click();
+  toast('PNG baixado!', d?.m?.label||'Mockup');
 }
 
-function editMockLabel(i) {
-  const d = window._mockData[i]; if (!d) return;
-  const novo = prompt('Novo nome para este mockup:', d.m.label);
+function editMock(i) {
+  const d = _mockData[i]; if(!d) return;
+  const novo = prompt('Novo nome:', d.m.label);
   if (!novo) return;
   d.m.label = novo;
-  document.querySelectorAll('.mockcard')[i].querySelector('.mock-label').textContent = novo;
-  drawMockup(i, d.m, d.b);
-  toast('Atualizado!', 'Mockup redesenhado');
+  document.querySelectorAll('.mock-name')[i].textContent = novo;
+  drawMock(i, d.m, d.b);
+  toast('Atualizado!','Mockup redesenhado');
 }
 
-function checkP4() {
-  if (copyReady || mockReady) document.getElementById('btnP4').disabled = false;
-}
-
-// ════════════ PASSO 5 — CRIATIVOS ════════════
+// ══════════════════════════════════════════
+// CRIATIVOS
+// ══════════════════════════════════════════
 async function genCreatives() {
   document.getElementById('btnGCri').disabled = true;
   const b = brief;
+  const prompt = `Crie 5 criativos para Facebook Ads do produto: ${b.nome}
+Nicho: ${b.nicho} | Preço: ${b.preco} (de ${b.precoOld})
+Dor: ${b.dor} | Desejo: ${b.desejo}
 
-  const prompt = `Crie 5 criativos para Facebook Ads e Instagram do produto: ${b.nome}
-Nicho: ${b.nicho} | Preço: ${b.preco} (de ${b.precoOld}) | Dor: ${b.dor} | Desejo: ${b.desejo}
+Retorne JSON array de 5 objetos:
+[{"tipo":"HOOK DE DOR","hook":"texto curto impactante","copy":"texto do anúncio até 3 linhas"}]
 
-Retorne JSON array com 5 objetos:
-[{"tipo":"HOOK DE DOR","hook":"texto do hook aqui","copy":"texto do anúncio aqui com até 3 linhas"}]
+Tipos EXATOS: HOOK DE DOR, PROVA SOCIAL, NÚMERO ESPECÍFICO, URGÊNCIA, CURIOSIDADE
+Linguagem coloquial brasileira. APENAS o JSON válido, sem markdown.`;
 
-Os 5 tipos DEVEM ser exatamente: HOOK DE DOR, PROVA SOCIAL, NÚMERO ESPECÍFICO, URGÊNCIA, CURIOSIDADE
-Linguagem coloquial brasileira. Retorne APENAS o JSON válido, sem markdown, sem explicações.`;
-
-  load('Gerando 5 Criativos...', 'IA criando hooks para os 5 ângulos de conversão');
-
+  load('Gerando Criativos...','IA criando 5 ângulos de anúncio');
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, messages: [{ role: "user", content: prompt }] })
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:prompt}]})
     });
     unload();
     const data = await res.json();
-    const raw = data.content?.map(i => i.text || '').join('') || '';
-    try { criData = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    const raw = data.content?.map(i=>i.text||'').join('')||'';
+    try { criData = JSON.parse(raw.replace(/```json|```/g,'').trim()); }
     catch { criData = fbCri(b); }
-  } catch (e) {
-    unload();
-    criData = fbCri(b);
-  }
+  } catch(e) { unload(); criData = fbCri(b); }
 
+  document.getElementById('criDiv').style.display='block';
+  document.getElementById('criWrap').style.display='block';
   document.getElementById('criOut').innerHTML = renderCri(criData);
-  document.getElementById('btnGCri').disabled = false;
-  criReady = true;
-  cred -= 20; updCred();
-  document.getElementById('btnP5').disabled = false;
-  toast('5 criativos prontos!', 'Prontos para Meta Ads, Instagram e TikTok');
+  document.getElementById('btnGCri').disabled=false;
+  criReady=true; checkIr();
+  toast('5 criativos prontos!','Prontos para Meta Ads');
 }
 
 function renderCri(data) {
-  return data.map((c, i) => `
+  return data.map((c,i)=>`
     <div class="cri-card">
       <div class="cri-top">
-        <span class="cri-tag">CRIATIVO ${i + 1} — ${c.tipo}</span>
-        <button class="btn btn-out" style="padding:5px 10px;font-size:11px" onclick="cpCri(${i})">📋 Copiar</button>
+        <span class="cri-tag">CRIATIVO ${i+1} — ${c.tipo}</span>
+        <button class="topbtn" onclick="cpCri(${i})">📋 Copiar</button>
       </div>
       <div class="cri-hook">${c.hook}</div>
       <div class="cri-copy">${c.copy}</div>
     </div>`).join('');
 }
 
-function cpCri(i) {
-  navigator.clipboard?.writeText(`${criData[i].hook}\n\n${criData[i].copy}`);
-  toast('Copiado!', 'Criativo na área de transferência');
+function cpCri(i) { navigator.clipboard?.writeText(`${criData[i].hook}\n\n${criData[i].copy}`); toast('Copiado!','Criativo copiado'); }
+
+function checkIr() {
+  if (copyReady || mockReady || criReady) document.getElementById('btnIr').disabled = false;
 }
 
-// ════════════ PASSO 6 — RESULTADO ════════════
-function buildResult() {
-  load('Montando Página Final...', 'Compilando LP com copy e estrutura visual');
-  setTimeout(() => {
+// ══════════════════════════════════════════
+// RESULTADO FINAL
+// ══════════════════════════════════════════
+function goResultado() {
+  load('Montando LP...','Compilando sua página de vendas');
+  setTimeout(()=>{
     unload();
-    lpHTML = buildLP(brief, copyText || fbCopy(brief));
-    const blob = new Blob([lpHTML], { type: 'text/html' });
+    lpHTML = buildLP(brief, document.getElementById('copyBox').innerText || copyText || fbCopy(brief));
+    const blob = new Blob([lpHTML],{type:'text/html'});
     lpBlob = URL.createObjectURL(blob);
     document.getElementById('ifrLP').src = lpBlob;
-    document.getElementById('puLP').textContent = `zakov.app/p/${slug()}`;
+    document.getElementById('puLP').textContent = `zakov • ${brief.nome}`;
     document.getElementById('slLP').textContent = lpBlob;
     if (criReady) document.getElementById('criOutFinal').innerHTML = renderCri(criData);
-    mkDone(5); mkDone(6);
-    nav(6);
-    cred -= 10; updCred();
-    // ── SALVAR NA BIBLIOTECA ──
     saveToLib();
-    toast('Página pronta!', 'Salvo em Meus Produtos 📦');
-  }, 1300);
+    show('pgResultado');
+    toast('Página pronta!','Salva em Meus Produtos');
+  }, 1000);
 }
 
-// ════════════ QUIZ ════════════
+// ── TABS ──
+function showTab(t) {
+  ['LP','QZ','Cri'].forEach(x=>{
+    document.getElementById('tab'+x).style.display = (t===x.toLowerCase())?'block':'none';
+    document.getElementById('t'+x).classList.toggle('on', t===x.toLowerCase());
+  });
+}
+// fix: map tab ids
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('tCri').id='tCri'; // already set
+});
+
+// ── DOWNLOAD / SHARE ──
+function dlLP() { if(!lpHTML){toast('Atenção','Gere a página primeiro');return;} dl(lpHTML, slug()+'-lp.html'); toast('Download!','LP baixando'); }
+function cpLP() { navigator.clipboard?.writeText(lpHTML); toast('HTML copiado!',''); }
+function shareLP() { const s=document.getElementById('shareLPBox'); s.style.display=s.style.display==='none'?'block':'none'; }
+function cpLPLink() { navigator.clipboard?.writeText(lpBlob||''); toast('Link copiado!',''); }
+function openLPLink() { if(lpBlob) window.open(lpBlob,'_blank'); }
+
+function dlQZ() { if(!qzHTML){toast('Atenção','Gere o quiz primeiro');return;} dl(qzHTML, slug()+'-quiz.html'); toast('Download!','Quiz baixando'); }
+function cpQZ() { navigator.clipboard?.writeText(qzHTML); toast('HTML copiado!',''); }
+function shareQZ() { const s=document.getElementById('shareQZBox'); s.style.display=s.style.display==='none'?'block':'none'; }
+function cpQZLink() { navigator.clipboard?.writeText(qzBlob||''); toast('Link copiado!',''); }
+function openQZLink() { if(qzBlob) window.open(qzBlob,'_blank'); }
+
+function dl(html,name){ const a=document.createElement('a'); a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html); a.download=name; a.click(); }
+function slug(){ return(brief.nome||'produto').toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25); }
+
+// ══════════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════════
 async function genQuiz() {
   const b = brief;
-  const prompt = `Crie 10 etapas de quiz funnel para o produto: ${b.nome} | Nicho: ${b.nicho} | Dor: ${b.dor} | Desejo: ${b.desejo}
-Retorne JSON array de 8 objetos (as últimas 2 etapas são captura e oferta, então crie 8 perguntas):
-[{"pergunta":"...","opcoes":["A","B","C","D"]}]
-APENAS o JSON válido, sem markdown.`;
-
-  load('Gerando Quiz Funnel...', 'IA criando fluxo interativo com 10 etapas');
+  load('Gerando Quiz...','IA criando 8 perguntas');
   let qs;
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 700, messages: [{ role: "user", content: prompt }] })
+    const res = await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,messages:[{role:"user",content:`Crie 8 perguntas para quiz funnel do produto: ${b.nome} | Dor: ${b.dor} | Desejo: ${b.desejo}\nRetorne JSON: [{"pergunta":"...","opcoes":["A","B","C","D"]}]\nAPENAS o JSON válido.`}]})
     });
     const data = await res.json();
-    const raw = data.content?.map(i => i.text || '').join('') || '';
-    try { qs = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
-    catch { qs = fbQuiz(b); }
-  } catch (e) { qs = fbQuiz(b); }
-
+    const raw = data.content?.map(i=>i.text||'').join('')||'';
+    try { qs=JSON.parse(raw.replace(/```json|```/g,'').trim()); } catch { qs=fbQuiz(b); }
+  } catch(e) { qs=fbQuiz(b); }
   unload();
-  qzHTML = buildQuiz(b, qs);
-  const blob = new Blob([qzHTML], { type: 'text/html' });
+  qzHTML = buildQuiz(b,qs);
+  const blob = new Blob([qzHTML],{type:'text/html'});
   qzBlob = URL.createObjectURL(blob);
-  document.getElementById('qzArea').style.display = 'none';
-  document.getElementById('qzShell').style.display = 'block';
-  document.getElementById('ifrQZ').src = qzBlob;
-  document.getElementById('puQZ').textContent = `zakov.app/quiz/${slug()}`;
-  document.getElementById('slQZ').textContent = qzBlob;
-  cred -= 50; updCred();
-  toast('Quiz pronto!', '10 etapas geradas. Visualize e compartilhe.');
+  document.getElementById('qzArea').style.display='none';
+  document.getElementById('qzShell').style.display='block';
+  document.getElementById('ifrQZ').src=qzBlob;
+  document.getElementById('puQZ').textContent=`zakov • quiz • ${b.nome}`;
+  document.getElementById('slQZ').textContent=qzBlob;
+  toast('Quiz pronto!','Visualize e compartilhe');
 }
 
-// ════════════ TABS ════════════
-function showTab(t) {
-  ['lp', 'quiz', 'cri'].forEach(x => {
-    const id = x === 'lp' ? 'LP' : x === 'quiz' ? 'QZ' : 'Cri';
-    document.getElementById('tab' + id).style.display = x === t ? 'block' : 'none';
-    document.getElementById('t' + id).classList.toggle('on', x === t);
-  });
+// ══════════════════════════════════════════
+// BIBLIOTECA
+// ══════════════════════════════════════════
+function saveToLib() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib')||'[]');
+  const entry = { id:Date.now(), nome:brief.nome||'Produto', nicho:brief.nicho||'—', preco:brief.preco||'—', data:new Date().toLocaleDateString('pt-BR'), hora:new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}), html:lpHTML, quizHtml:qzHTML||'' };
+  libs.unshift(entry);
+  if(libs.length>20) libs.pop();
+  localStorage.setItem('zakov_lib',JSON.stringify(libs));
+  updLibBadge();
 }
 
-// ════════════ DOWNLOAD / SHARE ════════════
-function dlLP() { if (!lpHTML) { toast('Atenção', 'Gere a LP primeiro'); return; } dl(lpHTML, slug() + '-lp.html'); toast('Download!', 'HTML da Landing Page baixando'); }
-function dlQZ() { if (!qzHTML) { toast('Atenção', 'Gere o Quiz primeiro'); return; } dl(qzHTML, slug() + '-quiz.html'); toast('Download!', 'HTML do Quiz baixando'); }
-function dl(html, name) { const a = document.createElement('a'); a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(html); a.download = name; a.click(); }
-function cpLP() { navigator.clipboard?.writeText(lpHTML); toast('HTML copiado!', 'Cole em qualquer editor ou hospedagem'); }
-function cpQZ() { navigator.clipboard?.writeText(qzHTML); toast('HTML copiado!', 'Cole em qualquer editor ou hospedagem'); }
-function toggleShare(t) {
-  const id = t === 'lp' ? 'shareLP' : 'shareQZ';
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-function cpLink(t) {
-  const u = t === 'lp' ? lpBlob : qzBlob;
-  if (u) { navigator.clipboard?.writeText(u); toast('Link copiado!', 'Cole no navegador para abrir'); }
-}
-function openLink(t) {
-  const u = t === 'lp' ? lpBlob : qzBlob;
-  if (u) window.open(u, '_blank');
-  else toast('Atenção', 'Gere o conteúdo primeiro');
-}
-function newProduct() {
-  if (!confirm('Iniciar novo produto? O progresso atual será perdido.')) return;
-  selAd = null; _pickedAd = null; fmt = null; brief = {};
-  lpHTML = ''; qzHTML = ''; lpBlob = null; qzBlob = null;
-  criData = []; copyText = ''; copyReady = false; mockReady = false; criReady = false;
-  document.querySelectorAll('.stp').forEach(s => { s.classList.remove('done', 'active'); });
-  document.getElementById('st1').classList.add('active');
-  document.querySelectorAll('.stp-n').forEach((n, i) => { if (!n.textContent.match(/[✓]/)) return; n.textContent = i + 1; });
-  document.getElementById('scanOut').style.display = 'none';
-  document.getElementById('anaBox').classList.remove('on');
-  document.getElementById('copyWrap').style.display = 'none';
-  document.getElementById('mockWrap').style.display = 'none';
-  document.getElementById('criOut').innerHTML = '';
-  document.getElementById('shareLP').style.display = 'none';
-  document.getElementById('shareQZ').style.display = 'none';
-  cred = 200; updCred();
-  nav(1);
-  toast('Resetado!', 'Pronto para um novo produto');
+function updLibBadge() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib')||'[]');
+  const el = document.getElementById('libCount');
+  if(libs.length>0){ el.style.display='inline'; el.textContent=libs.length; } else el.style.display='none';
 }
 
-// ════════════ LP HTML BUILDER ════════════
+function openLib() {
+  renderLib();
+  document.getElementById('libOverlay').classList.add('on');
+  document.getElementById('libPanel').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeLib() {
+  document.getElementById('libOverlay').classList.remove('on');
+  document.getElementById('libPanel').classList.remove('on');
+  document.body.style.overflow='';
+}
+function renderLib() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib')||'[]');
+  const body = document.getElementById('libBody');
+  if(!libs.length){ body.innerHTML='<div style="text-align:center;padding:40px 16px;color:var(--muted2)"><div style="font-size:36px;margin-bottom:10px">📭</div><div style="font-size:13px;font-weight:600;margin-bottom:5px">Nenhum produto ainda</div><div style="font-size:12px;line-height:1.6">Finalize um produto e ele aparece aqui.</div></div>'; return; }
+  body.innerHTML = `<div style="font-size:11px;color:var(--muted2);margin-bottom:12px;font-family:'DM Mono',monospace"><b style="color:var(--gold)">${libs.length}</b> produto(s) salvo(s)</div>` +
+    libs.map((p,i)=>`
+      <div class="lib-item">
+        <div class="lib-item-top">
+          <div><div class="lib-item-name">${p.nome}</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">${p.nicho} • ${p.preco}</div></div>
+          <div class="lib-item-date">${p.data} ${p.hora}</div>
+        </div>
+        <div class="lib-item-acts">
+          <div class="lib-act pri" onclick="dlLib(${i})">⬇️ LP</div>
+          ${p.quizHtml?`<div class="lib-act" onclick="dlQuizLib(${i})">📋 Quiz</div>`:''}
+          <div class="lib-act" onclick="previewLib(${i})">👁️ Ver</div>
+          <div class="lib-act" onclick="cpLib(${i})">📋 HTML</div>
+          <div class="lib-act del" onclick="delLib(${i})">🗑️</div>
+        </div>
+      </div>`).join('');
+}
+
+function dlLib(i){ const p=JSON.parse(localStorage.getItem('zakov_lib')||'[]')[i]; if(p?.html) dl(p.html,(p.nome||'lp').toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,20)+'-lp.html'); toast('Download!',p.nome); }
+function dlQuizLib(i){ const p=JSON.parse(localStorage.getItem('zakov_lib')||'[]')[i]; if(p?.quizHtml) dl(p.quizHtml,(p.nome||'quiz').toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,20)+'-quiz.html'); }
+function previewLib(i){ const p=JSON.parse(localStorage.getItem('zakov_lib')||'[]')[i]; if(p?.html){ const b=new Blob([p.html],{type:'text/html'}); window.open(URL.createObjectURL(b),'_blank'); }}
+function cpLib(i){ const p=JSON.parse(localStorage.getItem('zakov_lib')||'[]')[i]; if(p) navigator.clipboard?.writeText(p.html||''); toast('HTML copiado!',p?.nome||''); }
+function delLib(i){ if(!confirm('Remover?')) return; const libs=JSON.parse(localStorage.getItem('zakov_lib')||'[]'); libs.splice(i,1); localStorage.setItem('zakov_lib',JSON.stringify(libs)); updLibBadge(); renderLib(); }
+function clearLib(){ if(!confirm('Limpar tudo?')) return; localStorage.removeItem('zakov_lib'); updLibBadge(); renderLib(); }
+
+// ── COMO USAR ──
+function openTut(){ document.getElementById('tutOverlay').classList.add('on'); document.getElementById('tutPanel').style.transform='translateX(0)'; document.body.style.overflow='hidden'; }
+function closeTut(){ document.getElementById('tutOverlay').classList.remove('on'); document.getElementById('tutPanel').style.transform='translateX(-100%)'; document.body.style.overflow=''; }
+
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeLib(); closeTut(); }});
+
+// ══════════════════════════════════════════
+// LP HTML BUILDER
+// ══════════════════════════════════════════
 function buildLP(b, copy) {
   const rows = copy.split('\n');
-  const secs = []; let cur = { title: '', lines: [] };
-  rows.forEach(r => {
-    if (r.startsWith('=== DOBRA')) {
-      if (cur.lines.length) secs.push({ ...cur });
-      cur = { title: r.replace(/===/g, '').trim(), lines: [] };
-    } else cur.lines.push(r);
+  const secs=[]; let cur={title:'',lines:[]};
+  rows.forEach(r=>{
+    if(r.startsWith('=== DOBRA')){ if(cur.lines.length) secs.push({...cur}); cur={title:r.replace(/===/g,'').trim(),lines:[]}; }
+    else cur.lines.push(r);
   });
-  if (cur.lines.length) secs.push(cur);
+  if(cur.lines.length) secs.push(cur);
 
-  const secHTML = secs.map(s => `
-    <section style="margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid #eee">
-      <p style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:#bbb;margin-bottom:14px;font-family:monospace">${s.title}</p>
-      ${s.lines.filter(l => l.trim()).map(l => {
-    if (l.startsWith('**') && l.endsWith('**')) return `<h3 style="font-family:'Syne',sans-serif;font-size:clamp(19px,3.5vw,30px);font-weight:900;line-height:1.25;margin-bottom:12px;color:#111">${l.replace(/\*\*/g, '')}</h3>`;
-    if (l.startsWith('✅')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;font-size:15px;color:#222"><span style="flex-shrink:0;margin-top:1px">✅</span><span>${l.substring(1).trim()}</span></div>`;
-    if (l.startsWith('🎁')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;font-size:15px;color:#15803d"><span style="flex-shrink:0">🎁</span><b>${l.substring(1).trim()}</b></div>`;
-    if (l.startsWith('~~') && l.endsWith('~~')) return `<span style="text-decoration:line-through;color:#bbb;font-size:15px">${l.replace(/~~/g, '')}</span><br>`;
-    if (l.startsWith('🛡️')) return `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:13px 16px;font-size:14px;color:#166534;margin-top:8px">${l}</div>`;
-    return `<p style="font-size:16px;line-height:1.78;margin-bottom:10px;color:#333">${l}</p>`;
-  }).join('')}
+  const secHTML = secs.map(s=>`
+    <section style="margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid #eee">
+      <p style="font-size:10px;text-transform:uppercase;letter-spacing:3px;color:#bbb;margin-bottom:12px;font-family:monospace">${s.title}</p>
+      ${s.lines.filter(l=>l.trim()).map(l=>{
+        if(l.startsWith('**')&&l.endsWith('**')) return `<h3 style="font-family:Syne,sans-serif;font-size:clamp(19px,3.5vw,30px);font-weight:900;line-height:1.2;margin-bottom:12px;color:#111">${l.replace(/\*\*/g,'')}</h3>`;
+        if(l.startsWith('✅')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;font-size:15px"><span style="flex-shrink:0">✅</span><span style="color:#222">${l.substring(1).trim()}</span></div>`;
+        if(l.startsWith('🎁')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:8px;font-size:15px;color:#15803d"><span style="flex-shrink:0">🎁</span><b>${l.substring(1).trim()}</b></div>`;
+        if(l.startsWith('~~')&&l.endsWith('~~')) return `<span style="text-decoration:line-through;color:#bbb;font-size:15px">${l.replace(/~~/g,'')}</span><br>`;
+        if(l.startsWith('🛡️')) return `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 16px;font-size:14px;color:#166534;margin-top:8px">${l}</div>`;
+        return `<p style="font-size:16px;line-height:1.78;margin-bottom:10px;color:#333">${l}</p>`;
+      }).join('')}
     </section>`).join('');
 
   return `<!DOCTYPE html>
@@ -1401,33 +1309,31 @@ function buildLP(b, copy) {
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f8f8f8;color:#111;font-family:'DM Sans',sans-serif;line-height:1.6}
-.hero{background:#0f0f0f;color:#fff;padding:52px 24px;text-align:center}
+body{background:#f8f8f8;font-family:'DM Sans',sans-serif;color:#111}
+.hero{background:#111;color:#fff;padding:52px 22px;text-align:center}
 .hero h1{font-family:'Syne',sans-serif;font-size:clamp(22px,4.5vw,38px);font-weight:900;line-height:1.2;margin-bottom:16px}
 .hero h1 em{color:#F5C842;font-style:normal}
-.hero-sub{font-size:15px;color:#aaa;max-width:480px;margin:0 auto 20px}
+.hero p{color:#aaa;font-size:15px;max-width:480px;margin:0 auto 20px}
 .badges{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:440px;margin:0 auto}
-.badge{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+.badge{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:9px 13px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
 .body{max-width:660px;margin:0 auto;padding:44px 22px}
 .price-box{background:#fff;border:2px solid #F5C842;border-radius:14px;padding:28px;text-align:center;margin:28px 0;box-shadow:0 6px 30px rgba(0,0,0,.08)}
 .price-old{text-decoration:line-through;color:#bbb;font-size:15px;margin-bottom:4px}
-.price-new{font-size:56px;font-weight:900;color:#16a34a;line-height:1;font-family:'Syne',sans-serif}
+.price-new{font-size:56px;font-weight:900;color:#16a34a;line-height:1.1;font-family:'Syne',sans-serif}
 .price-sub{font-size:12px;color:#aaa;margin-top:6px}
-.cta{display:block;width:100%;background:#F5C842;color:#000;border:none;border-radius:12px;padding:19px;font-size:18px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;letter-spacing:.3px;margin-top:4px;animation:pp 2s infinite}
+.cta{display:block;width:100%;background:#F5C842;color:#000;border:none;border-radius:12px;padding:19px;font-size:18px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;animation:pp 2s infinite}
 @keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 16px rgba(245,200,66,0)}}
-.guar{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 18px;text-align:center;margin-top:16px;font-size:13px;color:#166534}
-footer{background:#0f0f0f;color:#444;font-size:11px;text-align:center;padding:22px;margin-top:40px}
+.guar{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;text-align:center;margin-top:14px;font-size:13px;color:#166534}
+footer{background:#111;color:#444;font-size:11px;text-align:center;padding:22px;margin-top:40px}
 </style>
 </head>
 <body>
 <div class="hero">
   <h1>🔥 <em>${b.nome}</em></h1>
-  <p class="hero-sub">${b.desc ? b.desc.substring(0, 100) + '...' : 'A solução completa que você estava esperando'}</p>
+  <p>${b.desc?b.desc.substring(0,120)+'...':''}</p>
   <div class="badges">
-    <div class="badge">✅ Acesso Imediato</div>
-    <div class="badge">✅ Garantia ${b.gar}</div>
-    <div class="badge">✅ ${(b.b1 || 'Bônus 1').split(' ').slice(0, 3).join(' ')}</div>
-    <div class="badge">✅ Suporte Incluído</div>
+    <div class="badge">✅ Acesso Imediato</div><div class="badge">✅ Garantia ${b.gar}</div>
+    <div class="badge">✅ ${(b.b1||'Bônus incluído').split(' ').slice(0,3).join(' ')}</div><div class="badge">✅ Suporte Incluído</div>
   </div>
 </div>
 <div class="body">
@@ -1438,69 +1344,58 @@ footer{background:#0f0f0f;color:#444;font-size:11px;text-align:center;padding:22
     <div class="price-sub">pagamento único • acesso imediato após pagamento</div>
   </div>
   <a class="cta" href="#">✅ QUERO ACESSO AGORA →</a>
-  <div class="guar">🛡️ Garantia de ${b.gar} — Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas.</div>
+  <div class="guar">🛡️ Garantia de ${b.gar} — Devolução de 100% do valor. Sem perguntas.</div>
 </div>
 <footer>© ${new Date().getFullYear()} ${b.nome} — Todos os direitos reservados</footer>
 </body></html>`;
 }
 
-// ════════════ QUIZ HTML BUILDER ════════════
-function buildQuiz(b, qs) {
-  const qJ = JSON.stringify(qs).replace(/\\/g, '\\\\').replace(/`/g, '\\`');
-  const pJ = JSON.stringify({ nome: b.nome, preco: b.preco, precoOld: b.precoOld, gar: b.gar, desc: b.desc });
+// ══════════════════════════════════════════
+// QUIZ BUILDER
+// ══════════════════════════════════════════
+function buildQuiz(b,qs){
+  const qJ=JSON.stringify(qs).replace(/\\/g,'\\\\').replace(/`/g,'\\`');
+  const pJ=JSON.stringify({nome:b.nome,preco:b.preco,precoOld:b.precoOld,gar:b.gar,desc:b.desc});
   return `<!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Quiz — ${b.nome}</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d0d0d;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.box{background:#161616;border:1px solid #252525;border-radius:18px;max-width:580px;width:100%;padding:34px;animation:up .35s ease}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.prog-wrap{margin-bottom:24px}
-.prog-bar-bg{height:4px;background:#222;border-radius:2px;overflow:hidden}
-.prog-bar{height:100%;background:#F5C842;border-radius:2px;transition:.5s ease}
-.prog-txt{font-size:10px;color:#555;font-family:monospace;margin-top:5px}
-.step-num{font-size:10px;color:#F5C842;font-family:monospace;margin-bottom:7px;letter-spacing:1px}
-.q-text{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;line-height:1.3;margin-bottom:22px}
+body{background:#0d0d0d;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:22px}
+.box{background:#161616;border:1px solid #252525;border-radius:18px;max-width:580px;width:100%;padding:32px;animation:up .3s ease}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.prog{height:4px;background:#222;border-radius:2px;margin-bottom:22px;overflow:hidden}
+.progb{height:100%;background:#F5C842;border-radius:2px;transition:.5s}
+.step-n{font-size:10px;color:#F5C842;font-family:monospace;margin-bottom:6px;letter-spacing:1px}
+.q{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;line-height:1.3;margin-bottom:20px}
 .opts{display:flex;flex-direction:column;gap:10px}
-.opt{background:#1e1e1e;border:2px solid #2a2a2a;border-radius:11px;padding:14px 18px;cursor:pointer;font-size:14px;font-weight:500;transition:.2s;text-align:left;color:#f0f0f0}
+.opt{background:#1e1e1e;border:2px solid #2a2a2a;border-radius:11px;padding:13px 17px;cursor:pointer;font-size:14px;font-weight:500;transition:.2s;text-align:left}
 .opt:hover{border-color:#F5C842;background:#1a1500;color:#F5C842}
-.form-inp{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:9px;padding:12px 16px;color:#f0f0f0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;width:100%;margin-bottom:10px}
-.form-inp:focus{border-color:#F5C842}
-.form-inp::placeholder{color:#555}
-.cta-btn{background:#F5C842;color:#000;border:none;border-radius:11px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;animation:pp 2s infinite}
-@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 14px rgba(245,200,66,0)}}
-.offer{text-align:center}
-.offer-tag{font-size:10px;color:#F5C842;font-family:monospace;letter-spacing:2px;margin-bottom:12px}
-.offer-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:900;line-height:1.3;margin-bottom:10px}
-.offer-title em{color:#F5C842;font-style:normal}
-.offer-desc{font-size:14px;color:#aaa;line-height:1.65;margin-bottom:18px}
-.offer-old{text-decoration:line-through;color:#444;font-size:14px}
-.offer-price{font-size:52px;font-weight:900;color:#22c55e;font-family:'Syne',sans-serif;line-height:1}
-.offer-sub{font-size:12px;color:#555;margin-top:4px;margin-bottom:18px}
-.offer-guar{font-size:12px;color:#555;margin-top:12px}
+.inp{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:9px;padding:11px 15px;color:#f0f0f0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;width:100%;margin-bottom:10px}
+.inp:focus{border-color:#F5C842}
+.inp::placeholder{color:#555}
+.cta{background:#F5C842;color:#000;border:none;border-radius:11px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;animation:pp 2s infinite}
+@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 12px rgba(245,200,66,0)}}
 </style>
 </head>
 <body>
 <div class="box" id="box"></div>
 <script>
-const QS=${qJ};
-const P=${pJ};
+const QS=\`${qJ}\`,P=\`${pJ}\`;
+const qs=JSON.parse(QS),p=JSON.parse(P);
 let step=0;
-const total=QS.length+2;
 function render(){
   const box=document.getElementById('box');
-  const pct=Math.round((step/total)*100);
-  if(step<QS.length){
-    const q=QS[step];
-    box.innerHTML='<div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:'+pct+'%"></div></div><div class="prog-txt">'+pct+'% concluído</div></div><div class="step-num">PERGUNTA '+(step+1)+' DE '+QS.length+'</div><div class="q-text">'+q.pergunta+'</div><div class="opts">'+q.opcoes.map(o=>'<button class="opt" onclick="next()">'+o+'</button>').join('')+'</div>';
-  }else if(step===QS.length){
-    box.innerHTML='<div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:90%"></div></div><div class="prog-txt">Quase lá!</div></div><div style="text-align:center;margin-bottom:22px"><div style="font-size:34px;margin-bottom:8px">🎯</div><div style="font-family:Syne,sans-serif;font-size:21px;font-weight:800;margin-bottom:6px">Seu resultado está pronto!</div><div style="font-size:13px;color:#888">Informe seus dados para receber sua solução personalizada</div></div><input class="form-inp" id="fn" placeholder="Seu nome"><input class="form-inp" id="fe" placeholder="Seu melhor e-mail" type="email"><button class="cta-btn" onclick="next()">Ver minha solução gratuita →</button>';
+  const pct=Math.round((step/(qs.length+2))*100);
+  if(step<qs.length){
+    const q=qs[step];
+    box.innerHTML='<div class="prog"><div class="progb" style="width:'+pct+'%"></div></div><div class="step-n">PERGUNTA '+(step+1)+' DE '+qs.length+'</div><div class="q">'+q.pergunta+'</div><div class="opts">'+q.opcoes.map(o=>'<button class="opt" onclick="next()">'+o+'</button>').join('')+'</div>';
+  }else if(step===qs.length){
+    box.innerHTML='<div class="prog"><div class="progb" style="width:90%"></div></div><div style="text-align:center;margin-bottom:22px"><div style="font-size:32px;margin-bottom:8px">🎯</div><div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;margin-bottom:5px">Quase pronto!</div><div style="font-size:13px;color:#888">Informe seus dados para ver o resultado</div></div><input class="inp" placeholder="Seu nome"><input class="inp" placeholder="Seu e-mail" type="email"><button class="cta" onclick="next()">Ver minha solução →</button>';
   }else{
-    box.innerHTML='<div class="offer"><div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:100%"></div></div></div><div class="offer-tag">✅ RESULTADO PERSONALIZADO PARA VOCÊ</div><div class="offer-title">🔥 <em>'+P.nome+'</em> é exatamente o que você precisa</div><div class="offer-desc">'+(P.desc||'Solução completa com acesso imediato e garantia total.')+'</div><div class="offer-old">De '+P.precoOld+'</div><div class="offer-price">'+P.preco+'</div><div class="offer-sub">pagamento único • acesso imediato</div><button class="cta-btn">✅ QUERO ACESSO AGORA →</button><div class="offer-guar">🛡️ Garantia de '+P.gar+' — Sem perguntas, sem burocracia</div></div>';
+    box.innerHTML='<div style="text-align:center"><div style="font-size:10px;color:#F5C842;font-family:monospace;letter-spacing:2px;margin-bottom:12px">✅ RESULTADO PERSONALIZADO</div><div style="font-family:Syne,sans-serif;font-size:23px;font-weight:900;margin-bottom:10px">🔥 '+p.nome+'</div><p style="font-size:14px;color:#aaa;line-height:1.65;margin-bottom:18px">'+(p.desc||'Solução completa para transformar sua vida.')+'</p><div style="text-decoration:line-through;color:#444;font-size:14px">De '+p.precoOld+'</div><div style="font-size:50px;font-weight:900;color:#22c55e;font-family:Syne,sans-serif;line-height:1">'+p.preco+'</div><div style="font-size:12px;color:#555;margin-bottom:18px">pagamento único • acesso imediato</div><button class="cta">✅ QUERO ACESSO AGORA →</button><div style="font-size:12px;color:#555;margin-top:10px">🛡️ Garantia de '+p.gar+' — Sem perguntas</div></div>';
   }
 }
 function next(){step++;render();}
@@ -1509,283 +1404,90 @@ render();
 </body></html>`;
 }
 
-// ════════════ FALLBACKS ════════════
-function fbCopy(b) {
+// ══════════════════════════════════════════
+// FALLBACKS
+// ══════════════════════════════════════════
+function fbCopy(b){
   return `=== DOBRA 1: HERO ===
 
-**${b.nome}: ${b.desejo || 'Transforme sua vida hoje mesmo'}**
+**${b.nome}: ${b.desejo||'Transforme sua vida hoje'}**
 
 ✅ Acesso imediato após pagamento
-✅ ${b.b1 || 'Bônus exclusivo incluso'}
-✅ Garantia de ${b.gar || '7 dias'}
+✅ ${b.b1||'Bônus exclusivo incluso'}
+✅ Garantia de ${b.gar||'7 dias'}
 ✅ Suporte completo incluído
 
 === DOBRA 2: CHECKLIST DE BENEFÍCIOS ===
 
-${b.desc || 'Tudo que você precisa para alcançar resultados reais de forma rápida e prática.'}
+${b.desc||'Tudo que você precisa para alcançar resultados reais.'}
 
 ✅ Método comprovado e testado
 ✅ Funciona para iniciantes e avançados
-✅ Sem precisar de experiência anterior
 ✅ Resultados desde o primeiro acesso
 
 === DOBRA 3: AUTORIDADE ===
 
-Desenvolvemos este produto depois de anos entendendo a dor de quem quer ${b.desejo || 'resultados'} mas não sabe por onde começar — ou já tentou e não conseguiu.
-
-Mais de 2.000 pessoas já transformaram suas vidas com o ${b.nome}. E você pode ser a próxima.
+Desenvolvemos este produto depois de entender a dor de quem quer ${b.desejo||'resultados'} mas não sabe por onde começar. Mais de 2.000 pessoas já transformaram suas vidas com o ${b.nome}.
 
 === DOBRA 4: O QUE VOCÊ VAI RECEBER ===
 
 📦 ${b.nome} — Produto Principal
-🎁 ${b.b1 || 'Bônus 1 — Acesso exclusivo'}
-🎁 ${b.b2 || 'Bônus 2 — Ferramenta bônus'}
-🎁 ${b.b3 || 'Bônus 3 — Conteúdo extra'}
+🎁 ${b.b1||'Bônus 1'}
+🎁 ${b.b2||'Bônus 2'}
+🎁 ${b.b3||'Bônus 3'}
 
 === DOBRA 5: PROVA SOCIAL ===
 
-"Finalmente algo que realmente funciona. Resultado desde o primeiro dia!" — João M., SP
-
-"Investi e em menos de uma semana já vi diferença. Valeu muito!" — Maria S., MG
-
-"Recomendo para todo mundo que quer mudar de vida sem enrolação." — Carlos R., RJ
+"Resultado desde o primeiro dia!" — João M., SP
+"Valeu muito, recomendo!" — Maria S., MG
+"Mudou minha vida por completo." — Carlos R., RJ
 
 === DOBRA 6: OFERTA ESPECIAL ===
 
-~~De ${b.precoOld || 'R$ 197'}~~
-**Por apenas ${b.preco || 'R$ 37'}**
+~~De ${b.precoOld||'R$ 197'}~~
+**Por apenas ${b.preco||'R$ 37'}**
 
-Pagamento único. Sem mensalidade. Acesso imediato.
+Pagamento único. Acesso imediato.
 
 === DOBRA 7: BÔNUS ===
 
-Além do produto principal, você recebe HOJE:
-
-🎁 ${b.b1 || 'Bônus 1'}
-🎁 ${b.b2 || 'Bônus 2'}
-🎁 ${b.b3 || 'Bônus 3'}
+🎁 ${b.b1||'Bônus 1'}
+🎁 ${b.b2||'Bônus 2'}
+🎁 ${b.b3||'Bônus 3'}
 
 === DOBRA 8: GARANTIA ===
 
-🛡️ RISCO ZERO — Garantia de ${b.gar || '7 dias'}
-
-Se por qualquer motivo você não ficar satisfeito, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia, sem complicação.
+🛡️ Garantia de ${b.gar||'7 dias'} — Se não ficar satisfeito, devolvemos 100% do seu dinheiro. Sem perguntas.
 
 === DOBRA 9: CTA FINAL ===
 
-Não deixe mais uma oportunidade passar.
-
-Clique no botão abaixo e garanta acesso imediato por apenas ${b.preco || 'R$ 37'}.`;
+Clique no botão abaixo e garanta acesso imediato por apenas ${b.preco||'R$ 37'}.`;
 }
 
-function fbCri(b) {
+function fbCri(b){
   return [
-    { tipo: 'HOOK DE DOR', hook: `"${b.dor || 'Você está cansado de tentar e não ver resultado'}?"`, copy: `Se isso soa familiar, ${b.nome} foi criado exatamente para você. Por ${b.preco}, acesso imediato. Garantia de ${b.gar}.` },
-    { tipo: 'PROVA SOCIAL', hook: `"Consegui resultado em menos de 7 dias usando isso"`, copy: `É o que nossos clientes estão dizendo sobre ${b.nome}. Mais de 2.000 pessoas já transformaram suas vidas. Você é o próximo?` },
-    { tipo: 'NÚMERO ESPECÍFICO', hook: `"${b.desc ? b.desc.split(' ').slice(0, 8).join(' ') + '...' : 'Acesso completo a tudo que você precisa'}"`, copy: `Por apenas ${b.preco}, pagamento único, sem mensalidade. Garantia de ${b.gar}. Acesse agora.` },
-    { tipo: 'URGÊNCIA', hook: `"Esse preço vai subir — de ${b.precoOld} por ${b.preco} só por tempo limitado"`, copy: `${b.nome} está em oferta especial. Quando o timer acabar, o valor volta para ${b.precoOld}. Garanta agora antes que seja tarde.` },
-    { tipo: 'CURIOSIDADE', hook: `"Por que pessoas comuns estão conseguindo ${b.desejo || 'resultados extraordinários'} com isso?"`, copy: `Não é sorte. Não é talento. É ter o método certo na hora certa. ${b.nome} entrega exatamente isso. Veja por ${b.preco}.` },
+    {tipo:'HOOK DE DOR',hook:`"${b.dor||'Você está cansado de não ver resultado'}?"`,copy:`${b.nome} foi criado para resolver exatamente isso. Por ${b.preco}, acesso imediato. Garantia de ${b.gar}.`},
+    {tipo:'PROVA SOCIAL',hook:`"Consegui resultado em menos de 7 dias"`,copy:`É o que nossos clientes dizem sobre ${b.nome}. Mais de 2.000 pessoas já alcançaram ${b.desejo||'resultados'}. Você é o próximo?`},
+    {tipo:'NÚMERO ESPECÍFICO',hook:`"Mais de 2.000 pessoas já conseguiram ${b.desejo||'resultado'} com isso"`,copy:`Por apenas ${b.preco}, pagamento único. Garantia de ${b.gar}. Acesse agora.`},
+    {tipo:'URGÊNCIA',hook:`"Esse preço sai em breve — de ${b.precoOld} por ${b.preco}"`,copy:`${b.nome} está com desconto especial. Quando acabar, o valor volta para ${b.precoOld}. Garanta agora.`},
+    {tipo:'CURIOSIDADE',hook:`"Por que pessoas comuns estão conseguindo ${b.desejo||'resultado'} com isso?"`,copy:`Não é sorte. É ter o método certo. ${b.nome} entrega exatamente isso. Veja por ${b.preco}.`},
   ];
 }
 
-function fbQuiz(b) {
+function fbQuiz(b){
   return [
-    { pergunta: `Qual é seu maior desafio com ${b.nicho || 'este tema'} hoje?`, opcoes: ['Não sei por onde começar', 'Já tentei mas não funcionou', 'Falta de tempo livre', 'Falta de método certo'] },
-    { pergunta: 'Quanto tempo por semana você tem disponível?', opcoes: ['Menos de 1h', '1 a 3h', '3 a 5h', 'Mais de 5h'] },
-    { pergunta: `O que mais te impede de ${b.desejo || 'alcançar seus objetivos'}?`, opcoes: ['Falta de conhecimento', 'Falta de dinheiro', 'Medo de errar', 'Não sei qual caminho seguir'] },
-    { pergunta: 'Como você prefere aprender e consumir conteúdo?', opcoes: ['Passo a passo detalhado', 'De forma rápida e prática', 'Com exemplos reais', 'Tudo junto e resumido'] },
-    { pergunta: 'Você já investiu em alguma solução parecida antes?', opcoes: ['Não, é minha primeira vez', 'Sim, mas não funcionou', 'Sim, e funcionou parcialmente', 'Prefiro não dizer'] },
-    { pergunta: 'Qual resultado você quer alcançar primeiro?', opcoes: [b.b1?.split(' ').slice(0, 4).join(' ') || 'Resultado rápido', b.b2?.split(' ').slice(0, 4).join(' ') || 'Mais eficiência', b.b3?.split(' ').slice(0, 4).join(' ') || 'Renda extra', 'Todos os anteriores'] },
-    { pergunta: 'Qual é seu nível de urgência para resolver isso?', opcoes: ['🔥 Preciso resolver agora!', 'Em até 30 dias', 'Não tenho tanta pressa', 'Só estou pesquisando'] },
-    { pergunta: 'O que mais te atrai em uma solução para isso?', opcoes: ['Preço acessível', 'Resultado garantido', 'Facilidade de uso', 'Suporte e acompanhamento'] },
+    {pergunta:`Qual é seu maior desafio com ${b.nicho||'este tema'} hoje?`,opcoes:['Não sei por onde começar','Já tentei mas não funcionou','Falta de tempo','Falta de método']},
+    {pergunta:'Quanto tempo você tem disponível por semana?',opcoes:['Menos de 1h','1 a 3h','3 a 5h','Mais de 5h']},
+    {pergunta:`O que mais te impede de ${b.desejo||'alcançar seu objetivo'}?`,opcoes:['Falta de conhecimento','Falta de dinheiro','Medo de errar','Não saber qual caminho seguir']},
+    {pergunta:'Como você prefere consumir conteúdo?',opcoes:['Passo a passo detalhado','Rápido e prático','Com exemplos reais','Resumido e direto']},
+    {pergunta:'Você já investiu em algo parecido antes?',opcoes:['Não, primeira vez','Sim, mas não funcionou','Sim, funcionou parcialmente','Prefiro não dizer']},
+    {pergunta:'Qual resultado quer alcançar primeiro?',opcoes:['Resultado rápido','Mais eficiência','Renda extra','Tudo isso']},
+    {pergunta:'Qual é sua urgência para resolver isso?',opcoes:['🔥 Preciso resolver agora!','Em até 30 dias','Não tenho pressa','Só estou pesquisando']},
+    {pergunta:'O que mais te atrai em uma solução?',opcoes:['Preço acessível','Garantia de resultado','Facilidade de uso','Suporte incluído']},
   ];
 }
 
-// ════════════ UTILS ════════════
-function slug() { return (brief.nome || 'produto').toLowerCase().replace(/[^a-z0-9]/g, '-').substring(0, 25); }
-async function typeIt(el, txt, delay = 4) {
-  el.textContent = '';
-  for (let i = 0; i < txt.length; i++) {
-    el.textContent += txt[i];
-    if (i % 5 === 0) await new Promise(r => setTimeout(r, delay));
-  }
-}
-function updCred() { document.getElementById('credTxt').textContent = `${cred} créditos`; }
-function load(t, s) { document.getElementById('loadT').textContent = t; document.getElementById('loadS').textContent = s; document.getElementById('loader').classList.add('on'); }
-function unload() { document.getElementById('loader').classList.remove('on'); }
-let _tt;
-function toast(t, m) {
-  document.getElementById('toastT').textContent = t;
-  document.getElementById('toastM').textContent = m;
-  const e = document.getElementById('toast');
-  e.classList.add('on');
-  clearTimeout(_tt);
-  _tt = setTimeout(() => e.classList.remove('on'), 3400);
-}// ════════════ BIBLIOTECA ════════════
-function saveToLib() {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const id = Date.now();
-  const entry = {
-    id,
-    nome: brief.nome || 'Produto sem nome',
-    nicho: brief.nicho || '—',
-    preco: brief.preco || '—',
-    precoOld: brief.precoOld || '—',
-    gar: brief.gar || '—',
-    data: new Date().toLocaleDateString('pt-BR'),
-    hora: new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
-    hasCopy: !!copyText,
-    hasQuiz: !!qzHTML,
-    html: lpHTML,
-    quizHtml: qzHTML,
-    copy: copyText,
-    criData: criData,
-  };
-  libs.unshift(entry);
-  // keep max 20
-  if (libs.length > 20) libs.pop();
-  localStorage.setItem('zakov_lib', JSON.stringify(libs));
-  updLibBadge();
-}
-
-function updLibBadge() {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const badge = document.getElementById('libBadge');
-  if (libs.length > 0) {
-    badge.style.display = 'inline';
-    badge.textContent = libs.length;
-  } else {
-    badge.style.display = 'none';
-  }
-}
-
-function openLib() {
-  renderLib();
-  document.getElementById('libOverlay').classList.add('on');
-  document.getElementById('libPanel').classList.add('on');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeLib() {
-  document.getElementById('libOverlay').classList.remove('on');
-  document.getElementById('libPanel').classList.remove('on');
-  document.body.style.overflow = '';
-}
-
-function renderLib() {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const body = document.getElementById('libBody');
-  if (!libs.length) {
-    body.innerHTML = `<div class="lib-empty">
-      <div class="lib-empty-icon">📭</div>
-      <div class="lib-empty-title">Nenhum produto salvo ainda</div>
-      <div class="lib-empty-sub">Finalize um produto no Passo 6 e ele aparece aqui com nome, nicho, data e opções para baixar.</div>
-    </div>`;
-    return;
-  }
-  body.innerHTML = `<div class="lib-count"><b>${libs.length}</b> produto(s) salvo(s)</div>` +
-    libs.map((p, i) => `
-    <div class="prod-card">
-      <div class="prod-card-top">
-        <div>
-          <div class="prod-card-name">${p.nome}</div>
-          <span class="prod-card-nicho">${p.nicho}</span>
-        </div>
-        <div class="prod-card-date">${p.data} ${p.hora}</div>
-      </div>
-      <div class="prod-card-meta">
-        <span>💰 <b>${p.preco}</b></span>
-        <span style="text-decoration:line-through;opacity:.5">${p.precoOld}</span>
-        <span>🛡️ ${p.gar}</span>
-        ${p.hasCopy ? '<span style="color:var(--green)">✅ Copy</span>' : ''}
-        ${p.hasQuiz ? '<span style="color:var(--blue)">📋 Quiz</span>' : ''}
-      </div>
-      <div class="prod-card-acts">
-        <div class="prod-act primary" onclick="dlFromLib(${i})">⬇️ Baixar LP</div>
-        ${p.hasQuiz ? `<div class="prod-act" onclick="dlQuizFromLib(${i})">📋 Baixar Quiz</div>` : ''}
-        <div class="prod-act" onclick="previewFromLib(${i})">👁️ Preview</div>
-        <div class="prod-act" onclick="cpHtmlFromLib(${i})">📋 Copiar HTML</div>
-        <div class="prod-act danger" onclick="deleteFromLib(${i})">🗑️</div>
-      </div>
-    </div>`).join('');
-}
-
-function dlFromLib(i) {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const p = libs[i];
-  if (!p?.html) { toast('Atenção', 'HTML não disponível'); return; }
-  const a = document.createElement('a');
-  a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(p.html);
-  a.download = p.nome.toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25) + '-lp.html';
-  a.click();
-  toast('Download!', `${p.nome} — LP baixando`);
-}
-
-function dlQuizFromLib(i) {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const p = libs[i];
-  if (!p?.quizHtml) { toast('Atenção', 'Quiz não disponível'); return; }
-  const a = document.createElement('a');
-  a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(p.quizHtml);
-  a.download = p.nome.toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25) + '-quiz.html';
-  a.click();
-  toast('Download!', `${p.nome} — Quiz baixando`);
-}
-
-function previewFromLib(i) {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const p = libs[i];
-  if (!p?.html) { toast('Atenção', 'HTML não disponível'); return; }
-  const blob = new Blob([p.html], { type: 'text/html' });
-  window.open(URL.createObjectURL(blob), '_blank');
-}
-
-function cpHtmlFromLib(i) {
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  const p = libs[i];
-  navigator.clipboard?.writeText(p.html || '');
-  toast('HTML copiado!', p.nome);
-}
-
-function deleteFromLib(i) {
-  if (!confirm('Remover este produto da biblioteca?')) return;
-  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
-  libs.splice(i, 1);
-  localStorage.setItem('zakov_lib', JSON.stringify(libs));
-  updLibBadge();
-  renderLib();
-  toast('Removido!', 'Produto excluído da biblioteca');
-}
-
-function clearLib() {
-  if (!confirm('Limpar toda a biblioteca? Esta ação não pode ser desfeita.')) return;
-  localStorage.removeItem('zakov_lib');
-  updLibBadge();
-  renderLib();
-  toast('Biblioteca limpa!', 'Todos os produtos foram removidos');
-}
-
-// ════════════ TUTORIAL ════════════
-function openTut() {
-  document.getElementById('tutOverlay').classList.add('on');
-  document.getElementById('tutPanel').classList.add('on');
-  document.body.style.overflow = 'hidden';
-}
-function closeTut() {
-  document.getElementById('tutOverlay').classList.remove('on');
-  document.getElementById('tutPanel').classList.remove('on');
-  document.body.style.overflow = '';
-}
-function tutTab(i, el) {
-  [0,1,2].forEach(n => {
-    document.getElementById('tutTab'+n).style.display = n===i ? 'block' : 'none';
-  });
-  document.querySelectorAll('.tut-tab').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-}
-document.addEventListener('keydown', e => { if(e.key==='Escape') { closeTut(); closeLib(); } });
-
-// init
+// ── INIT ──
 updLibBadge();
 </script>
 </body>
