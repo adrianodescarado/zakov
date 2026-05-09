@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZAKOV — Como Usar</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #F5C842;
+  --gold2: #ffd84d;
+  --bg: #070707;
+  --s1: #0f0f0f;
+  --s2: #161616;
+  --s3: #1e1e1e;
+  --border: #242424;
+  --text: #eeeeee;
+  --muted: #555;
+  --muted2: #888;
+  --green: #22c55e;
+  --red: #ef4444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(245,200,66,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 6vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero p {
+  font-size: 16px;
+  color: var(--muted2);
+  max-width: 520px;
+  margin: 0 auto 36px;
+  line-height: 1.65;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: .15s;
+  text-decoration: none;
+}
+.btn-gold { background: var(--gold); color: #000; }
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,200,66,.25); }
+.btn-out { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-out:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── FLOW OVERVIEW ── */
+.flow {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+.flow-title {
+  text-align: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.flow-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+.flow-steps::-webkit-scrollbar { display: none; }
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: .2s;
+}
+.flow-step:hover .flow-n { background: var(--gold); color: #000; transform: scale(1.1); }
+.flow-n {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--s2);
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  transition: .2s;
+}
+.flow-step.active .flow-n { background: var(--gold); color: #000; border-color: var(--gold); }
+.flow-step.done .flow-n { background: var(--green); color: #000; border-color: var(--green); }
+.flow-label { font-size: 11px; font-weight: 600; color: var(--muted2); white-space: nowrap; }
+.flow-step.active .flow-label { color: var(--gold); }
+.flow-arrow {
+  width: 40px; height: 2px;
+  background: var(--border);
+  flex-shrink: 0;
+  position: relative;
+}
+.flow-arrow::after {
+  content: '›';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+/* ── STEP CARD ── */
+.step-card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  transition: border-color .3s;
+  cursor: pointer;
+}
+.step-card.open { border-color: var(--gold); }
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  user-select: none;
+}
+.step-header:hover .step-hnum { border-color: var(--gold); }
+.step-hnum {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--s2);
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  flex-shrink: 0;
+  transition: .2s;
+}
+.step-card.open .step-hnum { background: var(--gold); color: #000; border-color: var(--gold); }
+.step-htitle {
+  flex: 1;
+}
+.step-htitle-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+.step-name { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+.step-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: var(--s3);
+  color: var(--muted2);
+  letter-spacing: .5px;
+}
+.step-card.open .step-tag { background: rgba(245,200,66,.15); color: var(--gold); }
+.step-desc { font-size: 12.5px; color: var(--muted2); line-height: 1.5; }
+.step-chevron {
+  font-size: 20px;
+  color: var(--muted);
+  transition: transform .3s;
+  flex-shrink: 0;
+}
+.step-card.open .step-chevron { transform: rotate(180deg); color: var(--gold); }
+
+/* ── STEP BODY ── */
+.step-body {
+  display: none;
+  padding: 0 24px 28px;
+  animation: fadeUp .3s ease;
+}
+.step-card.open .step-body { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+.step-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 24px;
+}
+
+/* ── INSTRUCTION BLOCKS ── */
+.instruction {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+.instr-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #000;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.instr-content { flex: 1; }
+.instr-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.instr-text { font-size: 13px; color: var(--muted2); line-height: 1.6; }
+
+/* ── MOCK UI ── */
+.mock-ui {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+.mock-ui-bar {
+  background: var(--s3);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted2);
+  font-family: 'DM Mono', monospace;
+}
+.mock-dot { width: 9px; height: 9px; border-radius: 50%; }
+.mock-ui-content { padding: 20px; }
+
+/* ── VISUAL EXAMPLES ── */
+.example-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+@media(max-width:560px) { .example-grid { grid-template-columns: 1fr; } }
+.example-card {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.example-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 8px;
+  letter-spacing: .5px;
+}
+.example-card-body { font-size: 12.5px; color: var(--muted2); line-height: 1.6; }
+
+/* ── TIP BOX ── */
+.tip {
+  display: flex;
+  gap: 12px;
+  background: #141000;
+  border: 1px solid #2e2600;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+.tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+.warn {
+  display: flex;
+  gap: 12px;
+  background: #140000;
+  border: 1px solid #2e0000;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #ffaaaa;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+.success {
+  display: flex;
+  gap: 12px;
+  background: #001408;
+  border: 1px solid #003018;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #aaffcc;
+  line-height: 1.6;
+  margin: 16px 0;
+}
+
+/* ── DELIVERABLES ── */
+.delivers {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+.deliver {
+  background: var(--s2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.deliver-icon { font-size: 24px; margin-bottom: 7px; }
+.deliver-name { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.deliver-desc { font-size: 11px; color: var(--muted2); }
+
+/* ── FAQ ── */
+.faq-section { margin-top: 60px; }
+.faq-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.faq-title span { color: var(--gold); }
+.faq-sub { text-align: center; color: var(--muted2); font-size: 13px; margin-bottom: 32px; }
+.faq-item {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.faq-item.open { border-color: rgba(245,200,66,.4); }
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  gap: 12px;
+}
+.faq-q span { flex: 1; }
+.faq-icon { color: var(--gold); font-size: 18px; transition: transform .3s; flex-shrink: 0; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  display: none;
+  padding: 0 20px 18px;
+  font-size: 13px;
+  color: var(--muted2);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+}
+.faq-item.open .faq-a { display: block; animation: fadeUp .25s ease; }
+
+/* ── CREDITS TABLE ── */
+.credits-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+.credits-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--s2);
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--muted2);
+  letter-spacing: .5px;
+}
+.credits-table th:first-child { border-radius: 8px 0 0 0; }
+.credits-table th:last-child { border-radius: 0 8px 0 0; }
+.credits-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.credits-table tr:last-child td { border-bottom: none; }
+.credit-badge {
+  background: var(--s3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--gold);
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 48px 32px;
+  text-align: center;
+  margin-top: 60px;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 300px;
+  background: radial-gradient(ellipse, rgba(245,200,66,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.final-cta h2 span { color: var(--gold); }
+.final-cta p { color: var(--muted2); font-size: 14px; margin-bottom: 28px; }
+
+/* ── PROGRESS TRACKER ── */
+.tracker {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+@media(max-width:768px) { .tracker { display: none; } }
+.tracker-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--s3);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: .2s;
+  position: relative;
+}
+.tracker-dot:hover { border-color: var(--gold); background: rgba(245,200,66,.2); }
+.tracker-dot.active { background: var(--gold); border-color: var(--gold); }
+.tracker-dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+}
+.tracker-dot:hover::before { opacity: 1; }
+
+/* ── MISC ── */
+code {
+  background: var(--s3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--gold);
+}
+.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS TRACKER -->
+<div class="tracker">
+  <div class="tracker-dot active" data-label="Início" onclick="scrollTo(0,0)"></div>
+  <div class="tracker-dot" data-label="Passo 1 — Scanner" onclick="scrollToStep(1)"></div>
+  <div class="tracker-dot" data-label="Passo 2 — Análise" onclick="scrollToStep(2)"></div>
+  <div class="tracker-dot" data-label="Passo 3 — Formato" onclick="scrollToStep(3)"></div>
+  <div class="tracker-dot" data-label="Passo 4 — Copy & Mockups" onclick="scrollToStep(4)"></div>
+  <div class="tracker-dot" data-label="Passo 5 — Criativos" onclick="scrollToStep(5)"></div>
+  <div class="tracker-dot" data-label="Passo 6 — Página Pronta" onclick="scrollToStep(6)"></div>
+  <div class="tracker-dot" data-label="FAQ" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">📖 GUIA COMPLETO DE USO</div>
+  <h1>Como usar o<br><em>ZAKOV</em></h1>
+  <p>Tudo que você precisa saber para criar, personalizar e publicar seu produto low ticket do zero em menos de 10 minutos.</p>
+  <div class="hero-btns">
+    <button class="btn btn-gold" onclick="document.getElementById('step1').scrollIntoView({behavior:'smooth'})">📖 Ler tutorial completo</button>
+    <button class="btn btn-out" onclick="scrollToFaq()">❓ Ver perguntas frequentes</button>
+  </div>
+</div>
+
+<!-- FLOW OVERVIEW -->
+<div class="flow">
+  <div class="flow-title">O fluxo completo</div>
+  <div class="flow-steps">
+    <div class="flow-step active" onclick="scrollToStep(1)">
+      <div class="flow-n">1</div>
+      <div class="flow-label">Scanner</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" onclick="scrollToStep(2)">
+      <div class="flow-n">2</div>
+      <div class="flow-label">Análise</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" onclick="scrollToStep(3)">
+      <div class="flow-n">3</div>
+      <div class="flow-label">Formato</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" onclick="scrollToStep(4)">
+      <div class="flow-n">4</div>
+      <div class="flow-label">Copy & Mockups</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" onclick="scrollToStep(5)">
+      <div class="flow-n">5</div>
+      <div class="flow-label">Criativos</div>
+    </div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" onclick="scrollToStep(6)">
+      <div class="flow-n">6</div>
+      <div class="flow-label">Página Pronta</div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- ════ PASSO 1 ════ -->
+  <div class="step-card open" id="step1" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">1</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">Scanner de Oferta</div>
+          <div class="step-tag">INÍCIO AQUI</div>
+        </div>
+        <div class="step-desc">Encontre produtos virais que já estão vendendo para você modelar</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>O que é o Scanner?</b> É uma busca inteligente que encontra produtos digitais com muitos anúncios ativos — o que significa que estão vendendo de verdade. Você vai modelar um desses produtos, não copiar. A ideia é entender o que funciona e criar a sua versão.</div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">1</div>
+        <div class="instr-content">
+          <div class="instr-title">Selecione um nicho no menu suspenso</div>
+          <div class="instr-text">Clique no campo "<b>Selecione um nicho...</b>" e escolha a categoria do produto que você quer criar. Ex: Marcenaria, Fitness, Culinária. Se não souber qual, escolha qualquer um para ver como funciona primeiro.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">2</div>
+        <div class="instr-content">
+          <div class="instr-title">(Opcional) Digite uma palavra-chave</div>
+          <div class="instr-text">Se quiser ser mais específico, escreva uma palavra no segundo campo. Ex: "projetos", "receitas", "treino". Funciona como um filtro extra.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">3</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em ⚡ Escanear</div>
+          <div class="instr-text">O sistema vai buscar e exibir os produtos encontrados em cards. Cada card mostra: nome do produto, quantos anúncios está rodando, há quantos dias está ativo e o preço.</div>
+        </div>
+      </div>
+
+      <div class="mock-ui">
+        <div class="mock-ui-bar">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+          <span>Exemplo de resultado do Scanner</span>
+        </div>
+        <div class="mock-ui-content">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="background:var(--s3);border:2px solid var(--gold);border-radius:10px;padding:12px;position:relative">
+              <div style="position:absolute;top:8px;right:8px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;font-family:monospace">🔥 VIRAL</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#F5C842,#d47800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;color:#000">MR</div>
+                <div>
+                  <div style="font-weight:600;font-size:12px">Biblioteca Marceneiro Raíz</div>
+                  <div style="font-size:10px;color:var(--muted2)">Ativo há 41 dias • R$ 37</div>
+                </div>
+              </div>
+              <div style="font-size:11px;color:#999;margin-bottom:8px;line-height:1.4">São +6.000 projetos de móveis prontos pra você baixar e montar na garagem...</div>
+              <div style="display:flex;gap:10px;font-size:10px;color:var(--muted2)">
+                <span>📢 <b style="color:var(--text)">34</b> anúncios</span>
+                <span>💰 <b style="color:var(--text)">R$ 37</b></span>
+              </div>
+            </div>
+            <div style="background:var(--s2);border:2px solid var(--border);border-radius:10px;padding:12px;opacity:.6">
+              <div style="position:absolute"></div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#F5C842,#d47800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;color:#000">CP</div>
+                <div>
+                  <div style="font-weight:600;font-size:12px">Carpintaria Pro Brasil</div>
+                  <div style="font-size:10px;color:var(--muted2)">Ativo há 28 dias • R$ 27</div>
+                </div>
+              </div>
+              <div style="font-size:11px;color:#999;margin-bottom:8px;line-height:1.4">Projetos completos com medidas profissionais para montar em casa...</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--gold);margin-top:10px;text-align:center">👆 O card com borda dourada está selecionado. Clique em qualquer card para selecionar.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">4</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique no card do produto que quer modelar</div>
+          <div class="instr-text">O card selecionado fica com <b style="color:var(--gold)">borda dourada</b>. Prefira produtos com o badge <span style="background:#ef4444;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px">🔥 VIRAL</span> ou com muitos anúncios ativos — são os que mais vendem.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">5</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em 💾 Salvar anúncio e ir para Análise</div>
+          <div class="instr-text">O sistema salva os dados do produto selecionado e avança para o Passo 2 automaticamente. Os campos do briefing já serão pré-preenchidos com as informações do anúncio.</div>
+        </div>
+      </div>
+
+      <div class="success">
+        <div>✅</div>
+        <div><b>Resultado esperado:</b> O produto está salvo na fábrica e você foi levado para a tela de Análise com IA, pronto para dissecar o produto antes de criar o seu.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PASSO 2 ════ -->
+  <div class="step-card" id="step2" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">2</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">Análise com IA</div>
+          <div class="step-tag">OPCIONAL MAS RECOMENDADO</div>
+        </div>
+        <div class="step-desc">6 ferramentas para entender o produto antes de criar o seu</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>Por que analisar?</b> Antes de criar sua versão, é importante entender por que o produto concorrente está vendendo — qual a dor que resolve, quem compra, como a copy é construída. Isso vai direto para o seu produto.</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-title">🔑 PALAVRAS-CHAVE</div>
+          <div class="example-card-body">Descobre as palavras que seu cliente usa para buscar esse tipo de produto. Use nos seus anúncios e na copy.</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">👥 PÚBLICO-ALVO</div>
+          <div class="example-card-body">Perfil detalhado de quem compra: idade, classe, dor principal, onde está nas redes sociais.</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">📝 ANÁLISE DE COPY</div>
+          <div class="example-card-body">O que está funcionando no texto do anúncio: gatilhos, tom, pontos fortes e o que pode melhorar.</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">🔬 TESTE A/B</div>
+          <div class="example-card-body">3 versões de ângulo para testar nos seus anúncios — dor, transformação e especificidade.</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">🏗️ ESTRUTURA DA OFERTA</div>
+          <div class="example-card-body">O que o produto inclui, como a oferta foi montada, bônus, garantia e ancoragem de preço.</div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">🎯 AVATAR DO CLIENTE</div>
+          <div class="example-card-body">A persona real que compra: nome fictício, situação de vida, sonho, medo e a frase que pensa.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">1</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em qualquer ferramenta para ativar</div>
+          <div class="instr-text">Cada clique consome <code>2 créditos</code> e retorna uma análise detalhada logo abaixo das ferramentas. Você pode usar quantas quiser em sequência.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">2</div>
+        <div class="instr-content">
+          <div class="instr-title">Leia o resultado e tome notas</div>
+          <div class="instr-text">As informações geradas aqui vão ajudar a preencher melhor o Briefing no Passo 4. Preste atenção especialmente no Avatar do Cliente e na Estrutura da Oferta.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">3</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em "Avançar para Formato"</div>
+          <div class="instr-text">Quando estiver pronto, clique no botão amarelo no final da página para ir ao Passo 3.</div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-icon">⚡</div>
+        <div><b>Dica de ouro:</b> Use pelo menos o <b>Avatar do Cliente</b> e a <b>Estrutura da Oferta</b> antes de avançar. Essas duas análises são as mais importantes para criar uma copy que converte.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PASSO 3 ════ -->
+  <div class="step-card" id="step3" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">3</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">Escolha o Formato</div>
+          <div class="step-tag">DECISÃO IMPORTANTE</div>
+        </div>
+        <div class="step-desc">Página de Vendas tradicional ou Quiz Funnel interativo</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>Qual escolher?</b> Os dois convertem. A diferença está no seu objetivo: se quer vender diretamente, escolha a <b>Página de Vendas</b>. Se quer qualificar o lead e capturar e-mails antes de vender, escolha o <b>Quiz Funnel</b>. Você pode gerar os dois no final.</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card" style="border-color: rgba(245,200,66,.3)">
+          <div class="example-card-title">🌐 PÁGINA DE VENDAS — QUANDO USAR</div>
+          <div class="example-card-body">
+            ✅ Produto com preço definido e oferta clara<br>
+            ✅ Você vai rodar anúncios direto para a venda<br>
+            ✅ Produto simples de explicar<br>
+            ✅ Ticket até R$ 97<br>
+          </div>
+        </div>
+        <div class="example-card" style="border-color: rgba(34,197,94,.3)">
+          <div class="example-card-title">📋 QUIZ FUNNEL — QUANDO USAR</div>
+          <div class="example-card-body">
+            ✅ Quer capturar e-mails antes de vender<br>
+            ✅ Público frio que precisa ser aquecido<br>
+            ✅ Produto que precisa de qualificação<br>
+            ✅ Quer segmentar por perfil de cliente<br>
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">1</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique no card do formato desejado</div>
+          <div class="instr-text">O card selecionado fica com borda dourada. Leia a descrição de cada formato antes de decidir.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">2</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em "Ir para Copy & Mockups"</div>
+          <div class="instr-text">O botão só fica ativo após selecionar um formato. Clique nele para avançar.</div>
+        </div>
+      </div>
+
+      <div class="warn">
+        <div>⚠️</div>
+        <div><b>Importante:</b> Você não precisa se comprometer com apenas um. No Passo 6 (Página Pronta) existe um botão para gerar o outro formato com 1 clique — mas isso consome mais <code>50 créditos</code> extras.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PASSO 4 ════ -->
+  <div class="step-card" id="step4" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">4</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">Copy & Mockups</div>
+          <div class="step-tag">IA TRABALHANDO</div>
+        </div>
+        <div class="step-desc">A IA escreve as 9 dobras da sua página + cria 5 mockups visuais</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>O que acontece aqui:</b> A IA usa os dados do produto que você selecionou (nome, preço, descrição, bônus, garantia) para escrever uma página de vendas completa do zero. O texto aparece sendo digitado em tempo real na sua tela.</div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">1</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em ⚡ Gerar Copy com IA</div>
+          <div class="instr-text">A IA vai escrever as <b>9 dobras</b> da sua página em tempo real. Você vai ver o texto aparecendo como se alguém estivesse digitando. Aguarde até o cursor dourado desaparecer — isso significa que terminou.</div>
+        </div>
+      </div>
+
+      <div class="mock-ui">
+        <div class="mock-ui-bar">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+          <span>As 9 dobras que a IA escreve</span>
+        </div>
+        <div class="mock-ui-content">
+          <div style="display:flex;flex-direction:column;gap:6px;font-family:'DM Mono',monospace;font-size:11.5px;color:#aaa">
+            <div style="color:var(--gold);font-weight:700">=== DOBRA 1: HERO ===</div>
+            <div style="color:#888">Headline principal + benefícios + preço</div>
+            <div style="color:var(--gold);font-weight:700;margin-top:4px">=== DOBRA 2: CHECKLIST DE BENEFÍCIOS ===</div>
+            <div style="color:#888">Lista com todos os benefícios do produto</div>
+            <div style="color:var(--gold);font-weight:700;margin-top:4px">=== DOBRA 3: AUTORIDADE ===</div>
+            <div style="color:#888">História e credibilidade do criador</div>
+            <div style="color:var(--gold);font-weight:700;margin-top:4px">=== DOBRA 4: O QUE VOCÊ VAI RECEBER ===</div>
+            <div style="color:#888">Produto + bônus detalhados</div>
+            <div style="color:var(--muted)">... + dobras 5 a 9 (Prova Social, Oferta, Bônus, Garantia, CTA)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">2</div>
+        <div class="instr-content">
+          <div class="instr-title">Edite a copy se quiser</div>
+          <div class="instr-text">Depois que a IA terminar, clique em <b>✏️ Editar</b> para editar o texto diretamente na tela. Substitua nomes, preços, ou mude o tom. Clique em Editar novamente para salvar as alterações.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">3</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em 🎨 Gerar 5 Mockups</div>
+          <div class="instr-text">Depois de gerar a copy, o botão de Mockups fica disponível. Clique nele para criar 5 capas visuais: o produto principal + 3 bônus + pack completo. Cada mockup tem botão <b>Editar</b> e <b>Baixar</b>.</div>
+        </div>
+      </div>
+
+      <div class="delivers">
+        <div class="deliver">
+          <div class="deliver-icon">📄</div>
+          <div class="deliver-name">Copy das 9 Dobras</div>
+          <div class="deliver-desc">Editável direto na tela</div>
+        </div>
+        <div class="deliver">
+          <div class="deliver-icon">📦</div>
+          <div class="deliver-name">Mockup Produto</div>
+          <div class="deliver-desc">Capa principal</div>
+        </div>
+        <div class="deliver">
+          <div class="deliver-icon">🎁</div>
+          <div class="deliver-name">3 Mockups Bônus</div>
+          <div class="deliver-desc">Um para cada bônus</div>
+        </div>
+        <div class="deliver">
+          <div class="deliver-icon">🎯</div>
+          <div class="deliver-name">Pack Completo</div>
+          <div class="deliver-desc">Imagem do kit todo</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">4</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em "Ir para 5 Criativos"</div>
+          <div class="instr-text">Após gerar a copy (ou os mockups), o botão de avançar fica ativo. Clique para ir ao Passo 5.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PASSO 5 ════ -->
+  <div class="step-card" id="step5" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">5</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">5 Criativos para Anúncio</div>
+          <div class="step-tag">PRONTO PARA RODAR</div>
+        </div>
+        <div class="step-desc">Hooks e copies prontos para Meta Ads, Instagram e TikTok</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>O que são os 5 criativos?</b> São 5 versões diferentes de texto para anúncio, cada uma com um ângulo diferente de abordagem. Você vai testá-los para descobrir qual converte mais com o seu público.</div>
+      </div>
+
+      <div class="example-grid">
+        <div class="example-card">
+          <div class="example-card-title">CRIATIVO 1 — HOOK DE DOR</div>
+          <div class="example-card-body">Começa apontando a dor do cliente. Ex: <i>"Você está cansado de tentar e não ver resultado?"</i></div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">CRIATIVO 2 — PROVA SOCIAL</div>
+          <div class="example-card-body">Usa depoimento ou resultado de outro cliente. Ex: <i>"Consegui resultado em menos de 7 dias usando isso"</i></div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">CRIATIVO 3 — NÚMERO ESPECÍFICO</div>
+          <div class="example-card-body">Usa dados concretos para chamar atenção. Ex: <i>"+6.000 projetos prontos para baixar HOJE"</i></div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">CRIATIVO 4 — URGÊNCIA</div>
+          <div class="example-card-body">Cria senso de urgência com prazo ou preço. Ex: <i>"Esse preço some em breve — de R$197 por R$37"</i></div>
+        </div>
+        <div class="example-card">
+          <div class="example-card-title">CRIATIVO 5 — CURIOSIDADE</div>
+          <div class="example-card-body">Instiga curiosidade sem revelar a solução. Ex: <i>"Por que pessoas comuns estão conseguindo X com isso?"</i></div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">1</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em ⚡ Gerar 5 Criativos</div>
+          <div class="instr-text">A IA gera os 5 criativos automaticamente com base no seu produto. O processo leva cerca de 10 segundos.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">2</div>
+        <div class="instr-content">
+          <div class="instr-title">Copie individualmente com 📋 Copiar</div>
+          <div class="instr-text">Cada criativo tem um botão "Copiar" que copia o hook + copy do anúncio para sua área de transferência. Cole direto no Gerenciador de Anúncios da Meta.</div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">3</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em 🚀 Ver Página Pronta</div>
+          <div class="instr-text">Após gerar os criativos, o botão de avançar fica disponível. Clique para ir ao Passo 6 e ver o resultado final.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ PASSO 6 ════ -->
+  <div class="step-card" id="step6" onclick="toggleStep(this)">
+    <div class="step-header">
+      <div class="step-hnum">6</div>
+      <div class="step-htitle">
+        <div class="step-htitle-top">
+          <div class="step-name">Página Pronta</div>
+          <div class="step-tag">ENTREGA FINAL</div>
+        </div>
+        <div class="step-desc">Preview da LP, download do HTML, link de compartilhamento e Quiz Funnel</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <div class="step-divider"></div>
+
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <div><b>O que você tem aqui:</b> Sua página de vendas completa, já montada e funcionando, pronta para hospedar em qualquer lugar. Você vê ela na própria tela, baixa o HTML ou compartilha o link diretamente.</div>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--muted2)">As 3 abas do resultado final:</div>
+
+      <div class="instruction">
+        <div class="instr-num" style="background:var(--gold)">🌐</div>
+        <div class="instr-content">
+          <div class="instr-title">Aba: Página de Vendas</div>
+          <div class="instr-text">
+            • <b>⬇️ Baixar HTML</b> — baixa o arquivo .html no seu computador. Hospede no Netlify, GitHub Pages, ou qualquer servidor.<br>
+            • <b>📋 Copiar HTML</b> — copia o código inteiro para colar onde quiser.<br>
+            • <b>🔗 Link para compartilhar</b> — gera um link que abre a página direto no navegador. Qualquer pessoa com o link vê a sua LP funcionando.<br>
+            • <b>Preview</b> — abaixo dos botões você vê a página como se fosse um site de verdade, com header, preço, CTA animado e rodapé.
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num" style="background:var(--green)">📋</div>
+        <div class="instr-content">
+          <div class="instr-title">Aba: Quiz Funnel</div>
+          <div class="instr-text">
+            Se você escolheu o formato "Quiz" no Passo 3, ele já estará aqui pronto.<br>
+            Se escolheu a Página de Vendas mas quer o Quiz também, clique em <b>⚡ Gerar Quiz Funnel agora</b> — isso consome <code>50 créditos</code> e gera o quiz completo com 10 etapas: perguntas, captura de e-mail e página de oferta.
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num" style="background:var(--blue)">🎬</div>
+        <div class="instr-content">
+          <div class="instr-title">Aba: Criativos</div>
+          <div class="instr-text">Os 5 criativos gerados no Passo 5 aparecem aqui para você consultar e copiar sem precisar voltar.</div>
+        </div>
+      </div>
+
+      <div class="mock-ui">
+        <div class="mock-ui-bar">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+          <span>Como usar o link de compartilhamento</span>
+        </div>
+        <div class="mock-ui-content">
+          <div style="font-size:13px;line-height:1.8;color:var(--muted2)">
+            1. Clique em <b style="color:var(--gold)">🔗 Link para compartilhar</b><br>
+            2. Uma caixa verde aparece com o link<br>
+            3. Clique em <b style="color:var(--green)">📋 Copiar link</b><br>
+            4. Cole o link no WhatsApp, e-mail ou onde quiser<br>
+            5. Quem abrir o link verá a sua página funcionando<br>
+            <br>
+            <span style="color:#555;font-size:12px">⚠️ O link funciona enquanto o arquivo estiver aberto no seu navegador. Para um link permanente, hospede o HTML no Netlify (grátis) e compartilhe o link de lá.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <div class="instr-num">✓</div>
+        <div class="instr-content">
+          <div class="instr-title">Clique em 🔄 Novo produto para recomeçar</div>
+          <div class="instr-text">Quando quiser criar um novo produto, clique no botão "Novo produto" na aba da Página de Vendas. O sistema pergunta uma confirmação antes de resetar tudo.</div>
+        </div>
+      </div>
+
+      <div class="success">
+        <div>🚀</div>
+        <div><b>Você terminou!</b> Agora você tem: LP pronta, Quiz (opcional), 5 criativos para anúncio e 5 mockups visuais. Tudo isso em menos de 10 minutos.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ CRÉDITOS ════ -->
+  <div style="margin-top:40px">
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px">Sistema de <span style="color:var(--gold)">Créditos</span></div>
+    <div style="font-size:13px;color:var(--muted2);margin-bottom:18px">Você começa com 200 créditos. Veja quanto cada ação consome:</div>
+    <table class="credits-table">
+      <thead>
+        <tr>
+          <th>Ação</th>
+          <th>Créditos</th>
+          <th>Quando acontece</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Salvar anúncio do Scanner</td><td><span class="credit-badge">2</span></td><td>Passo 1 — ao clicar em Salvar</td></tr>
+        <tr><td>Cada análise com IA</td><td><span class="credit-badge">2</span></td><td>Passo 2 — por ferramenta usada</td></tr>
+        <tr><td>Gerar Copy (9 dobras)</td><td><span class="credit-badge">30</span></td><td>Passo 4 — ao gerar a copy</td></tr>
+        <tr><td>Gerar 5 Mockups</td><td><span class="credit-badge">15</span></td><td>Passo 4 — ao gerar os mockups</td></tr>
+        <tr><td>Gerar 5 Criativos</td><td><span class="credit-badge">20</span></td><td>Passo 5 — ao gerar os criativos</td></tr>
+        <tr><td>Montar Página Final (LP)</td><td><span class="credit-badge">10</span></td><td>Passo 6 — ao avançar para resultado</td></tr>
+        <tr><td>Gerar Quiz Funnel</td><td><span class="credit-badge">50</span></td><td>Passo 6 — aba Quiz, se gerado</td></tr>
+        <tr style="font-weight:700"><td>Total fluxo completo (sem quiz)</td><td><span class="credit-badge" style="background:rgba(245,200,66,.15)">~80</span></td><td>Do início ao fim</td></tr>
+      </tbody>
+    </table>
+    <div class="tip" style="margin-top:12px">
+      <div class="tip-icon">💡</div>
+      <div>Com 200 créditos você consegue fazer o fluxo completo <b>2 vezes</b> — e ainda sobra para análises extras. Quando os créditos acabarem, clique em "Novo produto" para reiniciar.</div>
+    </div>
+  </div>
+
+  <!-- ════ FAQ ════ -->
+  <div class="faq-section" id="faq">
+    <div class="faq-title">Perguntas <span>Frequentes</span></div>
+    <div class="faq-sub">As dúvidas mais comuns sobre o ZAKOV</div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>Posso usar meu próprio produto, não o do Scanner?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sim. O Scanner é só para você encontrar inspiração e referências que já estão vendendo. No Passo 4 (Copy & Mockups), a IA usa os dados do briefing pré-preenchido — mas você pode editar todos os campos antes de gerar: nome do produto, preço, descrição, bônus etc. Coloque os dados do seu produto real.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>O link de compartilhamento é permanente?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Não. O link de compartilhamento funciona enquanto o arquivo ZAKOV estiver aberto no seu navegador — é um link local temporário. Para um link permanente que funcione para qualquer pessoa, baixe o HTML e hospede no <b>Netlify</b> (gratuito, em menos de 2 minutos). Lá você recebe um link permanente e profissional.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>Como hospedar o HTML baixado no Netlify?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">1. Acesse netlify.com e crie uma conta grátis<br>2. Na dashboard, arraste o arquivo .html baixado diretamente para a tela<br>3. Em segundos você recebe um link no formato <code>nome-aleatorio.netlify.app</code><br>4. Compartilhe esse link com seus clientes ou use nos anúncios</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>A copy gerada é única ou igual para todos?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Cada copy é gerada do zero pela IA com base nos dados do seu briefing específico. O resultado é diferente a cada geração — mesmo que dois usuários usem o mesmo produto de referência, as copies serão diferentes. Você também pode editar qualquer parte da copy diretamente na tela antes de montar a página.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>O que faço se a copy gerada não ficar boa?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Você tem duas opções: <b>1)</b> Clique em "✏️ Editar" e corrija os trechos que não gostou diretamente na caixa de texto. <b>2)</b> Clique novamente em "⚡ Gerar Copy com IA" para gerar uma nova versão (consome mais 30 créditos). Cada geração é diferente — tente pelo menos 2 vezes antes de editar manualmente.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>Posso criar produtos de nichos diferentes?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Sim. O ZAKOV funciona para qualquer nicho de infoproduto: marcenaria, fitness, culinária, renda extra, espiritualidade, direitos do consumidor, imóveis etc. Basta selecionar o nicho no Scanner, salvar um produto de referência e seguir o fluxo normalmente. Ao terminar, clique em "🔄 Novo produto" para criar outro.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>O Quiz e a Página de Vendas têm o botão de compra funcional?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">A página e o quiz são entregues com um botão de CTA (<i>"QUERO ACESSO AGORA"</i>) que você precisa apontar para o link da sua plataforma de pagamento (Hotmart, Kiwify, Eduzz etc.). Abra o HTML baixado em qualquer editor de texto, procure o href="#" no botão e substitua pelo link do seu checkout.</div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><span>Meu cliente vai receber o ZAKOV ou só o resultado?</span><span class="faq-icon">+</span></div>
+      <div class="faq-a">Depende de como você quiser usar. Você pode: <b>a)</b> dar o arquivo ZAKOV para o cliente usar sozinho (como uma ferramenta), <b>b)</b> usar o ZAKOV para criar produtos para seus clientes e entregar só o HTML final, ou <b>c)</b> vender o ZAKOV como serviço — o cliente paga, você cria, entrega o HTML. As três abordagens funcionam.</div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="final-cta">
+    <h2>Pronto para criar seu<br><span>primeiro produto?</span></h2>
+    <p>Abra o ZAKOV, selecione um nicho e siga os 6 passos.<br>Em menos de 10 minutos você tem uma LP completa pronta para rodar.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-gold" onclick="window.open('zakov.html','_blank')">🚀 Abrir o ZAKOV</button>
+      <button class="btn btn-out" onclick="scrollTo(0,0)">↑ Voltar ao início</button>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ── TOGGLE STEP ──
+function toggleStep(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.step-card').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+  updateTracker();
+}
+
+// ── TOGGLE FAQ ──
+function toggleFaq(item) {
+  item.classList.toggle('open');
+}
+
+// ── SCROLL TO STEP ──
+function scrollToStep(n) {
+  const el = document.getElementById('step' + n);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => {
+    document.querySelectorAll('.step-card').forEach(c => c.classList.remove('open'));
+    el.classList.add('open');
+    updateTracker();
+  }, 400);
+}
+
+function scrollToFaq() {
+  document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── TRACKER ──
+function updateTracker() {
+  const dots = document.querySelectorAll('.tracker-dot');
+  const steps = document.querySelectorAll('.step-card');
+  dots.forEach(d => d.classList.remove('active'));
+  steps.forEach((s, i) => {
+    if (s.classList.contains('open')) dots[i + 1]?.classList.add('active');
+  });
+}
+
+// ── SCROLL SPY ──
+window.addEventListener('scroll', () => {
+  const dots = document.querySelectorAll('.tracker-dot');
+  const sections = ['hero', 'step1', 'step2', 'step3', 'step4', 'step5', 'step6', 'faq'];
+  let active = 0;
+
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id) || document.querySelector('.hero');
+    if (!el) return;
+    if (el.getBoundingClientRect().top <= 120) active = i;
+  });
+
+  dots.forEach(d => d.classList.remove('active'));
+  if (dots[active]) dots[active].classList.add('active');
+});
+
+// ── FLOW STEP CLICK ──
+document.querySelectorAll('.flow-step').forEach((s, i) => {
+  s.addEventListener('click', () => {
+    document.querySelectorAll('.flow-step').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
