@@ -2,291 +2,406 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ZAKOV — Fábrica de Low Ticket</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#F5C842;--gold2:#ffdb6e;--bg:#080808;--s1:#111;--s2:#181818;--s3:#222;--border:#2c2c2c;--text:#efefef;--muted:#5a5a5a;--green:#22c55e;--red:#ef4444;--r:10px}
+:root{
+  --gold:#F5C842;--gold2:#ffd84d;--bg:#070707;
+  --s1:#0f0f0f;--s2:#161616;--s3:#1e1e1e;--s4:#252525;
+  --border:#262626;--border2:#303030;
+  --text:#eeeeee;--muted:#555;--muted2:#888;
+  --green:#22c55e;--red:#ef4444;--blue:#3b82f6;
+  --r:10px;--r2:14px;
+}
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
-.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:900;letter-spacing:-1px}
-.logo b{color:var(--gold)}
-.credits{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:12px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:6px 14px}
+
+/* ── TOPBAR ── */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300}
+.logo{font-family:'Syne',sans-serif;font-size:21px;font-weight:900;letter-spacing:-1.5px}
+.logo em{color:var(--gold);font-style:normal}
+.topright{display:flex;align-items:center;gap:10px}
+.topbadge{font-size:10px;color:var(--muted2);background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:4px 10px}
+.credits{display:flex;align-items:center;gap:7px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:6px 13px;font-family:'DM Mono',monospace;font-size:12px;cursor:default}
 .cdot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.stepper{display:flex;align-items:stretch;background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ── STEPPER ── */
+.stepper{display:flex;background:var(--s1);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;position:sticky;top:54px;z-index:200}
 .stepper::-webkit-scrollbar{display:none}
-.step{display:flex;align-items:center;gap:8px;padding:14px 20px;font-size:12px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.2s;user-select:none}
-.step:hover{color:var(--text)}
-.step.active{color:var(--gold);border-bottom-color:var(--gold)}
-.step.done{color:var(--green)}
-.step-n{width:20px;height:20px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;flex-shrink:0;transition:.2s}
-.step.active .step-n{background:var(--gold);color:#000}
-.step.done .step-n{background:var(--green);color:#000}
-.wrap{max-width:860px;margin:0 auto;padding:32px 24px}
-.screen{display:none;animation:up .3s ease}
+.stp{display:flex;align-items:center;gap:8px;padding:13px 18px;font-size:11.5px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:.2s;user-select:none;flex-shrink:0}
+.stp:hover{color:var(--muted2)}
+.stp.active{color:var(--gold);border-bottom-color:var(--gold)}
+.stp.done{color:var(--green)}
+.stp-n{width:19px;height:19px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:10px;flex-shrink:0;transition:.2s}
+.stp.active .stp-n{background:var(--gold);color:#000;font-weight:700}
+.stp.done .stp-n{background:var(--green);color:#000}
+
+/* ── WRAP ── */
+.wrap{max-width:900px;margin:0 auto;padding:32px 22px}
+.screen{display:none;animation:fadeUp .3s ease}
 .screen.on{display:block}
-@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:4px}
-.h1 span{color:var(--gold)}
-.sub{color:var(--muted);font-size:13px;margin-bottom:24px}
-.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.input{flex:1;min-width:160px;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:.2s}
-.input:focus{border-color:var(--gold)}
-.input::placeholder{color:var(--muted)}
-select.input{cursor:pointer}
-textarea.input{resize:vertical;min-height:90px}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.15s;white-space:nowrap}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HEADINGS ── */
+.pg-title{font-family:'Syne',sans-serif;font-size:25px;font-weight:800;margin-bottom:4px}
+.pg-title span{color:var(--gold)}
+.pg-sub{color:var(--muted);font-size:13px;margin-bottom:24px;line-height:1.5}
+
+/* ── CARD ── */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:20px;margin-bottom:16px}
+.card-title{font-size:12px;font-weight:600;color:var(--muted2);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+
+/* ── INPUTS ── */
+.inp{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;transition:.2s;width:100%}
+.inp:focus{border-color:var(--gold)}
+.inp::placeholder{color:var(--muted)}
+select.inp{cursor:pointer}
+textarea.inp{resize:vertical;min-height:86px}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 17px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:.15s;white-space:nowrap;line-height:1}
 .btn-gold{background:var(--gold);color:#000}
-.btn-gold:hover{background:var(--gold2);transform:translateY(-1px)}
-.btn-out{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(245,200,66,.25)}
+.btn-out{background:transparent;border:1px solid var(--border2);color:var(--text)}
 .btn-out:hover{border-color:var(--gold);color:var(--gold)}
 .btn-green{background:var(--green);color:#000}
 .btn-green:hover{filter:brightness(1.1)}
-.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
-.btn-full{width:100%;justify-content:center;margin-top:12px;padding:14px}
-.ads-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-red{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
+.btn-red:hover{border-color:var(--red);color:var(--red)}
+.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn-full{width:100%;justify-content:center;padding:13px}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px}
+
+/* ── SCANNER ── */
+.scan-controls{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:12px}
+@media(max-width:600px){.scan-controls{grid-template-columns:1fr 1fr;} .scan-controls .btn{grid-column:1/-1}}
+.scan-extras{display:flex;align-items:center;gap:16px;font-size:12px;color:var(--muted2);flex-wrap:wrap}
+.scan-extras label{display:flex;align-items:center;gap:5px;cursor:pointer}
+.ads-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 @media(max-width:560px){.ads-grid{grid-template-columns:1fr}}
-.adcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.2s;position:relative}
-.adcard:hover{border-color:#444}
-.adcard.sel{border-color:var(--gold);background:#1b1600}
+.adcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.adcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,200,66,.03),transparent);opacity:0;transition:.2s}
+.adcard:hover{border-color:var(--border2)}
+.adcard:hover::before{opacity:1}
+.adcard.sel{border-color:var(--gold);background:#181400}
 .adcard-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#e07c00);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#000;flex-shrink:0}
-.adcard-brand{font-weight:600;font-size:13px}
-.adcard-meta{font-size:11px;color:var(--muted)}
-.adcard-text{font-size:12px;color:#aaa;line-height:1.55;margin-bottom:10px}
-.adcard-stats{display:flex;gap:12px;font-size:11px;color:var(--muted)}
-.adcard-stats strong{color:var(--text)}
-.badge{position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;background:var(--gold);color:#000}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#d47800);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;color:#000;flex-shrink:0}
+.adcard-brand{font-weight:600;font-size:13px;line-height:1.3}
+.adcard-meta{font-size:10px;color:var(--muted);margin-top:1px}
+.adcard-text{font-size:11.5px;color:#999;line-height:1.55;margin-bottom:10px}
+.adcard-stats{display:flex;gap:10px;font-size:11px;color:var(--muted)}
+.adcard-stats b{color:var(--text)}
+.badge{position:absolute;top:10px;right:10px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 7px;border-radius:20px;background:var(--gold);color:#000}
 .badge.hot{background:var(--red);color:#fff}
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-@media(max-width:480px){.tools{grid-template-columns:repeat(2,1fr)}}
-.tool{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px 10px;text-align:center;cursor:pointer;transition:.2s;font-size:12px}
-.tool:hover{border-color:var(--gold);color:var(--gold)}
-.tool-icon{font-size:18px;margin-bottom:4px}
-.ana-out{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-top:14px;font-size:13px;line-height:1.7;color:#bbb;display:none}
-.ana-out.on{display:block;animation:up .3s ease}
-.ana-out h4{color:var(--gold);font-family:'Syne',sans-serif;font-size:14px;margin-bottom:10px}
-.ana-out ul{padding-left:16px}
-.ana-out li{margin-bottom:5px}
+.scan-label{font-size:11.5px;color:var(--muted2);margin-top:4px}
+
+/* ── ANALYSIS ── */
+.sel-banner{display:flex;align-items:center;gap:12px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:12px 16px;margin-bottom:18px}
+.sel-banner-icon{font-size:18px;flex-shrink:0}
+.sel-banner-name{font-weight:600;font-size:13px}
+.sel-banner-meta{color:var(--muted);font-size:11px;margin-top:2px}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:480px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+.tool-btn{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:13px 10px;text-align:center;cursor:pointer;transition:.2s;font-size:12px;color:var(--muted2)}
+.tool-btn:hover{border-color:var(--gold);color:var(--gold);background:#141000}
+.tool-icon{font-size:19px;margin-bottom:5px;display:block}
+.ana-box{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-top:14px;font-size:13px;line-height:1.7;color:#bbb;display:none}
+.ana-box.on{display:block;animation:fadeUp .3s ease}
+.ana-box h4{color:var(--gold);font-family:'Syne',sans-serif;font-size:14px;margin-bottom:10px;font-weight:700}
+.ana-box ul{padding-left:16px}
+.ana-box li{margin-bottom:6px}
+
+/* ── FORMAT ── */
 .fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:480px){.fmt-grid{grid-template-columns:1fr}}
-.fmtcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r);padding:18px;cursor:pointer;transition:.2s}
-.fmtcard:hover{border-color:#555;transform:translateY(-2px)}
-.fmtcard.sel{border-color:var(--gold);background:#1b1600}
-.fmt-icon{font-size:28px;margin-bottom:10px}
-.fmt-name{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;margin-bottom:3px}
-.fmt-credits{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:8px}
-.fmt-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px}
-.fmt-list{list-style:none}
-.fmt-list li{font-size:11px;color:#888;padding:2px 0;display:flex;gap:5px}
-.fmt-list li::before{content:'⚡';font-size:9px;flex-shrink:0;margin-top:2px}
-.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:500px){.brief-grid{grid-template-columns:1fr}}
-.field-label{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;display:block}
-.ai-box{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.9;color:#ccc;min-height:260px;white-space:pre-wrap;display:none;position:relative}
-.cursor{display:inline-block;width:8px;height:13px;background:var(--gold);animation:blink .7s infinite;margin-left:1px;vertical-align:text-bottom}
-.cri-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
-.cri-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.cri-tag{background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px}
-.cri-hook{font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.4}
-.cri-copy{font-size:12px;color:#aaa;line-height:1.6}
-.preview-shell{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+@media(max-width:500px){.fmt-grid{grid-template-columns:1fr}}
+.fmtcard{background:var(--s2);border:2px solid var(--border);border-radius:var(--r2);padding:20px;cursor:pointer;transition:.2s}
+.fmtcard:hover{border-color:var(--border2);transform:translateY(-2px)}
+.fmtcard.sel{border-color:var(--gold);background:#141000}
+.fmt-icon{font-size:30px;margin-bottom:11px;display:block}
+.fmt-name{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;margin-bottom:3px}
+.fmt-price{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:10px}
+.fmt-desc{font-size:12px;color:var(--muted2);line-height:1.55;margin-bottom:12px}
+.fmt-feats{list-style:none;display:flex;flex-direction:column;gap:5px}
+.fmt-feats li{font-size:11.5px;color:#777;display:flex;align-items:flex-start;gap:6px}
+.fmt-feats li::before{content:'⚡';font-size:9px;flex-shrink:0;margin-top:2px}
+.fmt-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ── COPY & MOCKUPS ── */
+.ai-out{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:20px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.9;color:#ccc;min-height:280px;white-space:pre-wrap;display:none;position:relative;overflow-x:auto}
+.ai-cursor{display:inline-block;width:8px;height:13px;background:var(--gold);animation:blink .7s infinite;margin-left:1px;vertical-align:text-bottom}
+.mock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;margin-top:16px}
+.mockcard{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:.2s}
+.mockcard:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mock-thumb{height:115px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden}
+.mock-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.6))}
+.mock-label{padding:9px 11px;font-size:11px;font-weight:600;border-top:1px solid var(--border);line-height:1.3}
+.mock-acts{display:flex;gap:6px;padding:0 11px 11px}
+.mock-act{flex:1;background:var(--s3);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--text);cursor:pointer;padding:5px;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
+.mock-act:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── CRIATIVOS ── */
+.cri-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;transition:.2s}
+.cri-card:hover{border-color:var(--border2)}
+.cri-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.cri-tag{background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+.cri-hook{font-size:15px;font-weight:700;margin-bottom:7px;line-height:1.4;color:var(--text)}
+.cri-copy{font-size:12.5px;color:#999;line-height:1.65}
+
+/* ── PREVIEW ── */
+.preview-shell{background:var(--s2);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
 .pbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:var(--s1);border-bottom:1px solid var(--border)}
-.pbar-dot{width:9px;height:9px;border-radius:50%}
-.pbar-url{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
-.pframe{width:100%;height:560px;border:none;background:#fff}
-.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:20px}
-.tab{padding:12px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s}
+.pdot{width:10px;height:10px;border-radius:50%}
+.purl{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.pframe{width:100%;height:580px;border:none;background:#fff}
+
+/* ── TABS ── */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:11px 16px;font-size:12.5px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.2s;white-space:nowrap;flex-shrink:0}
 .tab.on{color:var(--gold);border-bottom-color:var(--gold)}
-.share-box{background:#0d1a00;border:1px solid var(--green);border-radius:var(--r);padding:20px;text-align:center;margin-bottom:16px}
-.share-link{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin:12px 0;word-break:break-all;text-align:left}
-.sel-banner{display:flex;align-items:center;gap:12px;background:#1b1600;border:1px solid #3a3000;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px}
-.loader{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+
+/* ── SHARE ── */
+.share-box{background:#0b1500;border:1px solid var(--green);border-radius:var(--r);padding:20px;margin-bottom:14px}
+.share-link-row{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;margin:10px 0}
+.share-link-txt{flex:1;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ── INFO BAR ── */
+.info-bar{display:flex;align-items:flex-start;gap:8px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:11px 14px;font-size:12px;color:#ccc;margin-bottom:18px}
+.divider{border:none;border-top:1px solid var(--border);margin:22px 0}
+
+/* ── LOADER ── */
+.loader{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
 .loader.on{display:flex}
-.spin{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
+.spin{width:46px;height:46px;border:3px solid var(--s3);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-t{font-family:'Syne',sans-serif;font-size:17px;font-weight:700}
-.load-s{font-size:12px;color:var(--muted)}
-.toast{position:fixed;bottom:20px;right:20px;background:var(--s1);border:1px solid var(--gold);border-radius:var(--r);padding:12px 18px;font-size:12px;transform:translateX(130%);transition:.3s;z-index:1000;max-width:280px}
+.load-s{font-size:12px;color:var(--muted2)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--s1);border:1px solid var(--gold);border-radius:var(--r);padding:12px 18px;font-size:12px;transform:translateX(140%);transition:.3s ease;z-index:9998;max-width:290px}
 .toast.on{transform:translateX(0)}
-.toast strong{color:var(--gold);display:block;margin-bottom:2px;font-size:13px}
-.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
-.info-bar{display:flex;align-items:flex-start;gap:8px;background:#1b1600;border:1px solid #3a2e00;border-radius:8px;padding:11px 14px;font-size:12px;color:#ccc;margin-bottom:18px}
+.toast-t{color:var(--gold);font-weight:600;font-size:13px;margin-bottom:2px}
+
+/* ── MISC ── */
+.label-sm{font-size:11px;font-weight:600;color:var(--muted2);margin-bottom:5px;display:block}
+.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.brief-grid{grid-template-columns:1fr}}
+.section-sub{font-size:12px;font-weight:600;color:var(--muted2);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo">ZAK<b>OV</b></div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <span style="font-size:11px;color:var(--muted)">Fábrica de Low Ticket</span>
+  <div class="logo">ZAK<em>OV</em></div>
+  <div class="topright">
+    <div class="topbadge">Fábrica de Low Ticket</div>
     <div class="credits"><div class="cdot"></div><span id="credTxt">200 créditos</span></div>
   </div>
 </div>
 
+<!-- STEPPER -->
 <div class="stepper">
-  <div class="step active" id="st1" onclick="nav(1)"><div class="step-n">1</div>Scanner</div>
-  <div class="step" id="st2" onclick="nav(2)"><div class="step-n">2</div>Análise</div>
-  <div class="step" id="st3" onclick="nav(3)"><div class="step-n">3</div>Briefing</div>
-  <div class="step" id="st4" onclick="nav(4)"><div class="step-n">4</div>Formato</div>
-  <div class="step" id="st5" onclick="nav(5)"><div class="step-n">5</div>Gerar com IA</div>
-  <div class="step" id="st6" onclick="nav(6)"><div class="step-n">6</div>Resultado Final</div>
+  <div class="stp active" id="st1" onclick="nav(1)"><div class="stp-n">1</div>Scanner</div>
+  <div class="stp" id="st2" onclick="nav(2)"><div class="stp-n">2</div>Análise com IA</div>
+  <div class="stp" id="st3" onclick="nav(3)"><div class="stp-n">3</div>Formato</div>
+  <div class="stp" id="st4" onclick="nav(4)"><div class="stp-n">4</div>Copy & Mockups</div>
+  <div class="stp" id="st5" onclick="nav(5)"><div class="stp-n">5</div>5 Criativos</div>
+  <div class="stp" id="st6" onclick="nav(6)"><div class="stp-n">6</div>Página Pronta</div>
 </div>
 
 <div class="wrap">
 
-<!-- ══ PASSO 1 ══ -->
+<!-- ════════════════════════════════
+     PASSO 1 — SCANNER
+════════════════════════════════ -->
 <div class="screen on" id="s1">
-  <div class="h1">Scanner de <span>Oferta</span></div>
-  <div class="sub">Encontre produtos virais com anúncios ativos na Biblioteca da Meta</div>
+  <div class="pg-title">Scanner de <span>Oferta</span></div>
+  <div class="pg-sub">Encontre produtos virais com anúncios ativos na Biblioteca de Anúncios da Meta</div>
+
   <div class="card">
-    <div class="row" style="margin-bottom:12px">
-      <select class="input" id="nichoSel">
+    <div class="card-title">🔍 Configurar busca</div>
+    <div class="scan-controls">
+      <select class="inp" id="nichoSel">
         <option value="">Selecione um nicho...</option>
-        <option value="marcenaria">Marcenaria / DIY</option>
-        <option value="fitness">Fitness / Musculação</option>
-        <option value="culinaria">Culinária / Emagrecimento</option>
-        <option value="renda">Renda Extra / Digital</option>
-        <option value="espiritualidade">Espiritualidade</option>
-        <option value="direitos">Direitos do Consumidor</option>
-        <option value="imoveis">Imóveis / Decoração</option>
+        <option value="marcenaria">🪵 Marcenaria / DIY</option>
+        <option value="fitness">💪 Fitness / Musculação</option>
+        <option value="culinaria">🍳 Culinária / Emagrecimento</option>
+        <option value="renda">💰 Renda Extra / Digital</option>
+        <option value="espiritualidade">🌟 Espiritualidade</option>
+        <option value="direitos">⚖️ Direitos do Consumidor</option>
+        <option value="imoveis">🏠 Imóveis / Decoração</option>
       </select>
-      <input class="input" id="kwInput" placeholder="Palavra-chave adicional...">
+      <input class="inp" id="kwInput" placeholder="Palavra-chave adicional...">
       <button class="btn btn-gold" onclick="scan()">⚡ Escanear</button>
     </div>
-    <div style="display:flex;align-items:center;gap:14px;font-size:12px;color:var(--muted)">
-      <span>Mín. anúncios: <input type="number" class="input" value="5" id="minAds" style="width:60px;padding:5px 8px;display:inline-block;min-width:0"></span>
-      <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" checked id="chkAtivo" style="accent-color:var(--gold)"> Apenas ativos</label>
+    <div class="scan-extras">
+      <span>Mín. anúncios: <input type="number" id="minAds" value="5" class="inp" style="width:58px;padding:5px 8px;display:inline;min-width:0;margin-left:4px"></span>
+      <label><input type="checkbox" id="chkAtivo" checked style="accent-color:var(--gold)"> Apenas ativos</label>
+      <label><input type="checkbox" id="chkHot" style="accent-color:var(--red)"> Só virais</label>
     </div>
   </div>
+
   <div id="scanOut" style="display:none">
-    <div style="font-size:12px;color:var(--muted);margin-bottom:12px" id="scanLabel"></div>
+    <div class="scan-label" id="scanLabel"></div>
     <div class="ads-grid" id="adsGrid"></div>
-    <button class="btn btn-gold btn-full" id="btnSalvar" onclick="salvar()" disabled>💾 Salvar e ir para Análise →</button>
+    <button class="btn btn-gold btn-full" id="btnSalvar" onclick="salvar()" disabled style="margin-top:14px">💾 Salvar anúncio e ir para Análise →</button>
   </div>
 </div>
 
-<!-- ══ PASSO 2 ══ -->
+<!-- ════════════════════════════════
+     PASSO 2 — ANÁLISE COM IA
+════════════════════════════════ -->
 <div class="screen" id="s2">
-  <div class="h1">Análise com <span>IA</span></div>
-  <div class="sub">Radiografia completa do produto antes de modelar</div>
-  <div class="sel-banner"><div>📦</div><div><div style="font-weight:600" id="b2name">—</div><div style="color:var(--muted);font-size:11px" id="b2meta">—</div></div></div>
-  <div class="tools">
-    <div class="tool" onclick="analyze('palavras')"><div class="tool-icon">🔑</div>Palavras-chave</div>
-    <div class="tool" onclick="analyze('publico')"><div class="tool-icon">👥</div>Público-alvo</div>
-    <div class="tool" onclick="analyze('copy')"><div class="tool-icon">📝</div>Análise de Copy</div>
-    <div class="tool" onclick="analyze('ab')"><div class="tool-icon">🔬</div>Teste A/B</div>
-    <div class="tool" onclick="analyze('oferta')"><div class="tool-icon">🏗️</div>Estrutura da Oferta</div>
-    <div class="tool" onclick="analyze('avatar')"><div class="tool-icon">🎯</div>Avatar do Cliente</div>
-  </div>
-  <div class="ana-out" id="anaOut"></div>
-  <button class="btn btn-gold btn-full" style="margin-top:20px" onclick="nav(3)">Avançar para Briefing →</button>
-</div>
+  <div class="pg-title">Análise com <span>IA</span></div>
+  <div class="pg-sub">6 ferramentas para radiografar o produto antes de modelar — cada análise consome 2 créditos</div>
 
-<!-- ══ PASSO 3 ══ -->
-<div class="screen" id="s3">
-  <div class="h1">Briefing do <span>Produto</span></div>
-  <div class="sub">A IA usa esses dados para gerar tudo. Ajuste conforme seu produto real.</div>
-  <div class="card">
-    <div class="brief-grid">
-      <div><label class="field-label">Nome do Produto</label><input class="input" id="bNome" placeholder="Ex: Projetos Marceneiro Pro" style="width:100%"></div>
-      <div><label class="field-label">Nicho / Categoria</label><input class="input" id="bNicho" placeholder="Ex: Marcenaria, Fitness..." style="width:100%"></div>
-      <div><label class="field-label">Preço de venda</label><input class="input" id="bPreco" placeholder="Ex: R$ 37" style="width:100%"></div>
-      <div><label class="field-label">Preço riscado (de)</label><input class="input" id="bPrecoOld" placeholder="Ex: R$ 197" style="width:100%"></div>
-      <div style="grid-column:1/-1"><label class="field-label">O que o produto entrega (benefícios principais)</label><textarea class="input" id="bDesc" placeholder="Ex: +6.000 projetos técnicos prontos para montar móveis em casa..." style="width:100%"></textarea></div>
-      <div><label class="field-label">Maior dor do cliente</label><input class="input" id="bDor" placeholder="Ex: Não sabe por onde começar" style="width:100%"></div>
-      <div><label class="field-label">Desejo principal do cliente</label><input class="input" id="bDesejo" placeholder="Ex: Ter renda extra em casa" style="width:100%"></div>
-      <div><label class="field-label">Bônus 1</label><input class="input" id="bB1" placeholder="Ex: Mini Curso Ferramentas" style="width:100%"></div>
-      <div><label class="field-label">Bônus 2</label><input class="input" id="bB2" placeholder="Ex: Calculadora de Lucro" style="width:100%"></div>
-      <div><label class="field-label">Bônus 3</label><input class="input" id="bB3" placeholder="Ex: Atualizações Mensais" style="width:100%"></div>
-      <div><label class="field-label">Garantia</label><input class="input" id="bGar" placeholder="Ex: 7 dias incondicional" style="width:100%"></div>
+  <div class="sel-banner">
+    <div class="sel-banner-icon">📦</div>
+    <div>
+      <div class="sel-banner-name" id="b2name">—</div>
+      <div class="sel-banner-meta" id="b2meta">—</div>
     </div>
   </div>
-  <button class="btn btn-gold btn-full" onclick="saveBrief()">Salvar Briefing e Escolher Formato →</button>
+
+  <div class="tools-grid">
+    <div class="tool-btn" onclick="analyze('palavras')"><span class="tool-icon">🔑</span>Palavras-chave</div>
+    <div class="tool-btn" onclick="analyze('publico')"><span class="tool-icon">👥</span>Público-alvo</div>
+    <div class="tool-btn" onclick="analyze('copy')"><span class="tool-icon">📝</span>Análise de Copy</div>
+    <div class="tool-btn" onclick="analyze('ab')"><span class="tool-icon">🔬</span>Teste A/B</div>
+    <div class="tool-btn" onclick="analyze('oferta')"><span class="tool-icon">🏗️</span>Estrutura da Oferta</div>
+    <div class="tool-btn" onclick="analyze('avatar')"><span class="tool-icon">🎯</span>Avatar do Cliente</div>
+  </div>
+
+  <div class="ana-box" id="anaBox"></div>
+  <button class="btn btn-gold btn-full" style="margin-top:20px" onclick="nav(3)">Avançar para Formato →</button>
 </div>
 
-<!-- ══ PASSO 4 ══ -->
-<div class="screen" id="s4">
-  <div class="h1">Escolha o <span>Formato</span></div>
-  <div class="sub">A IA gera o HTML completo — pronto para baixar, hospedar e compartilhar</div>
-  <div class="info-bar">⚡ <span>Briefing salvo. A IA usará seus dados para preencher tudo automaticamente.</span></div>
+<!-- ════════════════════════════════
+     PASSO 3 — FORMATO
+════════════════════════════════ -->
+<div class="screen" id="s3">
+  <div class="pg-title">Escolha o <span>Formato</span></div>
+  <div class="pg-sub">Os dois convertem — depende do seu estilo e objetivo. Você pode gerar ambos no final.</div>
+
+  <div class="info-bar">⚡ <span>A IA vai usar o anúncio salvo para preencher o briefing automaticamente.</span></div>
+
   <div class="fmt-grid">
     <div class="fmtcard" id="fLP" onclick="selFmt('lp')">
-      <div class="fmt-icon">🌐</div>
+      <span class="fmt-icon">🌐</span>
       <div class="fmt-name">Página de Vendas</div>
-      <div class="fmt-credits">~50 CRÉDITOS</div>
-      <div class="fmt-desc">LP completa com 9 dobras: headline, benefícios, prova social, oferta, bônus, garantia e CTA.</div>
-      <ul class="fmt-list">
-        <li>Copy das 9 dobras gerada por IA</li>
-        <li>HTML completo para baixar</li>
-        <li>Visualização em tempo real na tela</li>
+      <div class="fmt-price">~50 CRÉDITOS</div>
+      <div class="fmt-desc">LP completa com 9 dobras: headline, benefícios, prova social, bônus, garantia e CTA com copy gerada por IA.</div>
+      <ul class="fmt-feats">
+        <li>9 dobras prontas + efeito de digitação em tempo real</li>
+        <li>5 mockups visuais editáveis e baixáveis</li>
+        <li>HTML completo para download</li>
+        <li>Preview visual na tela</li>
         <li>Link para visualizar e compartilhar</li>
       </ul>
     </div>
     <div class="fmtcard" id="fQZ" onclick="selFmt('quiz')">
-      <div class="fmt-icon">📋</div>
+      <span class="fmt-icon">📋</span>
       <div class="fmt-name">Quiz Funnel</div>
-      <div class="fmt-credits">50 CRÉDITOS</div>
-      <div class="fmt-desc">Quiz interativo que qualifica o lead, agita a dor e apresenta a oferta no momento certo.</div>
-      <ul class="fmt-list">
-        <li>6 perguntas geradas por IA</li>
-        <li>Captura de e-mail integrada</li>
-        <li>Página de oferta ao final</li>
-        <li>HTML completo para baixar</li>
+      <div class="fmt-price">50 CRÉDITOS</div>
+      <div class="fmt-desc">Quiz de 10 etapas — qualifica o lead, agita a dor e vende. Ideal para capturar lista e segmentar.</div>
+      <ul class="fmt-feats">
+        <li>Hook + qualificação + captura + oferta</li>
+        <li>Fluxo condicional (resposta X → dobra Y)</li>
+        <li>Captura de leads integrada</li>
+        <li>HTML completo para download</li>
+        <li>Link para compartilhar direto</li>
       </ul>
     </div>
   </div>
-  <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">💡 Você pode gerar os dois no passo final. Comece por um.</p>
-  <button class="btn btn-gold btn-full" id="btnFmt" onclick="nav(5)" disabled>Gerar com IA →</button>
+  <p class="fmt-note">💡 Quer os dois? Comece por qualquer um. No passo final, gere o outro com 1 clique (50 créditos extras).</p>
+  <button class="btn btn-gold btn-full" id="btnFmt" onclick="nav(4)" disabled style="margin-top:16px">Ir para Copy & Mockups →</button>
 </div>
 
-<!-- ══ PASSO 5 ══ -->
+<!-- ════════════════════════════════
+     PASSO 4 — COPY & MOCKUPS
+════════════════════════════════ -->
+<div class="screen" id="s4">
+  <div class="pg-title">Copy & <span>Mockups</span></div>
+  <div class="pg-sub">IA gera a copy completa com efeito de digitação + 5 mockups visuais editáveis</div>
+
+  <div class="btn-row">
+    <button class="btn btn-gold" id="btnGC" onclick="genCopy()">⚡ Gerar Copy com IA</button>
+    <button class="btn btn-out" id="btnGM" onclick="genMockups()" disabled>🎨 Gerar 5 Mockups</button>
+  </div>
+
+  <!-- COPY OUTPUT -->
+  <div id="copyWrap" style="display:none">
+    <div class="section-sub">📄 Copy das 9 Dobras</div>
+    <div class="ai-out" id="copyBox" style="display:block">
+      <span id="copyTxt"></span><span class="ai-cursor" id="aiCur" style="display:none"></span>
+    </div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn btn-out" onclick="cpCopy()">📋 Copiar copy</button>
+      <button class="btn btn-out" onclick="editCopy()">✏️ Editar</button>
+    </div>
+  </div>
+
+  <div class="divider" id="mockDiv" style="display:none"></div>
+
+  <!-- MOCKUPS -->
+  <div id="mockWrap" style="display:none">
+    <div class="section-sub">🎨 5 Mockups Visuais</div>
+    <div class="mock-grid" id="mockGrid"></div>
+  </div>
+
+  <button class="btn btn-gold btn-full" id="btnP4" onclick="nav(5)" disabled style="margin-top:20px">Ir para 5 Criativos →</button>
+</div>
+
+<!-- ════════════════════════════════
+     PASSO 5 — 5 CRIATIVOS
+════════════════════════════════ -->
 <div class="screen" id="s5">
-  <div class="h1">Gerando com <span>IA</span></div>
-  <div class="sub">Copy completa + Criativos prontos para anúncio</div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-    <button class="btn btn-gold" id="btnGC" onclick="genCopy()">⚡ Gerar Copy Completa</button>
-    <button class="btn btn-out" id="btnGCri" onclick="genCreatives()">🎬 Gerar 5 Criativos</button>
+  <div class="pg-title">5 <span>Criativos</span> para Anúncio</div>
+  <div class="pg-sub">Hooks prontos para Meta Ads em 5 ângulos: Dor, Prova Social, Especificidade, Urgência e Curiosidade</div>
+
+  <div class="btn-row">
+    <button class="btn btn-gold" id="btnGCri" onclick="genCreatives()">⚡ Gerar 5 Criativos</button>
   </div>
-  <div id="copySection" style="display:none">
-    <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:var(--muted)">📄 Copy das Dobras</div>
-    <div class="ai-box" id="copyBox"><span id="copyTxt"></span><span class="cursor" id="cur" style="display:none"></span></div>
-  </div>
-  <hr class="divider" id="criDiv" style="display:none">
-  <div id="criSection" style="display:none">
-    <div style="font-size:12px;font-weight:600;margin-bottom:12px;color:var(--muted)">🎬 5 Criativos para Anúncio</div>
-    <div id="criOut5"></div>
-  </div>
-  <button class="btn btn-gold btn-full" id="btnIr" onclick="buildResult()" disabled style="margin-top:20px">🚀 Ver Resultado Final →</button>
+
+  <div id="criOut" style="margin-top:4px"></div>
+
+  <button class="btn btn-gold btn-full" id="btnP5" onclick="buildResult()" disabled style="margin-top:20px">🚀 Ver Página Pronta →</button>
 </div>
 
-<!-- ══ PASSO 6 ══ -->
+<!-- ════════════════════════════════
+     PASSO 6 — PÁGINA PRONTA
+════════════════════════════════ -->
 <div class="screen" id="s6">
-  <div class="h1">Resultado <span>Final</span> 🚀</div>
-  <div class="sub">Visualize, baixe o HTML e compartilhe o link com seus clientes</div>
+  <div class="pg-title">Página <span>Pronta!</span> 🚀</div>
+  <div class="pg-sub">Preview visual da LP — publique, copie o HTML ou gere o quiz adicional</div>
+
   <div class="tabs">
     <div class="tab on" id="tLP" onclick="showTab('lp')">🌐 Página de Vendas</div>
     <div class="tab" id="tQZ" onclick="showTab('quiz')">📋 Quiz Funnel</div>
     <div class="tab" id="tCri" onclick="showTab('cri')">🎬 Criativos</div>
   </div>
 
-  <!-- LP TAB -->
+  <!-- LP -->
   <div id="tabLP">
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+    <div class="btn-row">
       <button class="btn btn-gold" onclick="dlLP()">⬇️ Baixar HTML</button>
       <button class="btn btn-out" onclick="cpLP()">📋 Copiar HTML</button>
       <button class="btn btn-green" onclick="toggleShare('lp')">🔗 Link para compartilhar</button>
+      <button class="btn btn-out" onclick="newProduct()">🔄 Novo produto</button>
     </div>
     <div id="shareLP" style="display:none">
       <div class="share-box">
-        <div style="font-size:24px;margin-bottom:6px">✅</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Página disponível para visualização</div>
-        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Este link abre a página diretamente no navegador</div>
-        <div class="share-link" id="slLP">—</div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <div style="font-size:22px;margin-bottom:6px">✅</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px">Página disponível</div>
+        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Copie o link e compartilhe com qualquer pessoa</div>
+        <div class="share-link-row">
+          <span class="share-link-txt" id="slLP">—</span>
+        </div>
+        <div class="btn-row" style="justify-content:center">
           <button class="btn btn-green" onclick="cpLink('lp')">📋 Copiar link</button>
           <button class="btn btn-out" onclick="openLink('lp')">↗ Abrir em nova aba</button>
         </div>
@@ -294,227 +409,311 @@ textarea.input{resize:vertical;min-height:90px}
     </div>
     <div class="preview-shell">
       <div class="pbar">
-        <div class="pbar-dot" style="background:#ff5f57"></div>
-        <div class="pbar-dot" style="background:#febc2e"></div>
-        <div class="pbar-dot" style="background:#28c840"></div>
-        <div class="pbar-url" id="puLP">zakov • página de vendas</div>
+        <div class="pdot" style="background:#ff5f57"></div>
+        <div class="pdot" style="background:#febc2e"></div>
+        <div class="pdot" style="background:#28c840"></div>
+        <div class="purl" id="puLP">zakov.app/p/—</div>
       </div>
-      <iframe class="pframe" id="ifrLP"></iframe>
+      <iframe class="pframe" id="ifrLP" title="Preview LP"></iframe>
     </div>
   </div>
 
-  <!-- QUIZ TAB -->
+  <!-- QUIZ -->
   <div id="tabQZ" style="display:none">
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+    <div class="btn-row">
       <button class="btn btn-gold" onclick="dlQZ()">⬇️ Baixar HTML</button>
       <button class="btn btn-out" onclick="cpQZ()">📋 Copiar HTML</button>
       <button class="btn btn-green" onclick="toggleShare('quiz')">🔗 Link para compartilhar</button>
     </div>
     <div id="shareQZ" style="display:none">
       <div class="share-box">
-        <div style="font-size:24px;margin-bottom:6px">✅</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:4px">Quiz disponível para visualização</div>
-        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Este link abre o quiz diretamente no navegador</div>
-        <div class="share-link" id="slQZ">—</div>
-        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <div style="font-size:22px;margin-bottom:6px">✅</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px">Quiz disponível</div>
+        <div style="font-size:12px;color:#aaa;margin-bottom:4px">Copie o link e compartilhe com qualquer pessoa</div>
+        <div class="share-link-row">
+          <span class="share-link-txt" id="slQZ">—</span>
+        </div>
+        <div class="btn-row" style="justify-content:center">
           <button class="btn btn-green" onclick="cpLink('quiz')">📋 Copiar link</button>
           <button class="btn btn-out" onclick="openLink('quiz')">↗ Abrir em nova aba</button>
         </div>
       </div>
     </div>
-    <div id="qzGenArea">
-      <div style="text-align:center;padding:40px;color:var(--muted)">
-        <div style="font-size:32px;margin-bottom:10px">📋</div>
-        <div style="font-size:14px;margin-bottom:14px">Quiz ainda não gerado</div>
-        <button class="btn btn-gold" onclick="genQuiz()">⚡ Gerar Quiz Funnel agora</button>
+    <div id="qzArea">
+      <div style="text-align:center;padding:40px 20px;color:var(--muted2)">
+        <div style="font-size:36px;margin-bottom:12px">📋</div>
+        <div style="font-size:14px;font-weight:600;margin-bottom:6px">Quiz ainda não gerado</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Gere o Quiz Funnel com 10 etapas interativas</div>
+        <button class="btn btn-gold" onclick="genQuiz()">⚡ Gerar Quiz Funnel agora (50 créditos)</button>
       </div>
     </div>
     <div class="preview-shell" id="qzShell" style="display:none">
       <div class="pbar">
-        <div class="pbar-dot" style="background:#ff5f57"></div>
-        <div class="pbar-dot" style="background:#febc2e"></div>
-        <div class="pbar-dot" style="background:#28c840"></div>
-        <div class="pbar-url" id="puQZ">zakov • quiz funnel</div>
+        <div class="pdot" style="background:#ff5f57"></div>
+        <div class="pdot" style="background:#febc2e"></div>
+        <div class="pdot" style="background:#28c840"></div>
+        <div class="purl" id="puQZ">zakov.app/quiz/—</div>
       </div>
-      <iframe class="pframe" id="ifrQZ"></iframe>
+      <iframe class="pframe" id="ifrQZ" title="Preview Quiz"></iframe>
     </div>
   </div>
 
-  <!-- CRI TAB -->
+  <!-- CRIATIVOS -->
   <div id="tabCri" style="display:none">
-    <div id="criOutFinal"></div>
+    <div id="criOutFinal">
+      <div style="text-align:center;padding:32px;color:var(--muted2)">
+        <div style="font-size:32px;margin-bottom:10px">🎬</div>
+        <div style="font-size:14px;margin-bottom:14px">Criativos não gerados ainda</div>
+        <button class="btn btn-gold" onclick="nav(5)">← Ir para o Passo 5</button>
+      </div>
+    </div>
   </div>
 </div>
 
 </div><!-- /wrap -->
 
+<!-- LOADER -->
 <div class="loader" id="loader">
   <div class="spin"></div>
   <div class="load-t" id="loadT">Processando...</div>
   <div class="load-s" id="loadS">Aguarde um momento</div>
 </div>
-<div class="toast" id="toast"><strong id="toastT"></strong><span id="toastM"></span></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-t" id="toastT"></div>
+  <div id="toastM"></div>
+</div>
 
 <script>
-// ══ STATE ══
-let cred=200, selAd=null, selAd_=null, fmt=null, brief={};
-let lpHTML='', qzHTML='', lpBlob=null, qzBlob=null;
-let criData=[], copyDone=false, criDone=false;
+// ════════════ STATE ════════════
+let cred = 200;
+let selAd = null, _pickedAd = null;
+let fmt = null;
+let brief = {};
+let lpHTML = '', qzHTML = '';
+let lpBlob = null, qzBlob = null;
+let criData = [];
+let copyText = '';
+let copyReady = false, mockReady = false, criReady = false;
 
-// ══ AD DB ══
-const ADS={
-  marcenaria:[
-    {id:1,av:'MR',brand:'Biblioteca Marceneiro Raíz',text:'São +6.000 projetos de móveis prontos e rápidos pra você baixar e montar na sua garagem! Estantes, mesas, cadeiras e muito mais!',ads:34,days:41,hot:true,price:'R$ 37',old:'R$ 197'},
-    {id:2,av:'CP',brand:'Carpintaria Pro Brasil',text:'Projetos completos com medidas profissionais. Já são 500 pessoas transformando madeira em dinheiro na garagem.',ads:18,days:28,hot:false,price:'R$ 27',old:'R$ 97'},
-    {id:3,av:'OL',brand:'Oficina do Lucro',text:'Sistema completo com projetos de alta demanda para vender online sem estoque e sem sair de casa.',ads:22,days:35,hot:true,price:'R$ 47',old:'R$ 147'},
+// ════════════ AD DATABASE ════════════
+const ADS = {
+  marcenaria: [
+    { id:1, av:'MR', brand:'Biblioteca Marceneiro Raíz', text:'São +6.000 projetos de móveis prontos e rápidos pra você baixar e montar na sua garagem! Estantes, mesas, cadeiras, decoração e muito mais!', ads:34, days:41, hot:true, price:'R$ 37', old:'R$ 197' },
+    { id:2, av:'CP', brand:'Carpintaria Pro Brasil', text:'Projetos completos com medidas profissionais para montar móveis em casa. Já são +500 alunos transformando madeira em dinheiro.', ads:18, days:28, hot:false, price:'R$ 27', old:'R$ 97' },
+    { id:3, av:'OL', brand:'Oficina do Lucro', text:'Transforme madeira em dinheiro! Sistema completo com projetos de alta demanda para vender online sem estoque.', ads:22, days:35, hot:true, price:'R$ 47', old:'R$ 147' },
   ],
-  fitness:[
-    {id:4,av:'TI',brand:'Treino Inteligente',text:'Treinos de 45min em qualquer academia, sem esperar máquina. Método validado por +2.000 alunos.',ads:28,days:32,hot:true,price:'R$ 29',old:'R$ 97'},
-    {id:5,av:'CC',brand:'Corpo em Chamas',text:'Queime gordura sem cardio excessivo. O método que a academia não quer que você descubra.',ads:15,days:19,hot:false,price:'R$ 37',old:'R$ 127'},
+  fitness: [
+    { id:4, av:'TI', brand:'Treino Inteligente', text:'Treinos de 45min em qualquer academia, sem esperar máquina. Método validado por +2.000 alunos em todo o Brasil.', ads:28, days:32, hot:true, price:'R$ 29', old:'R$ 97' },
+    { id:5, av:'CC', brand:'Corpo em Chamas', text:'Queime gordura sem cardio excessivo. O método que a indústria da academia não quer que você conheça.', ads:15, days:19, hot:false, price:'R$ 37', old:'R$ 127' },
   ],
-  culinaria:[
-    {id:6,av:'CQ',brand:'A Cozinha que Queima',text:'17 receitas que aceleram o metabolismo e eliminam barriga. Aprovadas por nutricionistas. Sem dieta radical.',ads:41,days:52,hot:true,price:'R$ 27',old:'R$ 97'},
-    {id:7,av:'RV',brand:'Receitas que Vendem',text:'400 receitas caseiras que viraram negócio. Do salgado à sobremesa — custo baixo, lucro alto.',ads:12,days:14,hot:false,price:'R$ 19',old:'R$ 67'},
+  culinaria: [
+    { id:6, av:'CQ', brand:'A Cozinha que Queima', text:'17 receitas que aceleram o metabolismo e eliminam barriga. Aprovadas por nutricionistas. Sem dieta radical.', ads:41, days:52, hot:true, price:'R$ 27', old:'R$ 97' },
+    { id:7, av:'RV', brand:'Receitas que Vendem', text:'400 receitas caseiras que viraram negócio. Custo baixíssimo, lucro alto, sem precisar sair de casa.', ads:12, days:14, hot:false, price:'R$ 19', old:'R$ 67' },
   ],
-  renda:[{id:8,av:'FP',brand:'Fábrica de PDFs',text:'Como criar e vender PDFs simples por R$17 todo dia, sem aparecer, sem tráfego pago.',ads:55,days:60,hot:true,price:'R$ 17',old:'R$ 47'}],
-  espiritualidade:[{id:9,av:'CS',brand:'Cartilha da Sabedoria',text:'Mensagens do plano espiritual recebidas durante 40 dias de silêncio. Orientação para cada fase da vida.',ads:19,days:22,hot:false,price:'R$ 37',old:'R$ 127'}],
-  direitos:[{id:10,av:'MP',brand:'Manual do Passageiro',text:'Receba indenização por voo atrasado ou cancelado — sem advogado, em minutos.',ads:24,days:31,hot:true,price:'R$ 27',old:'R$ 87'}],
-  imoveis:[{id:11,av:'DA',brand:'DescreveAI Imóveis',text:'IA que escreve descrições profissionais de imóveis em 10 segundos. Corretores vendem 3x mais rápido.',ads:11,days:16,hot:false,price:'R$ 47',old:'R$ 197'}],
+  renda: [
+    { id:8, av:'FP', brand:'Fábrica de PDFs', text:'Como criar e vender PDFs simples por R$17 todo dia, sem aparecer, sem tráfego pago e sem lista de e-mails.', ads:55, days:60, hot:true, price:'R$ 17', old:'R$ 47' },
+  ],
+  espiritualidade: [
+    { id:9, av:'CS', brand:'Cartilha da Sabedoria', text:'Mensagens do plano espiritual recebidas durante 40 dias de silêncio. Orientação divina para cada fase da sua vida.', ads:19, days:22, hot:false, price:'R$ 37', old:'R$ 127' },
+  ],
+  direitos: [
+    { id:10, av:'MP', brand:'Manual do Passageiro', text:'Saiba seus direitos e receba indenização por voo atrasado, cancelado ou bagagem extraviada — sem advogado.', ads:24, days:31, hot:true, price:'R$ 27', old:'R$ 87' },
+  ],
+  imoveis: [
+    { id:11, av:'DA', brand:'DescreveAI Imóveis', text:'IA que escreve descrições profissionais de imóveis em 10 segundos. Corretores vendem 3x mais rápido.', ads:11, days:16, hot:false, price:'R$ 47', old:'R$ 197' },
+  ],
 };
 
-const ANA={
-  palavras:{t:'🔑 Palavras-chave',c:'<ul><li><b>Principal:</b> projetos prontos, marcenaria garagem, móveis rápidos</li><li><b>Secundárias:</b> montagem fácil, madeira dinheiro, sem curso caro</li><li><b>Emocionais:</b> lucro garantido, na sua garagem, hoje mesmo</li><li><b>Negativas:</b> faculdade, certificado, equipamento profissional</li></ul>'},
-  publico:{t:'👥 Público-alvo',c:'<ul><li><b>Primário:</b> Homens 30-55 anos, classes C/D, interesse em DIY</li><li><b>Dor:</b> Quer fazer seus próprios móveis mas não sabe por onde começar</li><li><b>Desejo:</b> Economizar dinheiro e ter renda extra com habilidade manual</li><li><b>Objeção:</b> "Não tenho equipamento profissional"</li></ul>'},
-  copy:{t:'📝 Análise de Copy',c:'<ul><li><b>Hook:</b> ✅ Forte — número específico + velocidade + resultado</li><li><b>Gatilhos:</b> Especificidade, facilidade, quantidade, autoridade implícita</li><li><b>Ponto forte:</b> "pra você baixar e montar" — ação imediata</li><li><b>Oportunidade:</b> Adicionar urgência e prova social numérica</li></ul>'},
-  ab:{t:'🔬 Teste A/B',c:'<ul><li><b>Versão A:</b> Quantidade — "6.000 projetos"</li><li><b>Versão B:</b> Transformação — "Garagem bagunçada → marcenaria lucrativa em 30 dias"</li><li><b>Versão C:</b> Dor — "Por que pagar R$800 em móveis que você faria por R$50?"</li></ul>'},
-  oferta:{t:'🏗️ Estrutura da Oferta',c:'<ul><li><b>Core:</b> 6.000+ projetos técnicos</li><li><b>Bônus 1:</b> Mini Curso Ferramentas</li><li><b>Bônus 2:</b> Calculadora de Lucro</li><li><b>Bônus 3:</b> Atualizações Mensais</li><li><b>Ancoragem:</b> De R$197 por R$37 (81% off) + Garantia 7 dias</li></ul>'},
-  avatar:{t:'🎯 Avatar do Cliente',c:'<ul><li><b>Perfil:</b> Marcos, 42 anos, interior de SP, motorista</li><li><b>Situação:</b> Tem garagem, viu vizinho montando móveis, ficou curioso</li><li><b>Sonho:</b> Renda extra fazendo o que gosta nas horas livres</li><li><b>Frase:</b> "Se eu tivesse um guia simples, eu faria isso"</li></ul>'},
+// ════════════ ANÁLISE DATA ════════════
+const ANA_DATA = {
+  palavras: { t:'🔑 Palavras-chave Identificadas', c:`<ul>
+    <li><b>Principal:</b> projetos prontos, marcenaria garagem, móveis rápidos</li>
+    <li><b>Secundárias:</b> montagem fácil, madeira dinheiro, baixar projetos, sem curso caro</li>
+    <li><b>Negativas:</b> faculdade, certificado, equipamento profissional</li>
+    <li><b>Emocionais:</b> lucro garantido, na sua garagem, hoje mesmo, acesso imediato</li>
+  </ul>` },
+  publico: { t:'👥 Público-alvo Mapeado', c:`<ul>
+    <li><b>Perfil:</b> Homens 30-55 anos, classes C/D, interesse em DIY e bricolagem</li>
+    <li><b>Dor principal:</b> Quer fazer seus próprios móveis mas não sabe por onde começar</li>
+    <li><b>Desejo:</b> Economizar dinheiro e ter renda extra com habilidade manual</li>
+    <li><b>Objeção nº1:</b> "Não tenho espaço / equipamento profissional"</li>
+    <li><b>Onde está:</b> YouTube DIY, grupos Facebook reforma, Instagram decoração</li>
+  </ul>` },
+  copy: { t:'📝 Análise de Copy', c:`<ul>
+    <li><b>Hook:</b> ✅ Forte — número específico + velocidade + resultado claro</li>
+    <li><b>Gatilhos:</b> Especificidade, facilidade, quantidade, autoridade implícita</li>
+    <li><b>Ponto forte:</b> "pra você baixar e montar" — ação imediata e concreta</li>
+    <li><b>Oportunidade:</b> Adicionar prova social numérica e urgência real</li>
+    <li><b>Tom:</b> Direto, coloquial — ideal para o avatar 30-55 anos</li>
+  </ul>` },
+  ab: { t:'🔬 Sugestões de Teste A/B', c:`<ul>
+    <li><b>Versão A (atual):</b> Foco em quantidade — "6.000 projetos"</li>
+    <li><b>Versão B:</b> Transformação — "Da garagem bagunçada à marcenaria lucrativa em 30 dias"</li>
+    <li><b>Versão C:</b> Dor — "Por que você ainda paga R$800 em móveis que faria em casa por R$50?"</li>
+    <li><b>Imagem:</b> Testar produto vs. resultado final vs. processo em ação</li>
+  </ul>` },
+  oferta: { t:'🏗️ Estrutura da Oferta', c:`<ul>
+    <li><b>Core:</b> 6.000+ projetos técnicos digitais</li>
+    <li><b>Bônus 1:</b> Mini Curso Ferramentas Essenciais</li>
+    <li><b>Bônus 2:</b> Calculadora de Lucro Automática</li>
+    <li><b>Bônus 3:</b> Atualizações Mensais Gratuitas</li>
+    <li><b>Ancoragem:</b> De R$197 por R$37 (81% off) + Garantia 7 dias incondicional</li>
+  </ul>` },
+  avatar: { t:'🎯 Avatar do Cliente', c:`<ul>
+    <li><b>Nome:</b> Marcos, 42 anos, interior de SP</li>
+    <li><b>Situação:</b> Motorista, tem garagem, viu vizinho montando móveis e ficou curioso</li>
+    <li><b>Sonho:</b> Renda extra fazendo o que gosta nas horas vagas</li>
+    <li><b>Medo:</b> Gastar e não conseguir executar, perder dinheiro</li>
+    <li><b>Frase que pensa:</b> "Se eu tivesse um guia simples, eu faria isso facilmente"</li>
+  </ul>` },
 };
 
-// ══ NAV ══
-function nav(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
-  document.getElementById('s'+n).classList.add('on');
-  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
-  document.getElementById('st'+n).classList.add('active');
+// ════════════ NAVEGAÇÃO ════════════
+function nav(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('s' + n).classList.add('on');
+  document.querySelectorAll('.stp').forEach(s => s.classList.remove('active'));
+  document.getElementById('st' + n).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-function mkDone(n){
-  const e=document.getElementById('st'+n);
-  e.classList.remove('active');e.classList.add('done');
-  e.querySelector('.step-n').textContent='✓';
+function mkDone(n) {
+  const e = document.getElementById('st' + n);
+  e.classList.remove('active');
+  e.classList.add('done');
+  e.querySelector('.stp-n').textContent = '✓';
 }
 
-// ══ SCANNER ══
-function scan(){
-  const nicho=document.getElementById('nichoSel').value;
-  load('Escaneando...','Verificando anúncios ativos na Meta');
-  setTimeout(()=>{
+// ════════════ PASSO 1 — SCANNER ════════════
+function scan() {
+  const nicho = document.getElementById('nichoSel').value;
+  const kw = document.getElementById('kwInput').value.toLowerCase();
+  const onlyHot = document.getElementById('chkHot').checked;
+  load('Escaneando Biblioteca de Anúncios...', 'Verificando anúncios ativos na Meta');
+
+  setTimeout(() => {
     unload();
-    let res=[];
-    if(nicho&&ADS[nicho]) res=ADS[nicho];
-    else Object.values(ADS).forEach(a=>res.push(...a));
-    const min=parseInt(document.getElementById('minAds').value)||0;
-    res=res.filter(a=>a.ads>=min);
-    document.getElementById('scanLabel').textContent=`${res.length} produto(s) encontrado(s) com anúncios ativos`;
-    document.getElementById('adsGrid').innerHTML=res.map(a=>`
+    let res = [];
+    if (nicho && ADS[nicho]) res = ADS[nicho];
+    else Object.values(ADS).forEach(a => res.push(...a));
+    if (kw) res = res.filter(a => a.brand.toLowerCase().includes(kw) || a.text.toLowerCase().includes(kw));
+    const min = parseInt(document.getElementById('minAds').value) || 0;
+    res = res.filter(a => a.ads >= min);
+    if (onlyHot) res = res.filter(a => a.hot);
+
+    document.getElementById('scanLabel').textContent = `${res.length} produto(s) encontrado(s) com anúncios ativos`;
+    document.getElementById('adsGrid').innerHTML = res.length ? res.map(a => `
       <div class="adcard" id="ac${a.id}" onclick="pickAd(${a.id})">
-        ${a.hot?'<div class="badge hot">🔥 VIRAL</div>':`<div class="badge">${a.ads} ADS</div>`}
-        <div class="adcard-top"><div class="av">${a.av}</div><div><div class="adcard-brand">${a.brand}</div><div class="adcard-meta">Ativo há ${a.days} dias</div></div></div>
+        ${a.hot ? '<div class="badge hot">🔥 VIRAL</div>' : `<div class="badge">${a.ads} ADS</div>`}
+        <div class="adcard-top">
+          <div class="av">${a.av}</div>
+          <div>
+            <div class="adcard-brand">${a.brand}</div>
+            <div class="adcard-meta">Ativo há ${a.days} dias • ${a.price}</div>
+          </div>
+        </div>
         <div class="adcard-text">${a.text}</div>
-        <div class="adcard-stats"><span>📢 <strong>${a.ads}</strong> anúncios</span><span>💰 <strong>${a.price}</strong></span><span>✅ Ativo</span></div>
-      </div>`).join('');
-    document.getElementById('scanOut').style.display='block';
-    toast('Scanner concluído!',`${res.length} produtos encontrados`);
-  },1600);
-}
-function pickAd(id){
-  document.querySelectorAll('.adcard').forEach(c=>c.classList.remove('sel'));
-  document.getElementById('ac'+id).classList.add('sel');
-  let found=null;
-  Object.values(ADS).forEach(arr=>{const f=arr.find(a=>a.id===id);if(f)found=f;});
-  selAd_=found;
-  document.getElementById('btnSalvar').disabled=false;
-}
-function salvar(){
-  if(!selAd_)return;
-  selAd=selAd_;
-  load('Salvando na Fábrica...','Migrando anúncio para sua biblioteca');
-  setTimeout(()=>{
-    unload(); cred-=2; updCred();
-    document.getElementById('b2name').textContent=selAd.brand;
-    document.getElementById('b2meta').textContent=`${selAd.ads} anúncios ativos • ${selAd.price} • Ativo há ${selAd.days} dias`;
-    document.getElementById('bNome').value=selAd.brand;
-    document.getElementById('bPreco').value=selAd.price;
-    document.getElementById('bPrecoOld').value=selAd.old;
-    document.getElementById('bDesc').value=selAd.text;
-    mkDone(1); nav(2);
-    toast('Salvo!','Produto na fábrica. Analise agora.');
-  },1000);
+        <div class="adcard-stats">
+          <span>📢 <b>${a.ads}</b> anúncios</span>
+          <span>💰 <b>${a.price}</b></span>
+          <span>📅 <b>${a.days}d</b> ativo</span>
+        </div>
+      </div>`).join('') : '<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--muted)">Nenhum produto encontrado com esses filtros.</div>';
+
+    document.getElementById('scanOut').style.display = 'block';
+    toast('Scanner concluído!', `${res.length} produtos encontrados`);
+  }, 1700);
 }
 
-// ══ ANÁLISE ══
-function analyze(k){
-  if(!selAd){toast('Atenção','Volte e salve um produto primeiro');return;}
-  load('Analisando...','IA processando dados do anúncio');
-  setTimeout(()=>{
-    unload(); cred-=2; updCred();
-    const d=ANA[k];
-    const box=document.getElementById('anaOut');
-    box.innerHTML=`<h4>${d.t}</h4>${d.c}`;
+function pickAd(id) {
+  document.querySelectorAll('.adcard').forEach(c => c.classList.remove('sel'));
+  document.getElementById('ac' + id).classList.add('sel');
+  let found = null;
+  Object.values(ADS).forEach(arr => { const f = arr.find(a => a.id === id); if (f) found = f; });
+  _pickedAd = found;
+  document.getElementById('btnSalvar').disabled = false;
+}
+
+function salvar() {
+  if (!_pickedAd) return;
+  selAd = _pickedAd;
+  load('Salvando na Fábrica...', `Migrando "${selAd.brand}" para sua biblioteca`);
+  setTimeout(() => {
+    unload();
+    cred -= 2; updCred();
+    document.getElementById('b2name').textContent = selAd.brand;
+    document.getElementById('b2meta').textContent = `${selAd.ads} anúncios ativos • ${selAd.price} (de ${selAd.old}) • Ativo há ${selAd.days} dias`;
+    brief = {
+      nome: selAd.brand,
+      nicho: Object.entries(ADS).find(([k,v]) => v.find(a => a.id === selAd.id))?.[0] || 'infoproduto',
+      preco: selAd.price,
+      precoOld: selAd.old,
+      desc: selAd.text,
+      dor: 'Não sabe por onde começar e desperdiça dinheiro com soluções erradas',
+      desejo: 'Ter resultado rápido sem precisar de curso caro ou equipamento profissional',
+      b1: 'Mini Curso Essencial — guia para iniciantes do zero',
+      b2: 'Calculadora de Lucro Automática — planilha que calcula seu lucro em cada projeto',
+      b3: 'Atualizações Mensais Gratuitas — novos conteúdos todo mês',
+      gar: '7 dias incondicional',
+    };
+    mkDone(1);
+    nav(2);
+    toast('Salvo!', 'Produto na fábrica. Agora analise com IA.');
+  }, 1100);
+}
+
+// ════════════ PASSO 2 — ANÁLISE ════════════
+function analyze(k) {
+  if (!selAd) { toast('Atenção', 'Volte e salve um produto primeiro'); return; }
+  load('Analisando com IA...', 'Processando dados do anúncio selecionado');
+  setTimeout(() => {
+    unload();
+    cred -= 2; updCred();
+    const d = ANA_DATA[k];
+    const box = document.getElementById('anaBox');
+    box.innerHTML = `<h4>${d.t}</h4>${d.c}`;
     box.classList.add('on');
-    toast('Análise pronta!','2 créditos usados');
-  },1400);
+    toast('Análise pronta!', '2 créditos usados');
+  }, 1400);
 }
 
-// ══ BRIEFING ══
-function saveBrief(){
-  brief={
-    nome:document.getElementById('bNome').value||selAd?.brand||'Meu Produto',
-    nicho:document.getElementById('bNicho').value||'Infoproduto',
-    preco:document.getElementById('bPreco').value||'R$ 37',
-    precoOld:document.getElementById('bPrecoOld').value||'R$ 197',
-    desc:document.getElementById('bDesc').value||'',
-    dor:document.getElementById('bDor').value||'',
-    desejo:document.getElementById('bDesejo').value||'',
-    b1:document.getElementById('bB1').value||'Bônus 1',
-    b2:document.getElementById('bB2').value||'Bônus 2',
-    b3:document.getElementById('bB3').value||'Bônus 3',
-    gar:document.getElementById('bGar').value||'7 dias',
-  };
-  mkDone(3); nav(4);
-  toast('Briefing salvo!','Escolha o formato agora');
+// ════════════ PASSO 3 — FORMATO ════════════
+function selFmt(f) {
+  fmt = f;
+  document.getElementById('fLP').classList.toggle('sel', f === 'lp');
+  document.getElementById('fQZ').classList.toggle('sel', f === 'quiz');
+  document.getElementById('btnFmt').disabled = false;
+  mkDone(3);
 }
 
-// ══ FORMATO ══
-function selFmt(f){
-  fmt=f;
-  document.getElementById('fLP').classList.toggle('sel',f==='lp');
-  document.getElementById('fQZ').classList.toggle('sel',f==='quiz');
-  document.getElementById('btnFmt').disabled=false;
-}
+// ════════════ PASSO 4 — COPY ════════════
+async function genCopy() {
+  const b = brief;
+  document.getElementById('btnGC').disabled = true;
+  document.getElementById('copyWrap').style.display = 'block';
+  document.getElementById('copyBox').style.display = 'block';
+  document.getElementById('aiCur').style.display = 'inline-block';
+  document.getElementById('copyTxt').textContent = '';
 
-// ══ GERAR COPY ══
-async function genCopy(){
-  document.getElementById('btnGC').disabled=true;
-  document.getElementById('copySection').style.display='block';
-  const box=document.getElementById('copyBox');
-  box.style.display='block';
-  document.getElementById('cur').style.display='inline-block';
-  document.getElementById('copyTxt').textContent='';
-  const b=brief;
-  const prompt=`Você é o melhor copywriter de infoprodutos low ticket do Brasil.
-Crie uma página de vendas COMPLETA com 9 dobras para:
-PRODUTO: ${b.nome} | NICHO: ${b.nicho}
+  const prompt = `Você é o melhor copywriter de infoprodutos low ticket do Brasil.
+Crie uma página de vendas COMPLETA com 9 dobras para este produto:
+
+PRODUTO: ${b.nome}
+NICHO: ${b.nicho}
 PREÇO: ${b.preco} (de ${b.precoOld})
 DESCRIÇÃO: ${b.desc}
-DOR: ${b.dor} | DESEJO: ${b.desejo}
-BÔNUS: ${b.b1}, ${b.b2}, ${b.b3}
+DOR DO CLIENTE: ${b.dor}
+DESEJO DO CLIENTE: ${b.desejo}
+BÔNUS 1: ${b.b1}
+BÔNUS 2: ${b.b2}
+BÔNUS 3: ${b.b3}
 GARANTIA: ${b.gar}
 
-Escreva com estes títulos exatos:
+Escreva com EXATAMENTE estes títulos:
 === DOBRA 1: HERO ===
 === DOBRA 2: CHECKLIST DE BENEFÍCIOS ===
-=== DOBRA 3: QUEM SOU EU ===
+=== DOBRA 3: AUTORIDADE ===
 === DOBRA 4: O QUE VOCÊ VAI RECEBER ===
 === DOBRA 5: PROVA SOCIAL ===
 === DOBRA 6: OFERTA ESPECIAL ===
@@ -522,164 +721,292 @@ Escreva com estes títulos exatos:
 === DOBRA 8: GARANTIA ===
 === DOBRA 9: CTA FINAL ===
 
-Use linguagem coloquial brasileira, gatilhos emocionais, urgência real. Retorne APENAS o texto das dobras.`;
-  load('Gerando Copy com IA...','Escrevendo as 9 dobras da sua página');
-  try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:1000,messages:[{role:"user",content:prompt}]})});
+Use linguagem coloquial brasileira, gatilhos emocionais fortes, urgência real. Retorne APENAS o texto das dobras, sem comentários.`;
+
+  load('Gerando Copy com IA...', 'Escrevendo as 9 dobras da sua página');
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] })
+    });
     unload();
-    const data=await res.json();
-    const txt=data.content?.map(i=>i.text||'').join('')||fbCopy(b);
-    await typeIt(document.getElementById('copyTxt'),txt,3);
-    window._copyText=txt;
-  }catch(e){
+    const data = await res.json();
+    const txt = data.content?.map(i => i.text || '').join('') || fbCopy(b);
+    await typeIt(document.getElementById('copyTxt'), txt, 3);
+    copyText = txt;
+  } catch (e) {
     unload();
-    const txt=fbCopy(b);
-    await typeIt(document.getElementById('copyTxt'),txt,3);
-    window._copyText=txt;
+    copyText = fbCopy(b);
+    await typeIt(document.getElementById('copyTxt'), copyText, 3);
   }
-  document.getElementById('cur').style.display='none';
-  document.getElementById('btnGC').disabled=false;
-  copyDone=true; cred-=30; updCred();
-  if(copyDone||criDone) document.getElementById('btnIr').disabled=false;
-  toast('Copy pronta!','9 dobras geradas com sucesso');
+
+  document.getElementById('aiCur').style.display = 'none';
+  document.getElementById('btnGC').disabled = false;
+  document.getElementById('btnGM').disabled = false;
+  copyReady = true;
+  cred -= 30; updCred();
+  checkP4();
+  toast('Copy pronta!', '9 dobras geradas com sucesso');
 }
 
-// ══ GERAR CRIATIVOS ══
-async function genCreatives(){
-  document.getElementById('btnGCri').disabled=true;
-  const b=brief;
-  const prompt=`Crie 5 criativos para Facebook Ads do produto: ${b.nome} | Nicho: ${b.nicho} | Preço: ${b.preco} (de ${b.precoOld}) | Dor: ${b.dor} | Desejo: ${b.desejo}
-Retorne JSON array de 5 objetos: [{"tipo":"HOOK DE DOR","hook":"...","copy":"..."},...]
-5 tipos: HOOK DE DOR, PROVA SOCIAL, NÚMERO ESPECÍFICO, URGÊNCIA, CURIOSIDADE.
-Máximo 3 linhas por copy. APENAS o JSON, sem markdown.`;
-  load('Gerando Criativos...','IA criando 5 hooks para Meta Ads');
-  try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:800,messages:[{role:"user",content:prompt}]})});
+function cpCopy() {
+  navigator.clipboard?.writeText(copyText);
+  toast('Copiado!', 'Copy na área de transferência');
+}
+
+function editCopy() {
+  const box = document.getElementById('copyBox');
+  const isEditable = box.contentEditable === 'true';
+  box.contentEditable = isEditable ? 'false' : 'true';
+  if (!isEditable) {
+    box.style.borderColor = 'var(--gold)';
+    box.focus();
+    toast('Modo edição ativo', 'Edite o texto diretamente');
+  } else {
+    box.style.borderColor = 'var(--border)';
+    copyText = box.textContent;
+    toast('Salvo!', 'Edições aplicadas');
+  }
+}
+
+// ════════════ PASSO 4 — MOCKUPS ════════════
+function genMockups() {
+  if (!copyReady) { toast('Atenção', 'Gere a copy primeiro'); return; }
+  document.getElementById('btnGM').disabled = true;
+  load('Gerando 5 Mockups...', 'IA criando design das capas e bônus');
+
+  const b = brief;
+  const mocks = [
+    { icon: '📦', label: b.nome || 'Produto Principal', bg: 'linear-gradient(135deg,#1a1000,#0a0800)', color: '#F5C842' },
+    { icon: '🎓', label: b.b1 || 'Bônus 1', bg: 'linear-gradient(135deg,#001a0d,#000f07)', color: '#22c55e' },
+    { icon: '📊', label: b.b2 || 'Bônus 2', bg: 'linear-gradient(135deg,#001020,#000810)', color: '#3b82f6' },
+    { icon: '🔄', label: b.b3 || 'Bônus 3', bg: 'linear-gradient(135deg,#1a0010,#0a0008)', color: '#a855f7' },
+    { icon: '🎁', label: 'Pack Completo', bg: 'linear-gradient(135deg,#1a1000,#100a00)', color: '#f97316' },
+  ];
+
+  setTimeout(() => {
     unload();
-    const data=await res.json();
-    const raw=data.content?.map(i=>i.text||'').join('')||'';
-    try{criData=JSON.parse(raw.replace(/```json|```/g,'').trim());}
-    catch{criData=fbCri(b);}
-  }catch(e){unload();criData=fbCri(b);}
-  document.getElementById('criDiv').style.display='block';
-  document.getElementById('criSection').style.display='block';
-  document.getElementById('criOut5').innerHTML=renderCri(criData);
-  document.getElementById('btnGCri').disabled=false;
-  criDone=true; cred-=20; updCred();
-  if(copyDone||criDone) document.getElementById('btnIr').disabled=false;
-  toast('5 criativos prontos!','Prontos para Meta Ads');
+    document.getElementById('mockDiv').style.display = 'block';
+    document.getElementById('mockWrap').style.display = 'block';
+    document.getElementById('mockGrid').innerHTML = mocks.map((m, i) => `
+      <div class="mockcard" style="animation-delay:${i * 0.08}s">
+        <div class="mock-thumb" style="background:${m.bg}">
+          <span style="font-size:42px;position:relative;z-index:1">${m.icon}</span>
+          <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center;z-index:1;font-family:'DM Mono',monospace;font-size:9px;color:${m.color};letter-spacing:1px;text-transform:uppercase;padding:0 8px">ZAKOV MOCKUP</div>
+        </div>
+        <div class="mock-label">${m.label}</div>
+        <div class="mock-acts">
+          <div class="mock-act" onclick="editMock(${i})">✏️ Editar</div>
+          <div class="mock-act" onclick="dlMock(${i})">⬇️ Baixar</div>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('btnGM').disabled = false;
+    mockReady = true;
+    cred -= 15; updCred();
+    checkP4();
+    toast('5 mockups prontos!', 'Clique em Editar ou Baixar em cada um');
+  }, 2000);
 }
 
-function renderCri(data){
-  return data.map((c,i)=>`
+function editMock(i) { toast('Editor aberto!', 'Edite cor, texto e ícone do mockup'); }
+function dlMock(i) {
+  const mocks = ['produto-principal', 'bonus-1', 'bonus-2', 'bonus-3', 'pack-completo'];
+  toast('Download!', `Mockup "${mocks[i]}" baixado (PNG sem fundo)`);
+}
+
+function checkP4() {
+  if (copyReady || mockReady) document.getElementById('btnP4').disabled = false;
+}
+
+// ════════════ PASSO 5 — CRIATIVOS ════════════
+async function genCreatives() {
+  document.getElementById('btnGCri').disabled = true;
+  const b = brief;
+
+  const prompt = `Crie 5 criativos para Facebook Ads e Instagram do produto: ${b.nome}
+Nicho: ${b.nicho} | Preço: ${b.preco} (de ${b.precoOld}) | Dor: ${b.dor} | Desejo: ${b.desejo}
+
+Retorne JSON array com 5 objetos:
+[{"tipo":"HOOK DE DOR","hook":"texto do hook aqui","copy":"texto do anúncio aqui com até 3 linhas"}]
+
+Os 5 tipos DEVEM ser exatamente: HOOK DE DOR, PROVA SOCIAL, NÚMERO ESPECÍFICO, URGÊNCIA, CURIOSIDADE
+Linguagem coloquial brasileira. Retorne APENAS o JSON válido, sem markdown, sem explicações.`;
+
+  load('Gerando 5 Criativos...', 'IA criando hooks para os 5 ângulos de conversão');
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, messages: [{ role: "user", content: prompt }] })
+    });
+    unload();
+    const data = await res.json();
+    const raw = data.content?.map(i => i.text || '').join('') || '';
+    try { criData = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch { criData = fbCri(b); }
+  } catch (e) {
+    unload();
+    criData = fbCri(b);
+  }
+
+  document.getElementById('criOut').innerHTML = renderCri(criData);
+  document.getElementById('btnGCri').disabled = false;
+  criReady = true;
+  cred -= 20; updCred();
+  document.getElementById('btnP5').disabled = false;
+  toast('5 criativos prontos!', 'Prontos para Meta Ads, Instagram e TikTok');
+}
+
+function renderCri(data) {
+  return data.map((c, i) => `
     <div class="cri-card">
-      <div class="cri-top"><span class="cri-tag">CRIATIVO ${i+1} — ${c.tipo}</span><button class="btn btn-out" style="padding:5px 10px;font-size:11px" onclick="cpCri(${i})">📋 Copiar</button></div>
+      <div class="cri-top">
+        <span class="cri-tag">CRIATIVO ${i + 1} — ${c.tipo}</span>
+        <button class="btn btn-out" style="padding:5px 10px;font-size:11px" onclick="cpCri(${i})">📋 Copiar</button>
+      </div>
       <div class="cri-hook">${c.hook}</div>
       <div class="cri-copy">${c.copy}</div>
     </div>`).join('');
 }
-function cpCri(i){
+
+function cpCri(i) {
   navigator.clipboard?.writeText(`${criData[i].hook}\n\n${criData[i].copy}`);
-  toast('Copiado!','Criativo na área de transferência');
+  toast('Copiado!', 'Criativo na área de transferência');
 }
 
-// ══ BUILD RESULT ══
-function buildResult(){
-  load('Montando resultado...','Compilando LP e preparando preview');
-  setTimeout(()=>{
+// ════════════ PASSO 6 — RESULTADO ════════════
+function buildResult() {
+  load('Montando Página Final...', 'Compilando LP com copy e estrutura visual');
+  setTimeout(() => {
     unload();
-    lpHTML=buildLP(brief, window._copyText||fbCopy(brief));
-    const blob=new Blob([lpHTML],{type:'text/html'});
-    lpBlob=URL.createObjectURL(blob);
-    document.getElementById('ifrLP').src=lpBlob;
-    document.getElementById('puLP').textContent=`preview • ${brief.nome}`;
-    document.getElementById('slLP').textContent=lpBlob;
-    document.getElementById('criOutFinal').innerHTML=criDone?renderCri(criData):`<div style="text-align:center;padding:40px;color:var(--muted)"><div style="font-size:32px;margin-bottom:10px">🎬</div><div style="font-size:14px;margin-bottom:14px">Criativos não gerados ainda</div><button class="btn btn-gold" onclick="nav(5);setTimeout(()=>genCreatives(),200)">⚡ Gerar agora</button></div>`;
-    mkDone(5); nav(6); cred-=10; updCred();
-    toast('Pronto!','LP gerada. Baixe o HTML ou compartilhe o link.');
-  },1200);
+    lpHTML = buildLP(brief, copyText || fbCopy(brief));
+    const blob = new Blob([lpHTML], { type: 'text/html' });
+    lpBlob = URL.createObjectURL(blob);
+    document.getElementById('ifrLP').src = lpBlob;
+    document.getElementById('puLP').textContent = `zakov.app/p/${slug()}`;
+    document.getElementById('slLP').textContent = lpBlob;
+    if (criReady) document.getElementById('criOutFinal').innerHTML = renderCri(criData);
+    mkDone(5); mkDone(6);
+    nav(6);
+    cred -= 10; updCred();
+    toast('Página pronta!', 'Baixe o HTML ou compartilhe o link');
+  }, 1300);
 }
 
-// ══ QUIZ ══
-async function genQuiz(){
-  const b=brief;
-  const prompt=`Crie 6 perguntas para quiz de qualificação de leads para: ${b.nome} | Nicho: ${b.nicho} | Dor: ${b.dor} | Desejo: ${b.desejo}
-Retorne JSON: [{"pergunta":"...","opcoes":["A","B","C","D"]},...]
-APENAS o JSON, sem markdown.`;
-  load('Gerando Quiz...','IA criando perguntas do funil');
+// ════════════ QUIZ ════════════
+async function genQuiz() {
+  const b = brief;
+  const prompt = `Crie 10 etapas de quiz funnel para o produto: ${b.nome} | Nicho: ${b.nicho} | Dor: ${b.dor} | Desejo: ${b.desejo}
+Retorne JSON array de 8 objetos (as últimas 2 etapas são captura e oferta, então crie 8 perguntas):
+[{"pergunta":"...","opcoes":["A","B","C","D"]}]
+APENAS o JSON válido, sem markdown.`;
+
+  load('Gerando Quiz Funnel...', 'IA criando fluxo interativo com 10 etapas');
   let qs;
-  try{
-    const res=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,messages:[{role:"user",content:prompt}]})});
-    const data=await res.json();
-    const raw=data.content?.map(i=>i.text||'').join('')||'';
-    try{qs=JSON.parse(raw.replace(/```json|```/g,'').trim());}
-    catch{qs=fbQuiz(b);}
-  }catch(e){qs=fbQuiz(b);}
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 700, messages: [{ role: "user", content: prompt }] })
+    });
+    const data = await res.json();
+    const raw = data.content?.map(i => i.text || '').join('') || '';
+    try { qs = JSON.parse(raw.replace(/```json|```/g, '').trim()); }
+    catch { qs = fbQuiz(b); }
+  } catch (e) { qs = fbQuiz(b); }
+
   unload();
-  qzHTML=buildQuiz(b,qs);
-  const blob=new Blob([qzHTML],{type:'text/html'});
-  qzBlob=URL.createObjectURL(blob);
-  document.getElementById('qzGenArea').style.display='none';
-  document.getElementById('qzShell').style.display='block';
-  document.getElementById('ifrQZ').src=qzBlob;
-  document.getElementById('puQZ').textContent=`preview • quiz • ${b.nome}`;
-  document.getElementById('slQZ').textContent=qzBlob;
-  cred-=30; updCred();
-  toast('Quiz pronto!','Visualize, baixe ou compartilhe');
+  qzHTML = buildQuiz(b, qs);
+  const blob = new Blob([qzHTML], { type: 'text/html' });
+  qzBlob = URL.createObjectURL(blob);
+  document.getElementById('qzArea').style.display = 'none';
+  document.getElementById('qzShell').style.display = 'block';
+  document.getElementById('ifrQZ').src = qzBlob;
+  document.getElementById('puQZ').textContent = `zakov.app/quiz/${slug()}`;
+  document.getElementById('slQZ').textContent = qzBlob;
+  cred -= 50; updCred();
+  toast('Quiz pronto!', '10 etapas geradas. Visualize e compartilhe.');
 }
 
-// ══ TABS ══
-function showTab(t){
-  ['lp','quiz','cri'].forEach(x=>{
-    const id=x==='lp'?'LP':x==='quiz'?'QZ':'Cri';
-    document.getElementById('tab'+id).style.display=x===t?'block':'none';
-    document.getElementById('t'+id).classList.toggle('on',x===t);
+// ════════════ TABS ════════════
+function showTab(t) {
+  ['lp', 'quiz', 'cri'].forEach(x => {
+    const id = x === 'lp' ? 'LP' : x === 'quiz' ? 'QZ' : 'Cri';
+    document.getElementById('tab' + id).style.display = x === t ? 'block' : 'none';
+    document.getElementById('t' + id).classList.toggle('on', x === t);
   });
 }
 
-// ══ DOWNLOAD / COPY / SHARE ══
-function dlLP(){if(!lpHTML){toast('Atenção','Gere a LP primeiro');return;}dl(lpHTML,slug()+'-lp.html');}
-function dlQZ(){if(!qzHTML){toast('Atenção','Gere o Quiz primeiro');return;}dl(qzHTML,slug()+'-quiz.html');}
-function dl(html,name){const a=document.createElement('a');a.href='data:text/html;charset=utf-8,'+encodeURIComponent(html);a.download=name;a.click();toast('Download iniciado!','HTML completo baixando');}
-function cpLP(){navigator.clipboard?.writeText(lpHTML);toast('HTML copiado!','Cole em qualquer editor ou hospedagem');}
-function cpQZ(){navigator.clipboard?.writeText(qzHTML);toast('HTML copiado!','Cole em qualquer editor ou hospedagem');}
-function toggleShare(t){
-  const id=t==='lp'?'shareLP':'shareQZ';
-  const el=document.getElementById(id);
-  el.style.display=el.style.display==='none'?'block':'none';
+// ════════════ DOWNLOAD / SHARE ════════════
+function dlLP() { if (!lpHTML) { toast('Atenção', 'Gere a LP primeiro'); return; } dl(lpHTML, slug() + '-lp.html'); toast('Download!', 'HTML da Landing Page baixando'); }
+function dlQZ() { if (!qzHTML) { toast('Atenção', 'Gere o Quiz primeiro'); return; } dl(qzHTML, slug() + '-quiz.html'); toast('Download!', 'HTML do Quiz baixando'); }
+function dl(html, name) { const a = document.createElement('a'); a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(html); a.download = name; a.click(); }
+function cpLP() { navigator.clipboard?.writeText(lpHTML); toast('HTML copiado!', 'Cole em qualquer editor ou hospedagem'); }
+function cpQZ() { navigator.clipboard?.writeText(qzHTML); toast('HTML copiado!', 'Cole em qualquer editor ou hospedagem'); }
+function toggleShare(t) {
+  const id = t === 'lp' ? 'shareLP' : 'shareQZ';
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
-function cpLink(t){
-  navigator.clipboard?.writeText(t==='lp'?lpBlob:qzBlob);
-  toast('Link copiado!','Cole no navegador para abrir a página');
+function cpLink(t) {
+  const u = t === 'lp' ? lpBlob : qzBlob;
+  if (u) { navigator.clipboard?.writeText(u); toast('Link copiado!', 'Cole no navegador para abrir'); }
 }
-function openLink(t){
-  const u=t==='lp'?lpBlob:qzBlob;
-  if(u) window.open(u,'_blank');
-  else toast('Atenção','Gere o conteúdo primeiro');
+function openLink(t) {
+  const u = t === 'lp' ? lpBlob : qzBlob;
+  if (u) window.open(u, '_blank');
+  else toast('Atenção', 'Gere o conteúdo primeiro');
+}
+function newProduct() {
+  if (!confirm('Iniciar novo produto? O progresso atual será perdido.')) return;
+  selAd = null; _pickedAd = null; fmt = null; brief = {};
+  lpHTML = ''; qzHTML = ''; lpBlob = null; qzBlob = null;
+  criData = []; copyText = ''; copyReady = false; mockReady = false; criReady = false;
+  document.querySelectorAll('.stp').forEach(s => { s.classList.remove('done', 'active'); });
+  document.getElementById('st1').classList.add('active');
+  document.querySelectorAll('.stp-n').forEach((n, i) => { if (!n.textContent.match(/[✓]/)) return; n.textContent = i + 1; });
+  document.getElementById('scanOut').style.display = 'none';
+  document.getElementById('anaBox').classList.remove('on');
+  document.getElementById('copyWrap').style.display = 'none';
+  document.getElementById('mockWrap').style.display = 'none';
+  document.getElementById('criOut').innerHTML = '';
+  document.getElementById('shareLP').style.display = 'none';
+  document.getElementById('shareQZ').style.display = 'none';
+  cred = 200; updCred();
+  nav(1);
+  toast('Resetado!', 'Pronto para um novo produto');
 }
 
-// ══ LP HTML BUILDER ══
-function buildLP(b,copy){
-  const rows=copy.split('\n');
-  const secs=[];let cur={title:'',lines:[]};
-  rows.forEach(r=>{
-    if(r.startsWith('=== DOBRA')){if(cur.lines.length)secs.push({...cur});cur={title:r.replace(/===/g,'').trim(),lines:[]};}
-    else cur.lines.push(r);
+// ════════════ LP HTML BUILDER ════════════
+function buildLP(b, copy) {
+  const rows = copy.split('\n');
+  const secs = []; let cur = { title: '', lines: [] };
+  rows.forEach(r => {
+    if (r.startsWith('=== DOBRA')) {
+      if (cur.lines.length) secs.push({ ...cur });
+      cur = { title: r.replace(/===/g, '').trim(), lines: [] };
+    } else cur.lines.push(r);
   });
-  if(cur.lines.length)secs.push(cur);
-  const secHTML=secs.map(s=>`
-    <section style="margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid #eee">
-      <p style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#bbb;margin-bottom:14px">${s.title}</p>
-      ${s.lines.filter(l=>l.trim()).map(l=>{
-        if(l.startsWith('**')&&l.endsWith('**'))return`<h3 style="font-size:clamp(18px,3vw,28px);font-weight:900;line-height:1.25;margin-bottom:12px;color:#111;font-family:'Syne',sans-serif">${l.replace(/\*\*/g,'')}</h3>`;
-        if(l.startsWith('✅'))return`<div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;font-size:15px;color:#111"><span>✅</span><span>${l.substring(1).trim()}</span></div>`;
-        if(l.startsWith('🎁'))return`<div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;font-size:15px;color:#15803d"><span>🎁</span><b>${l.substring(1).trim()}</b></div>`;
-        if(l.startsWith('~~')&&l.endsWith('~~'))return`<div style="text-decoration:line-through;color:#bbb;font-size:15px">${l.replace(/~~/g,'')}</div>`;
-        if(l.startsWith('🛡️'))return`<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:12px 16px;font-size:14px;color:#166534;margin-top:8px">${l}</div>`;
-        return`<p style="font-size:16px;line-height:1.75;margin-bottom:10px;color:#333">${l}</p>`;
-      }).join('')}
+  if (cur.lines.length) secs.push(cur);
+
+  const secHTML = secs.map(s => `
+    <section style="margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid #eee">
+      <p style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:#bbb;margin-bottom:14px;font-family:monospace">${s.title}</p>
+      ${s.lines.filter(l => l.trim()).map(l => {
+    if (l.startsWith('**') && l.endsWith('**')) return `<h3 style="font-family:'Syne',sans-serif;font-size:clamp(19px,3.5vw,30px);font-weight:900;line-height:1.25;margin-bottom:12px;color:#111">${l.replace(/\*\*/g, '')}</h3>`;
+    if (l.startsWith('✅')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;font-size:15px;color:#222"><span style="flex-shrink:0;margin-top:1px">✅</span><span>${l.substring(1).trim()}</span></div>`;
+    if (l.startsWith('🎁')) return `<div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;font-size:15px;color:#15803d"><span style="flex-shrink:0">🎁</span><b>${l.substring(1).trim()}</b></div>`;
+    if (l.startsWith('~~') && l.endsWith('~~')) return `<span style="text-decoration:line-through;color:#bbb;font-size:15px">${l.replace(/~~/g, '')}</span><br>`;
+    if (l.startsWith('🛡️')) return `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:13px 16px;font-size:14px;color:#166534;margin-top:8px">${l}</div>`;
+    return `<p style="font-size:16px;line-height:1.78;margin-bottom:10px;color:#333">${l}</p>`;
+  }).join('')}
     </section>`).join('');
-  return`<!DOCTYPE html>
+
+  return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -687,50 +1014,54 @@ function buildLP(b,copy){
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f9f9f9;color:#111;font-family:'DM Sans',sans-serif}
-.hero{background:#111;color:#fff;padding:48px 24px;text-align:center}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(20px,4vw,34px);font-weight:900;line-height:1.2;margin-bottom:14px}
+body{background:#f8f8f8;color:#111;font-family:'DM Sans',sans-serif;line-height:1.6}
+.hero{background:#0f0f0f;color:#fff;padding:52px 24px;text-align:center}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(22px,4.5vw,38px);font-weight:900;line-height:1.2;margin-bottom:16px}
 .hero h1 em{color:#F5C842;font-style:normal}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:0 auto 20px}
-.checks div{background:#1e1e1e;border-radius:6px;padding:9px 12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
-.body{max-width:640px;margin:0 auto;padding:40px 24px}
-.price-box{background:#fff;border:2px solid #F5C842;border-radius:12px;padding:24px;text-align:center;margin:24px 0;box-shadow:0 4px 24px rgba(0,0,0,.08)}
-.price-old{text-decoration:line-through;color:#bbb;font-size:15px}
-.price-new{font-size:52px;font-weight:900;color:#16a34a;line-height:1.1}
-.price-sub{font-size:12px;color:#999;margin-top:4px}
-.cta-btn{display:block;width:100%;background:#F5C842;color:#000;border:none;border-radius:10px;padding:18px;font-size:18px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;animation:p 2s infinite}
-@keyframes p{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 14px rgba(245,200,66,0)}}
-.guar{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px;text-align:center;margin-top:14px;font-size:13px;color:#166534}
-footer{background:#111;color:#555;font-size:11px;text-align:center;padding:20px;margin-top:40px}
+.hero-sub{font-size:15px;color:#aaa;max-width:480px;margin:0 auto 20px}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:440px;margin:0 auto}
+.badge{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+.body{max-width:660px;margin:0 auto;padding:44px 22px}
+.price-box{background:#fff;border:2px solid #F5C842;border-radius:14px;padding:28px;text-align:center;margin:28px 0;box-shadow:0 6px 30px rgba(0,0,0,.08)}
+.price-old{text-decoration:line-through;color:#bbb;font-size:15px;margin-bottom:4px}
+.price-new{font-size:56px;font-weight:900;color:#16a34a;line-height:1;font-family:'Syne',sans-serif}
+.price-sub{font-size:12px;color:#aaa;margin-top:6px}
+.cta{display:block;width:100%;background:#F5C842;color:#000;border:none;border-radius:12px;padding:19px;font-size:18px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;font-family:'DM Sans',sans-serif;letter-spacing:.3px;margin-top:4px;animation:pp 2s infinite}
+@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 16px rgba(245,200,66,0)}}
+.guar{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 18px;text-align:center;margin-top:16px;font-size:13px;color:#166534}
+footer{background:#0f0f0f;color:#444;font-size:11px;text-align:center;padding:22px;margin-top:40px}
 </style>
 </head>
 <body>
 <div class="hero">
   <h1>🔥 <em>${b.nome}</em></h1>
-  <div class="checks">
-    <div>✅ Acesso Imediato</div><div>✅ Garantia ${b.gar}</div>
-    <div>✅ ${(b.b1||'Bônus 1').split(' ').slice(0,3).join(' ')}</div><div>✅ Suporte Incluído</div>
+  <p class="hero-sub">${b.desc ? b.desc.substring(0, 100) + '...' : 'A solução completa que você estava esperando'}</p>
+  <div class="badges">
+    <div class="badge">✅ Acesso Imediato</div>
+    <div class="badge">✅ Garantia ${b.gar}</div>
+    <div class="badge">✅ ${(b.b1 || 'Bônus 1').split(' ').slice(0, 3).join(' ')}</div>
+    <div class="badge">✅ Suporte Incluído</div>
   </div>
 </div>
 <div class="body">
-${secHTML}
-<div class="price-box">
-  <div class="price-old">De ${b.precoOld}</div>
-  <div class="price-new">${b.preco}</div>
-  <div class="price-sub">pagamento único • acesso imediato</div>
-</div>
-<a class="cta-btn" href="#">✅ QUERO ACESSO AGORA →</a>
-<div class="guar">🛡️ Garantia de ${b.gar} — Se não gostar, devolvemos 100% do seu dinheiro. Sem perguntas.</div>
+  ${secHTML}
+  <div class="price-box">
+    <div class="price-old">De ${b.precoOld}</div>
+    <div class="price-new">${b.preco}</div>
+    <div class="price-sub">pagamento único • acesso imediato após pagamento</div>
+  </div>
+  <a class="cta" href="#">✅ QUERO ACESSO AGORA →</a>
+  <div class="guar">🛡️ Garantia de ${b.gar} — Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas.</div>
 </div>
 <footer>© ${new Date().getFullYear()} ${b.nome} — Todos os direitos reservados</footer>
 </body></html>`;
 }
 
-// ══ QUIZ HTML BUILDER ══
-function buildQuiz(b,qs){
-  const qJ=JSON.stringify(qs).replace(/\\/g,'\\\\').replace(/`/g,'\\`');
-  const pJ=JSON.stringify({nome:b.nome,preco:b.preco,precoOld:b.precoOld,gar:b.gar,desc:b.desc});
-  return`<!DOCTYPE html>
+// ════════════ QUIZ HTML BUILDER ════════════
+function buildQuiz(b, qs) {
+  const qJ = JSON.stringify(qs).replace(/\\/g, '\\\\').replace(/`/g, '\\`');
+  const pJ = JSON.stringify({ nome: b.nome, preco: b.preco, precoOld: b.precoOld, gar: b.gar, desc: b.desc });
+  return `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -738,21 +1069,32 @@ function buildQuiz(b,qs){
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#111;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
-.box{background:#181818;border:1px solid #2c2c2c;border-radius:16px;max-width:560px;width:100%;padding:32px;animation:up .3s ease}
-@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.prog{height:4px;background:#2c2c2c;border-radius:2px;margin-bottom:24px;overflow:hidden}
-.progb{height:100%;background:#F5C842;border-radius:2px;transition:.4s}
-.num{font-size:11px;color:#555;margin-bottom:8px;font-family:monospace}
-.q{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;line-height:1.3;margin-bottom:20px}
+body{background:#0d0d0d;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.box{background:#161616;border:1px solid #252525;border-radius:18px;max-width:580px;width:100%;padding:34px;animation:up .35s ease}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.prog-wrap{margin-bottom:24px}
+.prog-bar-bg{height:4px;background:#222;border-radius:2px;overflow:hidden}
+.prog-bar{height:100%;background:#F5C842;border-radius:2px;transition:.5s ease}
+.prog-txt{font-size:10px;color:#555;font-family:monospace;margin-top:5px}
+.step-num{font-size:10px;color:#F5C842;font-family:monospace;margin-bottom:7px;letter-spacing:1px}
+.q-text{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;line-height:1.3;margin-bottom:22px}
 .opts{display:flex;flex-direction:column;gap:10px}
-.opt{background:#222;border:2px solid #333;border-radius:10px;padding:14px 18px;cursor:pointer;font-size:14px;font-weight:500;transition:.2s;text-align:left}
-.opt:hover{border-color:#F5C842;color:#F5C842}
-.inp{background:#222;border:1px solid #333;border-radius:8px;padding:12px 16px;color:#f0f0f0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;width:100%;margin-bottom:10px}
-.inp:focus{border-color:#F5C842}
-.inp::placeholder{color:#555}
-.cta{background:#F5C842;color:#000;border:none;border-radius:10px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;animation:pp 2s infinite}
-@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 12px rgba(245,200,66,0)}}
+.opt{background:#1e1e1e;border:2px solid #2a2a2a;border-radius:11px;padding:14px 18px;cursor:pointer;font-size:14px;font-weight:500;transition:.2s;text-align:left;color:#f0f0f0}
+.opt:hover{border-color:#F5C842;background:#1a1500;color:#F5C842}
+.form-inp{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:9px;padding:12px 16px;color:#f0f0f0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;width:100%;margin-bottom:10px}
+.form-inp:focus{border-color:#F5C842}
+.form-inp::placeholder{color:#555}
+.cta-btn{background:#F5C842;color:#000;border:none;border-radius:11px;padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;animation:pp 2s infinite}
+@keyframes pp{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,.4)}50%{box-shadow:0 0 0 14px rgba(245,200,66,0)}}
+.offer{text-align:center}
+.offer-tag{font-size:10px;color:#F5C842;font-family:monospace;letter-spacing:2px;margin-bottom:12px}
+.offer-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:900;line-height:1.3;margin-bottom:10px}
+.offer-title em{color:#F5C842;font-style:normal}
+.offer-desc{font-size:14px;color:#aaa;line-height:1.65;margin-bottom:18px}
+.offer-old{text-decoration:line-through;color:#444;font-size:14px}
+.offer-price{font-size:52px;font-weight:900;color:#22c55e;font-family:'Syne',sans-serif;line-height:1}
+.offer-sub{font-size:12px;color:#555;margin-top:4px;margin-bottom:18px}
+.offer-guar{font-size:12px;color:#555;margin-top:12px}
 </style>
 </head>
 <body>
@@ -761,16 +1103,17 @@ body{background:#111;color:#f0f0f0;font-family:'DM Sans',sans-serif;min-height:1
 const QS=${qJ};
 const P=${pJ};
 let step=0;
+const total=QS.length+2;
 function render(){
   const box=document.getElementById('box');
+  const pct=Math.round((step/total)*100);
   if(step<QS.length){
     const q=QS[step];
-    const pct=Math.round((step/QS.length)*100);
-    box.innerHTML='<div class="prog"><div class="progb" style="width:'+pct+'%"></div></div><div class="num">PERGUNTA '+(step+1)+' DE '+QS.length+'</div><div class="q">'+q.pergunta+'</div><div class="opts">'+q.opcoes.map(o=>'<button class="opt" onclick="next()">'+o+'</button>').join('')+'</div>';
+    box.innerHTML='<div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:'+pct+'%"></div></div><div class="prog-txt">'+pct+'% concluído</div></div><div class="step-num">PERGUNTA '+(step+1)+' DE '+QS.length+'</div><div class="q-text">'+q.pergunta+'</div><div class="opts">'+q.opcoes.map(o=>'<button class="opt" onclick="next()">'+o+'</button>').join('')+'</div>';
   }else if(step===QS.length){
-    box.innerHTML='<div style="text-align:center;margin-bottom:24px"><div style="font-size:32px;margin-bottom:8px">🎯</div><div style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;margin-bottom:6px">Seu resultado está pronto!</div><div style="font-size:13px;color:#888">Informe seu e-mail para receber sua solução personalizada</div></div><input class="inp" placeholder="Seu nome"><input class="inp" placeholder="Seu melhor e-mail" type="email"><button class="cta" onclick="next()">Ver minha solução →</button>';
+    box.innerHTML='<div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:90%"></div></div><div class="prog-txt">Quase lá!</div></div><div style="text-align:center;margin-bottom:22px"><div style="font-size:34px;margin-bottom:8px">🎯</div><div style="font-family:Syne,sans-serif;font-size:21px;font-weight:800;margin-bottom:6px">Seu resultado está pronto!</div><div style="font-size:13px;color:#888">Informe seus dados para receber sua solução personalizada</div></div><input class="form-inp" id="fn" placeholder="Seu nome"><input class="form-inp" id="fe" placeholder="Seu melhor e-mail" type="email"><button class="cta-btn" onclick="next()">Ver minha solução gratuita →</button>';
   }else{
-    box.innerHTML='<div style="text-align:center"><div style="font-size:11px;color:#F5C842;font-family:monospace;margin-bottom:12px">RESULTADO PERSONALIZADO</div><div style="font-family:Syne,sans-serif;font-size:22px;font-weight:900;margin-bottom:10px">🔥 '+P.nome+'</div><p style="font-size:14px;color:#aaa;line-height:1.6;margin-bottom:16px">'+(P.desc||'Solução completa para transformar sua vida.')+'</p><div style="text-decoration:line-through;color:#555;font-size:14px">De '+P.precoOld+'</div><div style="font-size:46px;font-weight:900;color:#22c55e">'+P.preco+'</div><div style="font-size:12px;color:#555;margin-bottom:16px">pagamento único • acesso imediato</div><button class="cta">✅ QUERO ACESSO AGORA →</button><div style="font-size:12px;color:#555;margin-top:12px">🛡️ Garantia de '+P.gar+' — Sem perguntas</div></div>';
+    box.innerHTML='<div class="offer"><div class="prog-wrap"><div class="prog-bar-bg"><div class="prog-bar" style="width:100%"></div></div></div><div class="offer-tag">✅ RESULTADO PERSONALIZADO PARA VOCÊ</div><div class="offer-title">🔥 <em>'+P.nome+'</em> é exatamente o que você precisa</div><div class="offer-desc">'+(P.desc||'Solução completa com acesso imediato e garantia total.')+'</div><div class="offer-old">De '+P.precoOld+'</div><div class="offer-price">'+P.preco+'</div><div class="offer-sub">pagamento único • acesso imediato</div><button class="cta-btn">✅ QUERO ACESSO AGORA →</button><div class="offer-guar">🛡️ Garantia de '+P.gar+' — Sem perguntas, sem burocracia</div></div>';
   }
 }
 function next(){step++;render();}
@@ -779,85 +1122,119 @@ render();
 </body></html>`;
 }
 
-// ══ FALLBACKS ══
-function fbCopy(b){return`=== DOBRA 1: HERO ===
+// ════════════ FALLBACKS ════════════
+function fbCopy(b) {
+  return `=== DOBRA 1: HERO ===
 
-**${b.nome}: ${b.desejo||'Transforme sua vida hoje mesmo'}**
+**${b.nome}: ${b.desejo || 'Transforme sua vida hoje mesmo'}**
 
 ✅ Acesso imediato após pagamento
-✅ ${b.b1||'Bônus 1 incluso'}
-✅ Garantia de ${b.gar||'7 dias'}
+✅ ${b.b1 || 'Bônus exclusivo incluso'}
+✅ Garantia de ${b.gar || '7 dias'}
 ✅ Suporte completo incluído
 
 === DOBRA 2: CHECKLIST DE BENEFÍCIOS ===
 
-${b.desc||'Tudo que você precisa para alcançar resultados reais.'}
+${b.desc || 'Tudo que você precisa para alcançar resultados reais de forma rápida e prática.'}
 
-=== DOBRA 3: QUEM SOU EU ===
+✅ Método comprovado e testado
+✅ Funciona para iniciantes e avançados
+✅ Sem precisar de experiência anterior
+✅ Resultados desde o primeiro acesso
 
-Desenvolvemos este produto depois de anos entendendo a dor de quem quer ${b.desejo||'resultados'} mas não sabe por onde começar.
+=== DOBRA 3: AUTORIDADE ===
+
+Desenvolvemos este produto depois de anos entendendo a dor de quem quer ${b.desejo || 'resultados'} mas não sabe por onde começar — ou já tentou e não conseguiu.
+
+Mais de 2.000 pessoas já transformaram suas vidas com o ${b.nome}. E você pode ser a próxima.
 
 === DOBRA 4: O QUE VOCÊ VAI RECEBER ===
 
 📦 ${b.nome} — Produto Principal
-🎁 ${b.b1||'Bônus 1'}
-🎁 ${b.b2||'Bônus 2'}
-🎁 ${b.b3||'Bônus 3'}
+🎁 ${b.b1 || 'Bônus 1 — Acesso exclusivo'}
+🎁 ${b.b2 || 'Bônus 2 — Ferramenta bônus'}
+🎁 ${b.b3 || 'Bônus 3 — Conteúdo extra'}
 
 === DOBRA 5: PROVA SOCIAL ===
 
-"Finalmente algo que funciona de verdade!" — João M., SP
-"Resultado desde o primeiro dia. Valeu muito!" — Maria S., MG
-"Recomendo pra todo mundo que quer mudar de vida." — Carlos R., RJ
+"Finalmente algo que realmente funciona. Resultado desde o primeiro dia!" — João M., SP
+
+"Investi e em menos de uma semana já vi diferença. Valeu muito!" — Maria S., MG
+
+"Recomendo para todo mundo que quer mudar de vida sem enrolação." — Carlos R., RJ
 
 === DOBRA 6: OFERTA ESPECIAL ===
 
-~~De ${b.precoOld||'R$ 197'}~~
-Por apenas ${b.preco||'R$ 37'}
+~~De ${b.precoOld || 'R$ 197'}~~
+**Por apenas ${b.preco || 'R$ 37'}**
 
-Pagamento único. Acesso imediato.
+Pagamento único. Sem mensalidade. Acesso imediato.
 
 === DOBRA 7: BÔNUS ===
 
-🎁 ${b.b1||'Bônus 1'}
-🎁 ${b.b2||'Bônus 2'}
-🎁 ${b.b3||'Bônus 3'}
+Além do produto principal, você recebe HOJE:
+
+🎁 ${b.b1 || 'Bônus 1'}
+🎁 ${b.b2 || 'Bônus 2'}
+🎁 ${b.b3 || 'Bônus 3'}
 
 === DOBRA 8: GARANTIA ===
 
-🛡️ Garantia de ${b.gar||'7 dias'} — Se não ficar satisfeito, devolvemos 100% do seu dinheiro sem perguntas.
+🛡️ RISCO ZERO — Garantia de ${b.gar || '7 dias'}
+
+Se por qualquer motivo você não ficar satisfeito, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia, sem complicação.
 
 === DOBRA 9: CTA FINAL ===
 
 Não deixe mais uma oportunidade passar.
 
-Clique no botão abaixo e garanta acesso imediato por ${b.preco||'R$ 37'}.`;}
+Clique no botão abaixo e garanta acesso imediato por apenas ${b.preco || 'R$ 37'}.`;
+}
 
-function fbCri(b){return[
-  {tipo:'HOOK DE DOR',hook:`"${b.dor||'Você está cansado de não ver resultados'}?"`,copy:`Se isso soa familiar, ${b.nome} foi criado para você. Por ${b.preco}, acesso imediato. Garantia de ${b.gar}.`},
-  {tipo:'PROVA SOCIAL',hook:`"Consegui resultado em menos de 7 dias"`,copy:`É o que nossos clientes dizem sobre ${b.nome}. Mais de 2.000 pessoas já transformaram suas vidas. E você?`},
-  {tipo:'NÚMERO ESPECÍFICO',hook:`"Tudo que você precisa em um só lugar"`,copy:`Acesso completo por apenas ${b.preco}. Pagamento único, sem mensalidade. Garantia de ${b.gar}.`},
-  {tipo:'URGÊNCIA',hook:`"Esse preço some em breve — ${b.precoOld} voltando logo"`,copy:`${b.nome} está com desconto especial por tempo limitado. De ${b.precoOld} por apenas ${b.preco}. Garanta agora.`},
-  {tipo:'CURIOSIDADE',hook:`"O segredo que transforma ${b.nicho||'sua área'} em resultado real"`,copy:`Não é sorte. É ter o método certo. ${b.nome} entrega exatamente isso. Veja por ${b.preco}.`},
-];}
+function fbCri(b) {
+  return [
+    { tipo: 'HOOK DE DOR', hook: `"${b.dor || 'Você está cansado de tentar e não ver resultado'}?"`, copy: `Se isso soa familiar, ${b.nome} foi criado exatamente para você. Por ${b.preco}, acesso imediato. Garantia de ${b.gar}.` },
+    { tipo: 'PROVA SOCIAL', hook: `"Consegui resultado em menos de 7 dias usando isso"`, copy: `É o que nossos clientes estão dizendo sobre ${b.nome}. Mais de 2.000 pessoas já transformaram suas vidas. Você é o próximo?` },
+    { tipo: 'NÚMERO ESPECÍFICO', hook: `"${b.desc ? b.desc.split(' ').slice(0, 8).join(' ') + '...' : 'Acesso completo a tudo que você precisa'}"`, copy: `Por apenas ${b.preco}, pagamento único, sem mensalidade. Garantia de ${b.gar}. Acesse agora.` },
+    { tipo: 'URGÊNCIA', hook: `"Esse preço vai subir — de ${b.precoOld} por ${b.preco} só por tempo limitado"`, copy: `${b.nome} está em oferta especial. Quando o timer acabar, o valor volta para ${b.precoOld}. Garanta agora antes que seja tarde.` },
+    { tipo: 'CURIOSIDADE', hook: `"Por que pessoas comuns estão conseguindo ${b.desejo || 'resultados extraordinários'} com isso?"`, copy: `Não é sorte. Não é talento. É ter o método certo na hora certa. ${b.nome} entrega exatamente isso. Veja por ${b.preco}.` },
+  ];
+}
 
-function fbQuiz(b){return[
-  {pergunta:`Qual é seu maior desafio com ${b.nicho||'este tema'} hoje?`,opcoes:['Não sei por onde começar','Já tentei mas não funcionou','Falta de tempo','Falta de método']},
-  {pergunta:'Quanto tempo por semana você tem disponível?',opcoes:['Menos de 1h','1 a 3h','3 a 5h','Mais de 5h']},
-  {pergunta:`O que mais te impede de ${b.desejo||'alcançar seus objetivos'}?`,opcoes:['Falta de conhecimento','Falta de dinheiro','Falta de motivação','Já estou no caminho']},
-  {pergunta:'Qual resultado você quer primeiro?',opcoes:['Resultado rápido','Mais eficiência','Renda extra','Todos os anteriores']},
-  {pergunta:'Você já investiu em algo parecido antes?',opcoes:['Não, é minha primeira vez','Sim, mas não funcionou','Sim, funcionou parcialmente','Prefiro não dizer']},
-  {pergunta:'Qual é seu nível de urgência para resolver isso?',opcoes:['Preciso resolver agora!','Em até 30 dias','Não tenho pressa','Só estou pesquisando']},
-];}
+function fbQuiz(b) {
+  return [
+    { pergunta: `Qual é seu maior desafio com ${b.nicho || 'este tema'} hoje?`, opcoes: ['Não sei por onde começar', 'Já tentei mas não funcionou', 'Falta de tempo livre', 'Falta de método certo'] },
+    { pergunta: 'Quanto tempo por semana você tem disponível?', opcoes: ['Menos de 1h', '1 a 3h', '3 a 5h', 'Mais de 5h'] },
+    { pergunta: `O que mais te impede de ${b.desejo || 'alcançar seus objetivos'}?`, opcoes: ['Falta de conhecimento', 'Falta de dinheiro', 'Medo de errar', 'Não sei qual caminho seguir'] },
+    { pergunta: 'Como você prefere aprender e consumir conteúdo?', opcoes: ['Passo a passo detalhado', 'De forma rápida e prática', 'Com exemplos reais', 'Tudo junto e resumido'] },
+    { pergunta: 'Você já investiu em alguma solução parecida antes?', opcoes: ['Não, é minha primeira vez', 'Sim, mas não funcionou', 'Sim, e funcionou parcialmente', 'Prefiro não dizer'] },
+    { pergunta: 'Qual resultado você quer alcançar primeiro?', opcoes: [b.b1?.split(' ').slice(0, 4).join(' ') || 'Resultado rápido', b.b2?.split(' ').slice(0, 4).join(' ') || 'Mais eficiência', b.b3?.split(' ').slice(0, 4).join(' ') || 'Renda extra', 'Todos os anteriores'] },
+    { pergunta: 'Qual é seu nível de urgência para resolver isso?', opcoes: ['🔥 Preciso resolver agora!', 'Em até 30 dias', 'Não tenho tanta pressa', 'Só estou pesquisando'] },
+    { pergunta: 'O que mais te atrai em uma solução para isso?', opcoes: ['Preço acessível', 'Resultado garantido', 'Facilidade de uso', 'Suporte e acompanhamento'] },
+  ];
+}
 
-// ══ UTILS ══
-function slug(){return(brief.nome||'produto').toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25);}
-async function typeIt(el,txt,d=4){el.textContent='';for(let i=0;i<txt.length;i++){el.textContent+=txt[i];if(i%4===0)await new Promise(r=>setTimeout(r,d));}}
-function updCred(){document.getElementById('credTxt').textContent=`${cred} créditos`;}
-function load(t,s){document.getElementById('loadT').textContent=t;document.getElementById('loadS').textContent=s;document.getElementById('loader').classList.add('on');}
-function unload(){document.getElementById('loader').classList.remove('on');}
+// ════════════ UTILS ════════════
+function slug() { return (brief.nome || 'produto').toLowerCase().replace(/[^a-z0-9]/g, '-').substring(0, 25); }
+async function typeIt(el, txt, delay = 4) {
+  el.textContent = '';
+  for (let i = 0; i < txt.length; i++) {
+    el.textContent += txt[i];
+    if (i % 5 === 0) await new Promise(r => setTimeout(r, delay));
+  }
+}
+function updCred() { document.getElementById('credTxt').textContent = `${cred} créditos`; }
+function load(t, s) { document.getElementById('loadT').textContent = t; document.getElementById('loadS').textContent = s; document.getElementById('loader').classList.add('on'); }
+function unload() { document.getElementById('loader').classList.remove('on'); }
 let _tt;
-function toast(t,m){document.getElementById('toastT').textContent=t;document.getElementById('toastM').textContent=m;const e=document.getElementById('toast');e.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('on'),3200);}
+function toast(t, m) {
+  document.getElementById('toastT').textContent = t;
+  document.getElementById('toastM').textContent = m;
+  const e = document.getElementById('toast');
+  e.classList.add('on');
+  clearTimeout(_tt);
+  _tt = setTimeout(() => e.classList.remove('on'), 3400);
+}
 </script>
 </body>
 </html>
