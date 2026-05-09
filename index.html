@@ -190,6 +190,89 @@ textarea.inp{resize:vertical;min-height:86px}
 .brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:500px){.brief-grid{grid-template-columns:1fr}}
 .section-sub{font-size:12px;font-weight:600;color:var(--muted2);margin:18px 0 10px;display:flex;align-items:center;gap:6px}
+
+/* ── TUTORIAL PANEL ── */
+.tut-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;display:none;backdrop-filter:blur(3px)}
+.tut-overlay.on{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.tut-panel{position:fixed;top:0;right:0;width:min(520px,100vw);height:100vh;background:var(--s1);border-left:1px solid var(--border);z-index:9001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.tut-panel.on{transform:translateX(0)}
+.tut-panel-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.tut-panel-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+.tut-panel-title span{color:var(--gold)}
+.tut-close{width:32px;height:32px;border-radius:8px;background:var(--s3);border:none;color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.tut-close:hover{background:var(--border);color:var(--gold)}
+.tut-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.tut-tabs::-webkit-scrollbar{display:none}
+.tut-tab{padding:11px 16px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0;transition:.2s}
+.tut-tab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tut-body{flex:1;overflow-y:auto;padding:20px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.tut-body::-webkit-scrollbar{width:4px}
+.tut-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.tut-step{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.tut-step:last-child{border-bottom:none}
+.tut-step-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.tut-step-num{width:32px;height:32px;border-radius:50%;background:var(--gold);color:#000;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tut-step-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800}
+.tut-step-tag{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);background:rgba(245,200,66,.1);padding:2px 8px;border-radius:20px}
+.tut-instr{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.tut-instr-n{width:22px;height:22px;border-radius:50%;background:var(--gold);color:#000;font-size:10px;font-weight:700;font-family:'DM Mono',monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.tut-instr-t{font-size:13px;font-weight:600;margin-bottom:3px}
+.tut-instr-d{font-size:12px;color:var(--muted2);line-height:1.6}
+.tut-tip{display:flex;gap:10px;background:#141000;border:1px solid #2e2600;border-radius:8px;padding:12px;font-size:12px;color:#ccc;line-height:1.6;margin:12px 0}
+.tut-ok{display:flex;gap:10px;background:#001408;border:1px solid #003018;border-radius:8px;padding:12px;font-size:12px;color:#aaffcc;line-height:1.6;margin:12px 0}
+.tut-warn{display:flex;gap:10px;background:#140000;border:1px solid #2e0000;border-radius:8px;padding:12px;font-size:12px;color:#ffaaaa;line-height:1.6;margin:12px 0}
+.tut-eg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.tut-eg{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:12px}
+.tut-eg-title{font-size:10px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:6px}
+.tut-eg-body{font-size:11.5px;color:var(--muted2);line-height:1.5}
+.tut-credits-table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0}
+.tut-credits-table th{background:var(--s2);padding:8px 12px;text-align:left;font-size:10px;font-family:'DM Mono',monospace;color:var(--muted2)}
+.tut-credits-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted2)}
+.tut-credits-table td:last-child{font-family:'DM Mono',monospace;color:var(--gold)}
+.tut-credits-table tr:last-child td{border-bottom:none;font-weight:700;color:var(--text)}
+.faq-q2{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--s2);gap:10px;transition:.2s}
+.faq-q2:hover{border-color:var(--border2)}
+.faq-q2.open{border-color:rgba(245,200,66,.4);background:#141000}
+.faq-q2-icon{color:var(--gold);font-size:16px;transition:transform .3s;flex-shrink:0}
+.faq-q2.open .faq-q2-icon{transform:rotate(45deg)}
+.faq-a2{display:none;padding:10px 14px 14px;font-size:12px;color:var(--muted2);line-height:1.7;border:1px solid rgba(245,200,66,.2);border-top:none;border-radius:0 0 8px 8px;background:#0d0d00;margin-bottom:6px}
+.faq-q2.open+.faq-a2{display:block;animation:fadeUp .2s ease}
+
+/* ── BIBLIOTECA ── */
+.lib-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:8000;display:none;backdrop-filter:blur(3px)}
+.lib-overlay.on{display:block;animation:fadeIn .2s ease}
+.lib-panel{position:fixed;top:0;left:0;width:min(480px,100vw);height:100vh;background:var(--s1);border-right:1px solid var(--border);z-index:8001;display:flex;flex-direction:column;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.lib-panel.on{transform:translateX(0)}
+.lib-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);flex-shrink:0}
+.lib-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800}
+.lib-title span{color:var(--gold)}
+.lib-close{width:32px;height:32px;border-radius:8px;background:var(--s3);border:none;color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.lib-close:hover{background:var(--border);color:var(--gold)}
+.lib-body{flex:1;overflow-y:auto;padding:16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.lib-body::-webkit-scrollbar{width:4px}
+.lib-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.lib-empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.lib-empty-icon{font-size:40px;margin-bottom:12px}
+.lib-empty-title{font-size:14px;font-weight:600;margin-bottom:6px;color:var(--muted2)}
+.lib-empty-sub{font-size:12px;line-height:1.6}
+.lib-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.lib-count b{color:var(--gold)}
+.prod-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px;transition:.2s}
+.prod-card:hover{border-color:var(--border2)}
+.prod-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:8px}
+.prod-card-name{font-weight:700;font-size:14px;font-family:'Syne',sans-serif;line-height:1.3}
+.prod-card-nicho{font-size:10px;font-family:'DM Mono',monospace;color:var(--gold);background:rgba(245,200,66,.1);padding:2px 8px;border-radius:20px;white-space:nowrap;margin-top:2px;display:inline-block}
+.prod-card-date{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;flex-shrink:0}
+.prod-card-meta{display:flex;gap:10px;font-size:11px;color:var(--muted2);margin-bottom:10px;flex-wrap:wrap}
+.prod-card-meta span{display:flex;align-items:center;gap:4px}
+.prod-card-acts{display:flex;gap:7px;flex-wrap:wrap}
+.prod-act{flex:1;min-width:70px;background:var(--s3);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:11px;font-weight:600;color:var(--text);cursor:pointer;text-align:center;transition:.2s;font-family:'DM Sans',sans-serif}
+.prod-act:hover{border-color:var(--gold);color:var(--gold)}
+.prod-act.danger:hover{border-color:var(--red);color:var(--red)}
+.prod-act.primary{background:var(--gold);color:#000;border-color:var(--gold)}
+.prod-act.primary:hover{background:var(--gold2)}
+.lib-footer{padding:14px 16px;border-top:1px solid var(--border);flex-shrink:0}
 </style>
 </head>
 <body>
@@ -198,6 +281,8 @@ textarea.inp{resize:vertical;min-height:86px}
 <div class="topbar">
   <div class="logo">ZAK<em>OV</em></div>
   <div class="topright">
+    <button class="btn btn-out" onclick="openLib()" style="padding:7px 13px;font-size:12px">📦 Meus Produtos <span id="libBadge" style="display:none;background:var(--gold);color:#000;border-radius:20px;padding:1px 6px;font-size:10px;font-family:'DM Mono',monospace;margin-left:2px">0</span></button>
+    <button class="btn btn-out" onclick="openTut()" style="padding:7px 13px;font-size:12px">❓ Como usar</button>
     <div class="topbadge">Fábrica de Low Ticket</div>
     <div class="credits"><div class="cdot"></div><span id="credTxt">200 créditos</span></div>
   </div>
@@ -471,6 +556,201 @@ textarea.inp{resize:vertical;min-height:86px}
 </div>
 
 </div><!-- /wrap -->
+
+<!-- BIBLIOTECA DE PRODUTOS -->
+<div class="lib-overlay" id="libOverlay" onclick="closeLib()"></div>
+<div class="lib-panel" id="libPanel">
+  <div class="lib-header">
+    <div class="lib-title">📦 Meus <span>Produtos</span></div>
+    <button class="lib-close" onclick="closeLib()">✕</button>
+  </div>
+  <div class="lib-body" id="libBody">
+    <div class="lib-empty">
+      <div class="lib-empty-icon">📭</div>
+      <div class="lib-empty-title">Nenhum produto salvo ainda</div>
+      <div class="lib-empty-sub">Quando você finalizar um produto no Passo 6, ele aparece aqui com nome, nicho, data e botão para baixar o HTML.</div>
+    </div>
+  </div>
+  <div class="lib-footer">
+    <button class="btn btn-red btn-full" onclick="clearLib()" style="font-size:12px;padding:10px">🗑️ Limpar biblioteca</button>
+  </div>
+</div>
+
+<!-- TUTORIAL PANEL -->
+<div class="tut-overlay" id="tutOverlay" onclick="closeTut()"></div>
+<div class="tut-panel" id="tutPanel">
+  <div class="tut-panel-header">
+    <div class="tut-panel-title">Como usar o <span>ZAKOV</span></div>
+    <button class="tut-close" onclick="closeTut()">✕</button>
+  </div>
+  <div class="tut-tabs">
+    <div class="tut-tab on" onclick="tutTab(0,this)">📖 Passo a Passo</div>
+    <div class="tut-tab" onclick="tutTab(1,this)">💳 Créditos</div>
+    <div class="tut-tab" onclick="tutTab(2,this)">❓ FAQ</div>
+  </div>
+  <div class="tut-body" id="tutBody">
+
+    <!-- TAB 0: PASSO A PASSO -->
+    <div id="tutTab0">
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">1</div>
+          <div><div class="tut-step-name">Scanner de Oferta</div><div class="tut-step-tag">COMECE AQUI</div></div>
+        </div>
+        <div class="tut-tip"><span>💡</span><span>Encontre produtos que já estão vendendo na Meta para usar como referência e modelar o seu.</span></div>
+        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Selecione um nicho</div><div class="tut-instr-d">Clique no menu "Selecione um nicho..." e escolha a categoria do produto que quer criar.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Clique em ⚡ Escanear</div><div class="tut-instr-d">O sistema exibe cards de produtos com anúncios ativos. Cada card mostra: quantos anúncios está rodando, há quantos dias e o preço.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique no card desejado</div><div class="tut-instr-d">O card fica com <b style="color:var(--gold)">borda dourada</b>. Prefira os com badge <span style="background:#ef4444;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px">🔥 VIRAL</span> — são os que mais vendem.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">4</div><div><div class="tut-instr-t">Clique em 💾 Salvar anúncio</div><div class="tut-instr-d">O produto é salvo e você avança automaticamente para o Passo 2. Os campos do briefing já ficam pré-preenchidos.</div></div></div>
+        <div class="tut-ok"><span>✅</span><span><b>Resultado:</b> Produto salvo, briefing pré-preenchido, sistema vai para Análise com IA.</span></div>
+      </div>
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">2</div>
+          <div><div class="tut-step-name">Análise com IA</div><div class="tut-step-tag">OPCIONAL</div></div>
+        </div>
+        <div class="tut-tip"><span>💡</span><span>Disseque o produto de referência antes de criar o seu. Cada ferramenta gasta 2 créditos.</span></div>
+        <div class="tut-eg-grid">
+          <div class="tut-eg"><div class="tut-eg-title">🔑 PALAVRAS-CHAVE</div><div class="tut-eg-body">Palavras que o cliente usa para buscar esse produto</div></div>
+          <div class="tut-eg"><div class="tut-eg-title">👥 PÚBLICO-ALVO</div><div class="tut-eg-body">Perfil de quem compra: idade, dor, onde está</div></div>
+          <div class="tut-eg"><div class="tut-eg-title">📝 ANÁLISE DE COPY</div><div class="tut-eg-body">O que funciona no texto: gatilhos e pontos fortes</div></div>
+          <div class="tut-eg"><div class="tut-eg-title">🎯 AVATAR</div><div class="tut-eg-body">Persona real: sonho, medo, situação de vida</div></div>
+        </div>
+        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em qualquer ferramenta</div><div class="tut-instr-d">O resultado aparece logo abaixo. Use pelo menos <b>Avatar do Cliente</b> e <b>Estrutura da Oferta</b> — são as mais úteis para a copy.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Clique em "Avançar para Formato"</div><div class="tut-instr-d">Quando estiver pronto, clique no botão amarelo no final para ir ao Passo 3.</div></div></div>
+      </div>
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">3</div>
+          <div><div class="tut-step-name">Escolha o Formato</div><div class="tut-step-tag">DECISÃO</div></div>
+        </div>
+        <div class="tut-eg-grid">
+          <div class="tut-eg" style="border-color:rgba(245,200,66,.3)"><div class="tut-eg-title">🌐 PÁGINA DE VENDAS</div><div class="tut-eg-body">Quer vender direto? Use a LP. 9 dobras geradas por IA, HTML para baixar, preview na tela.</div></div>
+          <div class="tut-eg" style="border-color:rgba(34,197,94,.3)"><div class="tut-eg-title">📋 QUIZ FUNNEL</div><div class="tut-eg-body">Quer capturar e-mails? Use o Quiz. 10 etapas interativas, qualifica o lead antes de vender.</div></div>
+        </div>
+        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique no card do formato desejado</div><div class="tut-instr-d">O card fica com borda dourada. O botão de avançar só aparece após selecionar.</div></div></div>
+        <div class="tut-warn"><span>⚠️</span><span>Você pode gerar os dois. No Passo 6, tem botão para gerar o outro formato (50 créditos extras).</span></div>
+      </div>
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">4</div>
+          <div><div class="tut-step-name">Copy & Mockups</div><div class="tut-step-tag">IA TRABALHANDO</div></div>
+        </div>
+        <div class="tut-tip"><span>💡</span><span>A IA usa os dados do produto salvo para escrever a página de vendas completa. O texto aparece sendo digitado em tempo real.</span></div>
+        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em ⚡ Gerar Copy com IA</div><div class="tut-instr-d">Aguarde o cursor dourado desaparecer — isso significa que terminou. A copy tem 9 dobras completas.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Edite se quiser (✏️ Editar)</div><div class="tut-instr-d">Clique em Editar para modificar o texto direto na tela. Troque nome, preço, tom. Clique em Editar novamente para salvar.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique em 🎨 Gerar 5 Mockups</div><div class="tut-instr-d">Gera 5 capas visuais: produto principal + 3 bônus + pack completo. Cada uma tem botão Editar e Baixar.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">4</div><div><div class="tut-instr-t">Avance para "Ir para 5 Criativos"</div><div class="tut-instr-d">O botão fica ativo após gerar a copy ou os mockups.</div></div></div>
+      </div>
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">5</div>
+          <div><div class="tut-step-name">5 Criativos para Anúncio</div><div class="tut-step-tag">META ADS</div></div>
+        </div>
+        <div class="tut-tip"><span>💡</span><span>5 versões de texto para anúncio em ângulos diferentes. Teste todos para ver qual converte mais.</span></div>
+        <div class="tut-instr"><div class="tut-instr-n">1</div><div><div class="tut-instr-t">Clique em ⚡ Gerar 5 Criativos</div><div class="tut-instr-d">A IA gera: Hook de Dor, Prova Social, Número Específico, Urgência e Curiosidade.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">2</div><div><div class="tut-instr-t">Copie com 📋 Copiar em cada card</div><div class="tut-instr-d">Cole direto no Gerenciador de Anúncios da Meta ou salve para usar depois.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">3</div><div><div class="tut-instr-t">Clique em 🚀 Ver Página Pronta</div><div class="tut-instr-d">Vai para o Passo 6 onde está o resultado final completo.</div></div></div>
+      </div>
+
+      <div class="tut-step">
+        <div class="tut-step-header">
+          <div class="tut-step-num">6</div>
+          <div><div class="tut-step-name">Página Pronta</div><div class="tut-step-tag">ENTREGA FINAL</div></div>
+        </div>
+        <div class="tut-tip"><span>💡</span><span>Sua LP está pronta e funcionando. Você vê ela na tela, baixa o HTML ou compartilha o link.</span></div>
+        <div class="tut-instr"><div class="tut-instr-n">⬇️</div><div><div class="tut-instr-t">Baixar HTML</div><div class="tut-instr-d">Baixa o arquivo .html no seu computador. Hospede no Netlify (grátis) para ter um link permanente.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">📋</div><div><div class="tut-instr-t">Copiar HTML</div><div class="tut-instr-d">Copia o código completo para colar em qualquer editor ou plataforma.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">🔗</div><div><div class="tut-instr-t">Link para compartilhar</div><div class="tut-instr-d">Gera um link que abre a sua LP no navegador. Compartilhe no WhatsApp ou e-mail. <b style="color:#ffaaaa">Atenção:</b> funciona só com o ZAKOV aberto. Para link permanente, hospede no Netlify.</div></div></div>
+        <div class="tut-instr"><div class="tut-instr-n">📋</div><div><div class="tut-instr-t">Aba Quiz Funnel</div><div class="tut-instr-d">Se não gerou o Quiz, clique em "Gerar Quiz Funnel agora" nessa aba. Custa 50 créditos e gera o quiz completo com 10 etapas.</div></div></div>
+        <div class="tut-ok"><span>🚀</span><span><b>Pronto!</b> LP, Quiz (opcional), 5 criativos e 5 mockups — tudo em menos de 10 minutos. Clique em "🔄 Novo produto" para criar outro.</span></div>
+
+        <div style="margin-top:16px;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px">
+          <div style="font-size:11px;font-weight:700;color:var(--gold);font-family:'DM Mono',monospace;margin-bottom:8px">📌 COMO HOSPEDAR NO NETLIFY (grátis)</div>
+          <div style="font-size:12px;color:var(--muted2);line-height:1.8">
+            1. Acesse <b style="color:var(--text)">netlify.com</b> e crie conta grátis<br>
+            2. Na dashboard, <b style="color:var(--text)">arraste o arquivo .html</b> para a tela<br>
+            3. Em segundos você recebe um link <b style="color:var(--gold)">nome.netlify.app</b><br>
+            4. Compartilhe esse link nos anúncios ou WhatsApp
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tutTab0 -->
+
+    <!-- TAB 1: CRÉDITOS -->
+    <div id="tutTab1" style="display:none">
+      <div class="tut-tip" style="margin-bottom:16px"><span>💡</span><span>Você começa com <b>200 créditos</b>. O fluxo completo (sem quiz) gasta ~80. Dá para fazer 2 produtos completos.</span></div>
+      <table class="tut-credits-table">
+        <thead><tr><th>Ação</th><th>Créditos</th></tr></thead>
+        <tbody>
+          <tr><td>Salvar anúncio (Passo 1)</td><td>2</td></tr>
+          <tr><td>Cada análise com IA (Passo 2)</td><td>2</td></tr>
+          <tr><td>Gerar Copy — 9 dobras (Passo 4)</td><td>30</td></tr>
+          <tr><td>Gerar 5 Mockups (Passo 4)</td><td>15</td></tr>
+          <tr><td>Gerar 5 Criativos (Passo 5)</td><td>20</td></tr>
+          <tr><td>Montar Página Final (Passo 6)</td><td>10</td></tr>
+          <tr><td>Gerar Quiz Funnel (Passo 6)</td><td>50</td></tr>
+          <tr><td><b>Total fluxo completo (sem quiz)</b></td><td>~80</td></tr>
+        </tbody>
+      </table>
+      <div class="tut-tip" style="margin-top:12px"><span>🔄</span><span>Quando os créditos acabarem, clique em <b>"🔄 Novo produto"</b> no Passo 6 para reiniciar com 200 créditos.</span></div>
+    </div>
+
+    <!-- TAB 2: FAQ -->
+    <div id="tutTab2" style="display:none">
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>Posso usar meu próprio produto, não o do Scanner?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Sim. O Scanner é só referência. No Passo 4, antes de gerar a copy, você pode editar todos os campos: nome, preço, descrição, bônus etc. Substitua pelos dados do seu produto real.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>O link de compartilhamento é permanente?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Não. O link funciona só enquanto o ZAKOV está aberto no navegador. Para link permanente, baixe o HTML e hospede no Netlify (grátis). Você recebe um link no formato <b>nome.netlify.app</b> que funciona para sempre.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>Como colocar o link do meu checkout na página?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Baixe o HTML, abra em qualquer editor de texto (Bloco de Notas funciona), procure por <b>href="#"</b> no botão de CTA e substitua pelo link do seu checkout no Hotmart, Kiwify ou outra plataforma. Salve e hospede o arquivo alterado.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>A copy gerada é igual para todo mundo?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Não. A IA gera do zero a cada vez, com base nos dados específicos do seu briefing. Mesmo usando o mesmo produto de referência, o resultado é diferente. Você também pode editar qualquer trecho diretamente na tela.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>A copy ficou ruim. O que faço?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Duas opções: <b>1)</b> Clique em ✏️ Editar e corrija os trechos direto na tela. <b>2)</b> Clique em ⚡ Gerar Copy com IA novamente para gerar uma versão nova (30 créditos). Tente pelo menos 2 gerações antes de editar manualmente.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>Posso criar produtos em nichos diferentes?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Sim. Ao terminar um produto, clique em "🔄 Novo produto" no Passo 6. O sistema reseta tudo e você começa do zero com 200 créditos novos.</div>
+
+      <div class="faq-q2" onclick="this.classList.toggle('open')">
+        <span>Meu cliente recebe o ZAKOV ou só o HTML?</span>
+        <span class="faq-q2-icon">+</span>
+      </div>
+      <div class="faq-a2">Você decide. Pode: <b>a)</b> dar o ZAKOV para o cliente usar sozinho, <b>b)</b> criar os produtos pelos clientes e entregar só o HTML final, ou <b>c)</b> vender como serviço — cobrar pela criação e entregar a LP pronta. Os três modelos funcionam.</div>
+
+    </div><!-- /tutTab2 -->
+
+  </div><!-- /tut-body -->
+</div><!-- /tut-panel -->
 
 <!-- LOADER -->
 <div class="loader" id="loader">
@@ -893,7 +1173,9 @@ function buildResult() {
     mkDone(5); mkDone(6);
     nav(6);
     cred -= 10; updCred();
-    toast('Página pronta!', 'Baixe o HTML ou compartilhe o link');
+    // ── SALVAR NA BIBLIOTECA ──
+    saveToLib();
+    toast('Página pronta!', 'Salvo em Meus Produtos 📦');
   }, 1300);
 }
 
@@ -1234,7 +1516,172 @@ function toast(t, m) {
   e.classList.add('on');
   clearTimeout(_tt);
   _tt = setTimeout(() => e.classList.remove('on'), 3400);
+}// ════════════ BIBLIOTECA ════════════
+function saveToLib() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const id = Date.now();
+  const entry = {
+    id,
+    nome: brief.nome || 'Produto sem nome',
+    nicho: brief.nicho || '—',
+    preco: brief.preco || '—',
+    precoOld: brief.precoOld || '—',
+    gar: brief.gar || '—',
+    data: new Date().toLocaleDateString('pt-BR'),
+    hora: new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }),
+    hasCopy: !!copyText,
+    hasQuiz: !!qzHTML,
+    html: lpHTML,
+    quizHtml: qzHTML,
+    copy: copyText,
+    criData: criData,
+  };
+  libs.unshift(entry);
+  // keep max 20
+  if (libs.length > 20) libs.pop();
+  localStorage.setItem('zakov_lib', JSON.stringify(libs));
+  updLibBadge();
 }
+
+function updLibBadge() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const badge = document.getElementById('libBadge');
+  if (libs.length > 0) {
+    badge.style.display = 'inline';
+    badge.textContent = libs.length;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function openLib() {
+  renderLib();
+  document.getElementById('libOverlay').classList.add('on');
+  document.getElementById('libPanel').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLib() {
+  document.getElementById('libOverlay').classList.remove('on');
+  document.getElementById('libPanel').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+function renderLib() {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const body = document.getElementById('libBody');
+  if (!libs.length) {
+    body.innerHTML = `<div class="lib-empty">
+      <div class="lib-empty-icon">📭</div>
+      <div class="lib-empty-title">Nenhum produto salvo ainda</div>
+      <div class="lib-empty-sub">Finalize um produto no Passo 6 e ele aparece aqui com nome, nicho, data e opções para baixar.</div>
+    </div>`;
+    return;
+  }
+  body.innerHTML = `<div class="lib-count"><b>${libs.length}</b> produto(s) salvo(s)</div>` +
+    libs.map((p, i) => `
+    <div class="prod-card">
+      <div class="prod-card-top">
+        <div>
+          <div class="prod-card-name">${p.nome}</div>
+          <span class="prod-card-nicho">${p.nicho}</span>
+        </div>
+        <div class="prod-card-date">${p.data} ${p.hora}</div>
+      </div>
+      <div class="prod-card-meta">
+        <span>💰 <b>${p.preco}</b></span>
+        <span style="text-decoration:line-through;opacity:.5">${p.precoOld}</span>
+        <span>🛡️ ${p.gar}</span>
+        ${p.hasCopy ? '<span style="color:var(--green)">✅ Copy</span>' : ''}
+        ${p.hasQuiz ? '<span style="color:var(--blue)">📋 Quiz</span>' : ''}
+      </div>
+      <div class="prod-card-acts">
+        <div class="prod-act primary" onclick="dlFromLib(${i})">⬇️ Baixar LP</div>
+        ${p.hasQuiz ? `<div class="prod-act" onclick="dlQuizFromLib(${i})">📋 Baixar Quiz</div>` : ''}
+        <div class="prod-act" onclick="previewFromLib(${i})">👁️ Preview</div>
+        <div class="prod-act" onclick="cpHtmlFromLib(${i})">📋 Copiar HTML</div>
+        <div class="prod-act danger" onclick="deleteFromLib(${i})">🗑️</div>
+      </div>
+    </div>`).join('');
+}
+
+function dlFromLib(i) {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const p = libs[i];
+  if (!p?.html) { toast('Atenção', 'HTML não disponível'); return; }
+  const a = document.createElement('a');
+  a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(p.html);
+  a.download = p.nome.toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25) + '-lp.html';
+  a.click();
+  toast('Download!', `${p.nome} — LP baixando`);
+}
+
+function dlQuizFromLib(i) {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const p = libs[i];
+  if (!p?.quizHtml) { toast('Atenção', 'Quiz não disponível'); return; }
+  const a = document.createElement('a');
+  a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(p.quizHtml);
+  a.download = p.nome.toLowerCase().replace(/[^a-z0-9]/g,'-').substring(0,25) + '-quiz.html';
+  a.click();
+  toast('Download!', `${p.nome} — Quiz baixando`);
+}
+
+function previewFromLib(i) {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const p = libs[i];
+  if (!p?.html) { toast('Atenção', 'HTML não disponível'); return; }
+  const blob = new Blob([p.html], { type: 'text/html' });
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+
+function cpHtmlFromLib(i) {
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  const p = libs[i];
+  navigator.clipboard?.writeText(p.html || '');
+  toast('HTML copiado!', p.nome);
+}
+
+function deleteFromLib(i) {
+  if (!confirm('Remover este produto da biblioteca?')) return;
+  const libs = JSON.parse(localStorage.getItem('zakov_lib') || '[]');
+  libs.splice(i, 1);
+  localStorage.setItem('zakov_lib', JSON.stringify(libs));
+  updLibBadge();
+  renderLib();
+  toast('Removido!', 'Produto excluído da biblioteca');
+}
+
+function clearLib() {
+  if (!confirm('Limpar toda a biblioteca? Esta ação não pode ser desfeita.')) return;
+  localStorage.removeItem('zakov_lib');
+  updLibBadge();
+  renderLib();
+  toast('Biblioteca limpa!', 'Todos os produtos foram removidos');
+}
+
+// ════════════ TUTORIAL ════════════
+function openTut() {
+  document.getElementById('tutOverlay').classList.add('on');
+  document.getElementById('tutPanel').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeTut() {
+  document.getElementById('tutOverlay').classList.remove('on');
+  document.getElementById('tutPanel').classList.remove('on');
+  document.body.style.overflow = '';
+}
+function tutTab(i, el) {
+  [0,1,2].forEach(n => {
+    document.getElementById('tutTab'+n).style.display = n===i ? 'block' : 'none';
+  });
+  document.querySelectorAll('.tut-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') { closeTut(); closeLib(); } });
+
+// init
+updLibBadge();
 </script>
 </body>
 </html>
